@@ -10,4 +10,9 @@
 
 @implementation JOKit
 
++ (void)JOKitTest{
+
+    NSLog(@"test");
+}
+
 @end

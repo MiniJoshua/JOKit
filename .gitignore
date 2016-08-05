@@ -18,9 +18,11 @@ xcuserdata
 DerivedData
 *.hmap
 *.ipa
+*podSrc
 
 # JOKitDemo
 JOKitDemo
 *bin/
 *obj/
 Podfile.lock
+

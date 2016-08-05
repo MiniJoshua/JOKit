@@ -7,6 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		421BCB901D509F3700041007 /* NSString+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCB8F1D509F3700041007 /* NSString+JOExtend.m */; };
+		421BCB971D50A80700041007 /* JOLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCB941D50A80700041007 /* JOLayout.m */; };
+		421BCB981D50A80700041007 /* JOLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCB961D50A80700041007 /* JOLayoutItem.m */; };
+		421BCB9B1D50A86600041007 /* UIView+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCB9A1D50A86600041007 /* UIView+JOExtend.m */; };
+		421BCB9E1D50A95800041007 /* UIImage+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCB9D1D50A95800041007 /* UIImage+JOExtend.m */; };
+		421BCBA11D50AB4E00041007 /* UIFont+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCBA01D50AB4E00041007 /* UIFont+JOExtend.m */; };
+		421BCBA41D50B38400041007 /* UILabel+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCBA31D50B38400041007 /* UILabel+JOExtend.m */; };
+		421BCBA71D519BEE00041007 /* UIColor+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCBA61D519BEE00041007 /* UIColor+JOExtend.m */; };
+		422EFAD81D51C7CD00E427F6 /* JOLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB931D50A80700041007 /* JOLayout.h */; };
+		422EFAD91D51C7CD00E427F6 /* JOLayoutItem.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB951D50A80700041007 /* JOLayoutItem.h */; };
+		422EFADA1D51C7CD00E427F6 /* UILabel+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCBA21D50B38400041007 /* UILabel+JOExtend.h */; };
+		422EFADB1D51C7CD00E427F6 /* UIFont+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB9F1D50AB4E00041007 /* UIFont+JOExtend.h */; };
+		422EFADC1D51C7CD00E427F6 /* UIImage+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB9C1D50A95800041007 /* UIImage+JOExtend.h */; };
+		422EFADD1D51C7CE00E427F6 /* UIView+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB991D50A86600041007 /* UIView+JOExtend.h */; };
+		422EFADE1D51C7CE00E427F6 /* NSString+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB8E1D509F3700041007 /* NSString+JOExtend.h */; };
+		422EFADF1D51C7CE00E427F6 /* UIColor+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCBA51D519BEE00041007 /* UIColor+JOExtend.h */; };
+		422EFAE01D51C7CE00E427F6 /* CGGeometry+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAD71D51C10200E427F6 /* CGGeometry+JOExtend.h */; };
+		422EFAE41D51CEBD00E427F6 /* NSObject+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 422EFAE31D51CEBD00E427F6 /* NSObject+JOExtend.m */; };
+		422EFAE51D51D10800E427F6 /* NSObject+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAE21D51CEBD00E427F6 /* NSObject+JOExtend.h */; };
+		422EFAF51D51FB6E00E427F6 /* JOPathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 422EFAF41D51FB6E00E427F6 /* JOPathHelper.m */; };
+		422EFAF91D51FBC500E427F6 /* JOCacheHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 422EFAF81D51FBC500E427F6 /* JOCacheHelper.m */; };
+		422EFAFD1D51FBEC00E427F6 /* JOFileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 422EFAFC1D51FBEC00E427F6 /* JOFileHelper.m */; };
+		422EFB011D51FCEE00E427F6 /* JOLogHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 422EFB001D51FCEE00E427F6 /* JOLogHelper.m */; };
+		422EFB051D52026A00E427F6 /* JOExceptionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 422EFB041D52026A00E427F6 /* JOExceptionHelper.m */; };
+		422EFB091D52029A00E427F6 /* JOCrashHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 422EFB081D52029A00E427F6 /* JOCrashHelper.m */; };
+		422EFB0A1D52E72A00E427F6 /* JOPathHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAF31D51FB6E00E427F6 /* JOPathHelper.h */; };
+		422EFB0D1D53469600E427F6 /* JOMacro.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFB0C1D53268F00E427F6 /* JOMacro.h */; };
+		422EFB0E1D53469600E427F6 /* JOCrashHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFB071D52029A00E427F6 /* JOCrashHelper.h */; };
+		422EFB0F1D53469600E427F6 /* JOExceptionHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFB031D52026A00E427F6 /* JOExceptionHelper.h */; };
+		422EFB101D53469600E427F6 /* JOLogHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAFF1D51FCEE00E427F6 /* JOLogHelper.h */; };
+		422EFB111D53469600E427F6 /* JOFileHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAFB1D51FBEC00E427F6 /* JOFileHelper.h */; };
+		422EFB121D53469600E427F6 /* JOCacheHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAF71D51FBC500E427F6 /* JOCacheHelper.h */; };
 		42672A511D50820700051FE1 /* JOKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42672A501D50820700051FE1 /* JOKit.h */; };
 		42672A531D50820700051FE1 /* JOKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 42672A521D50820700051FE1 /* JOKit.m */; };
 /* End PBXBuildFile section */
@@ -18,6 +50,23 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				422EFB0D1D53469600E427F6 /* JOMacro.h in CopyFiles */,
+				422EFB0E1D53469600E427F6 /* JOCrashHelper.h in CopyFiles */,
+				422EFB0F1D53469600E427F6 /* JOExceptionHelper.h in CopyFiles */,
+				422EFB101D53469600E427F6 /* JOLogHelper.h in CopyFiles */,
+				422EFB111D53469600E427F6 /* JOFileHelper.h in CopyFiles */,
+				422EFB121D53469600E427F6 /* JOCacheHelper.h in CopyFiles */,
+				422EFB0A1D52E72A00E427F6 /* JOPathHelper.h in CopyFiles */,
+				422EFAE51D51D10800E427F6 /* NSObject+JOExtend.h in CopyFiles */,
+				422EFAD81D51C7CD00E427F6 /* JOLayout.h in CopyFiles */,
+				422EFAD91D51C7CD00E427F6 /* JOLayoutItem.h in CopyFiles */,
+				422EFADA1D51C7CD00E427F6 /* UILabel+JOExtend.h in CopyFiles */,
+				422EFADB1D51C7CD00E427F6 /* UIFont+JOExtend.h in CopyFiles */,
+				422EFADC1D51C7CD00E427F6 /* UIImage+JOExtend.h in CopyFiles */,
+				422EFADD1D51C7CE00E427F6 /* UIView+JOExtend.h in CopyFiles */,
+				422EFADE1D51C7CE00E427F6 /* NSString+JOExtend.h in CopyFiles */,
+				422EFADF1D51C7CE00E427F6 /* UIColor+JOExtend.h in CopyFiles */,
+				422EFAE01D51C7CE00E427F6 /* CGGeometry+JOExtend.h in CopyFiles */,
 				42672A511D50820700051FE1 /* JOKit.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -25,6 +74,38 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		421BCB8E1D509F3700041007 /* NSString+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JOExtend.h"; sourceTree = "<group>"; };
+		421BCB8F1D509F3700041007 /* NSString+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JOExtend.m"; sourceTree = "<group>"; };
+		421BCB931D50A80700041007 /* JOLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLayout.h; sourceTree = "<group>"; };
+		421BCB941D50A80700041007 /* JOLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLayout.m; sourceTree = "<group>"; };
+		421BCB951D50A80700041007 /* JOLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLayoutItem.h; sourceTree = "<group>"; };
+		421BCB961D50A80700041007 /* JOLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLayoutItem.m; sourceTree = "<group>"; };
+		421BCB991D50A86600041007 /* UIView+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JOExtend.h"; sourceTree = "<group>"; };
+		421BCB9A1D50A86600041007 /* UIView+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JOExtend.m"; sourceTree = "<group>"; };
+		421BCB9C1D50A95800041007 /* UIImage+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JOExtend.h"; sourceTree = "<group>"; };
+		421BCB9D1D50A95800041007 /* UIImage+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JOExtend.m"; sourceTree = "<group>"; };
+		421BCB9F1D50AB4E00041007 /* UIFont+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+JOExtend.h"; sourceTree = "<group>"; };
+		421BCBA01D50AB4E00041007 /* UIFont+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+JOExtend.m"; sourceTree = "<group>"; };
+		421BCBA21D50B38400041007 /* UILabel+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+JOExtend.h"; sourceTree = "<group>"; };
+		421BCBA31D50B38400041007 /* UILabel+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+JOExtend.m"; sourceTree = "<group>"; };
+		421BCBA51D519BEE00041007 /* UIColor+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JOExtend.h"; sourceTree = "<group>"; };
+		421BCBA61D519BEE00041007 /* UIColor+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JOExtend.m"; sourceTree = "<group>"; };
+		422EFAD71D51C10200E427F6 /* CGGeometry+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGGeometry+JOExtend.h"; sourceTree = "<group>"; };
+		422EFAE21D51CEBD00E427F6 /* NSObject+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JOExtend.h"; sourceTree = "<group>"; };
+		422EFAE31D51CEBD00E427F6 /* NSObject+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JOExtend.m"; sourceTree = "<group>"; };
+		422EFAF31D51FB6E00E427F6 /* JOPathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOPathHelper.h; sourceTree = "<group>"; };
+		422EFAF41D51FB6E00E427F6 /* JOPathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOPathHelper.m; sourceTree = "<group>"; };
+		422EFAF71D51FBC500E427F6 /* JOCacheHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOCacheHelper.h; sourceTree = "<group>"; };
+		422EFAF81D51FBC500E427F6 /* JOCacheHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOCacheHelper.m; sourceTree = "<group>"; };
+		422EFAFB1D51FBEC00E427F6 /* JOFileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOFileHelper.h; sourceTree = "<group>"; };
+		422EFAFC1D51FBEC00E427F6 /* JOFileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOFileHelper.m; sourceTree = "<group>"; };
+		422EFAFF1D51FCEE00E427F6 /* JOLogHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLogHelper.h; sourceTree = "<group>"; };
+		422EFB001D51FCEE00E427F6 /* JOLogHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLogHelper.m; sourceTree = "<group>"; };
+		422EFB031D52026A00E427F6 /* JOExceptionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOExceptionHelper.h; sourceTree = "<group>"; };
+		422EFB041D52026A00E427F6 /* JOExceptionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOExceptionHelper.m; sourceTree = "<group>"; };
+		422EFB071D52029A00E427F6 /* JOCrashHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOCrashHelper.h; sourceTree = "<group>"; };
+		422EFB081D52029A00E427F6 /* JOCrashHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOCrashHelper.m; sourceTree = "<group>"; };
+		422EFB0C1D53268F00E427F6 /* JOMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOMacro.h; sourceTree = "<group>"; };
 		42672A4D1D50820700051FE1 /* libJOKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJOKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		42672A501D50820700051FE1 /* JOKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JOKit.h; sourceTree = "<group>"; };
 		42672A521D50820700051FE1 /* JOKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JOKit.m; sourceTree = "<group>"; };
@@ -41,6 +122,115 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		421BCB8D1D509F0F00041007 /* Extend */ = {
+			isa = PBXGroup;
+			children = (
+				422EFAE21D51CEBD00E427F6 /* NSObject+JOExtend.h */,
+				422EFAE31D51CEBD00E427F6 /* NSObject+JOExtend.m */,
+				421BCBA21D50B38400041007 /* UILabel+JOExtend.h */,
+				421BCBA31D50B38400041007 /* UILabel+JOExtend.m */,
+				421BCB9F1D50AB4E00041007 /* UIFont+JOExtend.h */,
+				421BCBA01D50AB4E00041007 /* UIFont+JOExtend.m */,
+				421BCB9C1D50A95800041007 /* UIImage+JOExtend.h */,
+				421BCB9D1D50A95800041007 /* UIImage+JOExtend.m */,
+				421BCB991D50A86600041007 /* UIView+JOExtend.h */,
+				421BCB9A1D50A86600041007 /* UIView+JOExtend.m */,
+				421BCB8E1D509F3700041007 /* NSString+JOExtend.h */,
+				421BCB8F1D509F3700041007 /* NSString+JOExtend.m */,
+				421BCBA51D519BEE00041007 /* UIColor+JOExtend.h */,
+				421BCBA61D519BEE00041007 /* UIColor+JOExtend.m */,
+				422EFAD71D51C10200E427F6 /* CGGeometry+JOExtend.h */,
+			);
+			path = Extend;
+			sourceTree = "<group>";
+		};
+		421BCB911D50A7D700041007 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				422EFB061D52028800E427F6 /* CrashHelper */,
+				422EFB021D5201ED00E427F6 /* ExceptionHelper */,
+				422EFAFE1D51FCDB00E427F6 /* LogHelper */,
+				422EFAFA1D51FBDF00E427F6 /* FileHelper */,
+				422EFAF61D51FB8F00E427F6 /* CacheHelper */,
+				422EFAF21D51FB2600E427F6 /* PathHelper */,
+				421BCB921D50A7F100041007 /* AutoLayout */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		421BCB921D50A7F100041007 /* AutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				421BCB931D50A80700041007 /* JOLayout.h */,
+				421BCB941D50A80700041007 /* JOLayout.m */,
+				421BCB951D50A80700041007 /* JOLayoutItem.h */,
+				421BCB961D50A80700041007 /* JOLayoutItem.m */,
+			);
+			path = AutoLayout;
+			sourceTree = "<group>";
+		};
+		422EFAF21D51FB2600E427F6 /* PathHelper */ = {
+			isa = PBXGroup;
+			children = (
+				422EFAF31D51FB6E00E427F6 /* JOPathHelper.h */,
+				422EFAF41D51FB6E00E427F6 /* JOPathHelper.m */,
+			);
+			path = PathHelper;
+			sourceTree = "<group>";
+		};
+		422EFAF61D51FB8F00E427F6 /* CacheHelper */ = {
+			isa = PBXGroup;
+			children = (
+				422EFAF71D51FBC500E427F6 /* JOCacheHelper.h */,
+				422EFAF81D51FBC500E427F6 /* JOCacheHelper.m */,
+			);
+			path = CacheHelper;
+			sourceTree = "<group>";
+		};
+		422EFAFA1D51FBDF00E427F6 /* FileHelper */ = {
+			isa = PBXGroup;
+			children = (
+				422EFAFB1D51FBEC00E427F6 /* JOFileHelper.h */,
+				422EFAFC1D51FBEC00E427F6 /* JOFileHelper.m */,
+			);
+			path = FileHelper;
+			sourceTree = "<group>";
+		};
+		422EFAFE1D51FCDB00E427F6 /* LogHelper */ = {
+			isa = PBXGroup;
+			children = (
+				422EFAFF1D51FCEE00E427F6 /* JOLogHelper.h */,
+				422EFB001D51FCEE00E427F6 /* JOLogHelper.m */,
+			);
+			path = LogHelper;
+			sourceTree = "<group>";
+		};
+		422EFB021D5201ED00E427F6 /* ExceptionHelper */ = {
+			isa = PBXGroup;
+			children = (
+				422EFB031D52026A00E427F6 /* JOExceptionHelper.h */,
+				422EFB041D52026A00E427F6 /* JOExceptionHelper.m */,
+			);
+			path = ExceptionHelper;
+			sourceTree = "<group>";
+		};
+		422EFB061D52028800E427F6 /* CrashHelper */ = {
+			isa = PBXGroup;
+			children = (
+				422EFB071D52029A00E427F6 /* JOCrashHelper.h */,
+				422EFB081D52029A00E427F6 /* JOCrashHelper.m */,
+			);
+			path = CrashHelper;
+			sourceTree = "<group>";
+		};
+		422EFB0B1D53268F00E427F6 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				422EFB0C1D53268F00E427F6 /* JOMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
 		42672A441D50820700051FE1 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +250,9 @@
 		42672A4F1D50820700051FE1 /* JOKit */ = {
 			isa = PBXGroup;
 			children = (
+				422EFB0B1D53268F00E427F6 /* Macro */,
+				421BCB911D50A7D700041007 /* Utility */,
+				421BCB8D1D509F0F00041007 /* Extend */,
 				42672A501D50820700051FE1 /* JOKit.h */,
 				42672A521D50820700051FE1 /* JOKit.m */,
 			);
@@ -122,7 +315,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422EFAE41D51CEBD00E427F6 /* NSObject+JOExtend.m in Sources */,
+				421BCBA71D519BEE00041007 /* UIColor+JOExtend.m in Sources */,
+				421BCB9E1D50A95800041007 /* UIImage+JOExtend.m in Sources */,
+				421BCB901D509F3700041007 /* NSString+JOExtend.m in Sources */,
+				422EFB091D52029A00E427F6 /* JOCrashHelper.m in Sources */,
 				42672A531D50820700051FE1 /* JOKit.m in Sources */,
+				422EFAF51D51FB6E00E427F6 /* JOPathHelper.m in Sources */,
+				422EFB051D52026A00E427F6 /* JOExceptionHelper.m in Sources */,
+				421BCB971D50A80700041007 /* JOLayout.m in Sources */,
+				422EFAF91D51FBC500E427F6 /* JOCacheHelper.m in Sources */,
+				422EFAFD1D51FBEC00E427F6 /* JOFileHelper.m in Sources */,
+				422EFB011D51FCEE00E427F6 /* JOLogHelper.m in Sources */,
+				421BCBA11D50AB4E00041007 /* UIFont+JOExtend.m in Sources */,
+				421BCB981D50A80700041007 /* JOLayoutItem.m in Sources */,
+				421BCB9B1D50A86600041007 /* UIView+JOExtend.m in Sources */,
+				421BCBA41D50B38400041007 /* UILabel+JOExtend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +422,7 @@
 		42672A571D50820700051FE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -223,6 +432,7 @@
 		42672A581D50820700051FE1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -248,6 +458,7 @@
 				42672A581D50820700051FE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

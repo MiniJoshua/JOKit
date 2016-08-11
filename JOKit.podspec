@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "JOKit"
-  s.version      = "1.0.01"
+  s.version      = "1.0.02"
   s.summary      = "Project Base SDK"
   s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
   s.license      = "MIT"
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 s.source_files  = 'JOKit/**/JOKit.h'
 
 s.subspec 'Macro' do |ss|
-ss.source_files = 'JOKit/**/JOMacro.h'
+ss.source_files = 'JOKit/**/Macro/JOMacro.h'
 end
 
 s.subspec 'Utility' do |ss|

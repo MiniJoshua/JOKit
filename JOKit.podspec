@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "JOKit"
-  s.version      = "1.0.04"
+  s.version      = "1.0.05"
   s.summary      = "Project Base SDK"
   s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
   s.license      = "MIT"

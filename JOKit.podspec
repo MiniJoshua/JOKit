@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "JOKit"
-  s.version      = "1.0.00"
+  s.version      = "1.0.01"
   s.summary      = "Project Base SDK"
   s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
   s.license      = "MIT"
@@ -32,11 +32,11 @@ ss.source_files = 'JOKit/**/JOMacro.h'
 end
 
 s.subspec 'Utility' do |ss|
-ss.source_files = 'JOKit/Utility/**'
+ss.source_files = 'JOKit/**/Utility/**/*.{h,m}'
 end
 
 s.subspec 'Extend' do |ss|
-ss.source_files = 'JOKit/Extend/*.{h,m}'
+ss.source_files = 'JOKit/**/Extend/*.{h,m}'
 end
 
 #s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libJOProjectBaseSDK" }

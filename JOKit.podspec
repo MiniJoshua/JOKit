@@ -33,6 +33,7 @@ end
 
 s.subspec 'Utility' do |ss|
 ss.dependency 'JOKit/Macro'
+ss.dependency 'JOKit/Extend'
 ss.source_files = 'JOKit/**/Utility/**/*.{h,m}'
 #ss.public_header_files = 'JOKit/**/Utility/**/*.h'
 end

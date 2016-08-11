@@ -373,10 +373,10 @@ struct dummy arg = va_arg(args, struct dummy); \
     Method method = class_getInstanceMethod(self, sel);
     Method newMethod = class_getInstanceMethod(self, newSel);
     
-    //确保两个method都存在.
-    if (!method || !newMethod) {
-        return NO;
-    }
+//    //确保两个method都存在.
+//    if (!method || !newMethod) {
+//        return NO;
+//    }
     
     //将两个method添加到对象的方法列表中去(如果不存在则添加,存在就不添加)
     class_addMethod(self, sel, class_getMethodImplementation(self, sel), method_getTypeEncoding(method));
@@ -392,9 +392,49 @@ struct dummy arg = va_arg(args, struct dummy); \
     return [JOGetClass(self) joSwizzleInstanceMethod:sel withMehtod:newSel];
 }
 
+BOOL JOSwizzleInstanceMethod(Class fromClass, SEL fromSel, Class swizzleClass, SEL swizzleSEL) {
+
+    Method method = class_getInstanceMethod(fromClass, fromSel);
+    Method swizzleMethod = class_getInstanceMethod(swizzleClass, swizzleSEL);
+    
+    class_addMethod(fromClass, fromSel, method_getImplementation(method), method_getTypeEncoding(method));
+    class_addMethod(swizzleClass, swizzleSEL, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod));
+    
+    method_exchangeImplementations(method, swizzleMethod);
+    
+    return YES;
+}
+
+BOOL JOSwizzleClassMethod(Class fromClass, SEL fromSel, Class swizzleClass, SEL swizzleSEL) {
+
+//    Method method = class_getInstanceMethod(fromClass, fromSel);
+//    Method swizzleMethod = class_getInstanceMethod(swizzleClass, swizzleSEL);
+//    
+//    class_addMethod(fromClass, fromSel, method_getImplementation(method), method_getTypeEncoding(method));
+//    class_addMethod(swizzleClass, swizzleSEL, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod));
+//    
+//    method_exchangeImplementations(method, swizzleMethod);
+//    
+//    return YES;
+    
+    return JOSwizzleInstanceMethod(JOGetClass(fromClass), fromSel, JOGetClass(swizzleClass), swizzleSEL);
+}
+
 @end
 
 @implementation NSObject(JORuntimeExtend)
+
+BOOL JOAddInstanceMethod(Class fromClass, SEL fromSel, Class toClass){
+
+    Method method = class_getInstanceMethod(fromClass, fromSel);
+    return class_addMethod(toClass, fromSel, method_getImplementation(method), method_getTypeEncoding(method));
+}
+
+BOOL JOAddClassMethod(Class fromClass, SEL fromSel, Class toClass) {
+
+    Method method = class_getClassMethod(fromClass, fromSel);
+    return class_addMethod(toClass, fromSel, method_getImplementation(method), method_getTypeEncoding(method));
+}
 
 + (NSArray *)joSelectors {
 
@@ -449,13 +489,32 @@ struct dummy arg = va_arg(args, struct dummy); \
     return propertyArray;
 }
 
-- (NSDictionary *)joProjectDics {
+- (NSDictionary *)joPropertyDics {
     
+//    NSMutableDictionary *propertyDictionary = [NSMutableDictionary dictionary];
+//    
+//    for (NSString *property in [[self class] joPropertys]) {
+//        if ([self valueForKey:property]) {
+//            [propertyDictionary setObject:[self valueForKey:property] forKey:property];
+//        }
+//    }
+//    return propertyDictionary;
+    
+    return [self joPropertyDicsWithKeyMapper:nil];
+}
+
+- (NSDictionary *)joPropertyDicsWithKeyMapper:(NSDictionary *)mapper {
+
     NSMutableDictionary *propertyDictionary = [NSMutableDictionary dictionary];
     
     for (NSString *property in [[self class] joPropertys]) {
         if ([self valueForKey:property]) {
-            [propertyDictionary setObject:[self valueForKey:property] forKey:property];
+            
+            NSString *mapProperty = property;
+            if (mapper && [mapper objectForKey:property]) {
+                mapProperty = [mapper objectForKey:property];
+            }
+            [propertyDictionary setObject:[self valueForKey:property] forKey:mapProperty];
         }
     }
     return propertyDictionary;
@@ -463,11 +522,30 @@ struct dummy arg = va_arg(args, struct dummy); \
 
 - (NSDictionary *)joAllPropertyDics {
 
+//    NSMutableDictionary *propertyDictionary = [NSMutableDictionary dictionary];
+//    
+//    for (NSString *property in [[self class] joAllPropertys]) {
+//        if ([self valueForKey:property]) {
+//            [propertyDictionary setObject:[self valueForKey:property] forKey:property];
+//        }
+//    }
+//    return propertyDictionary;
+    
+    return [self joAllPropertyDicsWithKeyMapper:nil];
+}
+
+- (NSDictionary *)joAllPropertyDicsWithKeyMapper:(NSDictionary *)mapper {
+
     NSMutableDictionary *propertyDictionary = [NSMutableDictionary dictionary];
     
     for (NSString *property in [[self class] joAllPropertys]) {
         if ([self valueForKey:property]) {
-            [propertyDictionary setObject:[self valueForKey:property] forKey:property];
+            
+            NSString *mapProperty = property;
+            if (mapper && [mapper objectForKey:property]) {
+                mapProperty = [mapper objectForKey:property];
+            }
+            [propertyDictionary setObject:[self valueForKey:property] forKey:mapProperty];
         }
     }
     return propertyDictionary;

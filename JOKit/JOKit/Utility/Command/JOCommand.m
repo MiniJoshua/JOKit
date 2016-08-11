@@ -7,6 +7,7 @@
 //
 
 #import "JOCommand.h"
+#import "JOMacro.h"
 
 @implementation JOCommand
 

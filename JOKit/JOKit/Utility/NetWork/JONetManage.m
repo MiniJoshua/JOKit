@@ -371,7 +371,7 @@ static inline NSURLSessionDataTask *JONetRequestPost(JODataRequestConfig *config
                                                
                                                JORequestSuccess(responseObject, successHandler);
                                                JOJSONModelParse(responseObject, jsonModelHandler);
-                                               JOCacheReqeust(identifier, dataTask, NO);
+                                               JOCacheReqeust(identifier, nil, NO);
                                            }
                                            failure:^(NSURLSessionDataTask *task, NSError *error) {
                                                
@@ -379,7 +379,7 @@ static inline NSURLSessionDataTask *JONetRequestPost(JODataRequestConfig *config
                                                JOLog(@"errorDic:%@",[error.userInfo objectForKey:NSLocalizedDescriptionKey]);
                                                
                                                JORequestFailed(error, failedHandler);
-                                               JOCacheReqeust(identifier, dataTask, NO);
+                                               JOCacheReqeust(identifier, nil, NO);
                                                
 //                                               if(!([[error.userInfo objectForKey:NSLocalizedDescriptionKey] isEqualToString:@"cancelled"]||[[error.userInfo objectForKey:NSLocalizedDescriptionKey] isEqualToString:@"已取消"])){
 //                                                   
@@ -422,12 +422,12 @@ static inline NSURLSessionDataTask *JONetRequestGet(JODataRequestConfig *config,
                                                
                                                JORequestSuccess(responseObject, successHandler);
                                                JOJSONModelParse(responseObject, jsonModelHandler);
-                                               JOCacheReqeust(identifier, dataTask, NO);
+                                               JOCacheReqeust(identifier, nil, NO);
                                            }
                                           failure:^(NSURLSessionDataTask *task, NSError *error) {
                                                
                                                JORequestFailed(error, failedHandler);
-                                              JOCacheReqeust(identifier, dataTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                            }
                                       ];
     return dataTask;
@@ -445,12 +445,12 @@ static inline NSURLSessionDataTask *JONetRequestHead(JODataRequestConfig *config
                                             success:^(NSURLSessionDataTask * _Nonnull task) {
                                                 
                                                 JORequestSuccess(@{@"task":task}, successHandler);
-                                                JOCacheReqeust(identifier, dataTask, NO);
+                                                JOCacheReqeust(identifier, nil, NO);
                                             }
                                             failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                                 
                                                 JORequestFailed(error, failedHandler);
-                                                JOCacheReqeust(identifier, dataTask, NO);
+                                                JOCacheReqeust(identifier, nil, NO);
                                             }];
     return dataTask;
 }
@@ -468,12 +468,12 @@ static inline NSURLSessionDataTask *JONetRequestPut(JODataRequestConfig *config,
                                               
                                               JORequestSuccess(responseObject, successHandler);
                                               JOJSONModelParse(responseObject, jsonModelHandler);
-                                              JOCacheReqeust(identifier, dataTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }
                                           failure:^(NSURLSessionDataTask *task, NSError *error) {
                                               
                                               JORequestFailed(error, failedHandler);
-                                              JOCacheReqeust(identifier, dataTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }
                                       ];
     return dataTask;
@@ -492,12 +492,12 @@ static inline NSURLSessionDataTask *JONetRequestPatch(JODataRequestConfig *confi
                                               
                                               JORequestSuccess(responseObject, successHandler);
                                               JOJSONModelParse(responseObject, jsonModelHandler);
-                                              JOCacheReqeust(identifier, dataTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }
                                           failure:^(NSURLSessionDataTask *task, NSError *error) {
                                             
                                               JORequestFailed(error, failedHandler);
-                                              JOCacheReqeust(identifier, dataTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }
                                       ];
     return dataTask;
@@ -516,12 +516,12 @@ static inline NSURLSessionDataTask *JONetRequestDelete(JODataRequestConfig *conf
                                                 
                                                  JORequestSuccess(responseObject, successHandler);
                                                  JOJSONModelParse(responseObject, jsonModelHandler);
-                                                 JOCacheReqeust(identifier, dataTask, NO);
+                                                 JOCacheReqeust(identifier, nil, NO);
                                              }
                                              failure:^(NSURLSessionDataTask *task, NSError *error) {
                                                  
                                                  JORequestFailed(error, failedHandler);
-                                                 JOCacheReqeust(identifier, dataTask, NO);
+                                                 JOCacheReqeust(identifier, nil, NO);
                                              }
                                         ];
     return dataTask;
@@ -588,12 +588,12 @@ static inline NSURLSessionUploadTask *JONetFileUpload(JOFileUploadConfig *config
                                               if (error) {
                                                   //失败
                                                   JORequestFailed(error, failedHandler);
-                                                  JOCacheReqeust(identifier, uploadTask, NO);
+                                                  JOCacheReqeust(identifier, nil, NO);
                                               }else{
                                                   //成功
                                                   JORequestSuccess(responseObject, successHandler);
                                                   JOJSONModelParse(responseObject, jsonModelHandler);
-                                                  JOCacheReqeust(identifier, uploadTask, NO);
+                                                  JOCacheReqeust(identifier, nil, NO);
                                               }
                                           }
                       ];
@@ -614,12 +614,12 @@ static inline NSURLSessionUploadTask *JONetFileUpload(JOFileUploadConfig *config
                                           if (error) {
                                               //失败
                                               JORequestFailed(error, failedHandler);
-                                              JOCacheReqeust(identifier, uploadTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }else{
                                               //成功
                                               JORequestSuccess(responseObject, successHandler);
                                               JOJSONModelParse(responseObject, jsonModelHandler);
-                                              JOCacheReqeust(identifier, uploadTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }
                                       }
                           ];
@@ -636,12 +636,12 @@ static inline NSURLSessionUploadTask *JONetFileUpload(JOFileUploadConfig *config
                                           if (error) {
                                               //失败
                                               JORequestFailed(error, failedHandler);
-                                              JOCacheReqeust(identifier, uploadTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }else{
                                               //成功
                                               JORequestSuccess(responseObject, successHandler);
                                               JOJSONModelParse(responseObject, jsonModelHandler);
-                                              JOCacheReqeust(identifier, uploadTask, NO);
+                                              JOCacheReqeust(identifier, nil, NO);
                                           }
                                       }];
         }else {
@@ -715,11 +715,11 @@ static inline NSURLSessionDownloadTask *JONetFileDownload(JOFileDownloadConfig *
                                                      if (error) {
                                                          //失败
                                                          JORequestFailed(error, failedHandler);
-                                                         JOCacheReqeust(identifier, downloadTask, NO);
+                                                         JOCacheReqeust(identifier, nil, NO);
                                                      }else{
                                                          //成功
                                                          JORequestSuccess([NSDictionary dictionary], successHandler);
-                                                         JOCacheReqeust(identifier, downloadTask, NO);
+                                                         JOCacheReqeust(identifier, nil, NO);
                                                      }
                                          }];
         
@@ -741,11 +741,11 @@ static inline NSURLSessionDownloadTask *JONetFileDownload(JOFileDownloadConfig *
                                                   if (error) {
                                                       //失败
                                                       JORequestFailed(error, failedHandler);
-                                                      JOCacheReqeust(identifier, downloadTask, NO);
+                                                      JOCacheReqeust(identifier, nil, NO);
                                                   }else{
                                                       //成功
                                                       JORequestSuccess([NSDictionary dictionary], successHandler);
-                                                      JOCacheReqeust(identifier, downloadTask, NO);
+                                                      JOCacheReqeust(identifier, nil, NO);
                                                   }
                                         }];
     }

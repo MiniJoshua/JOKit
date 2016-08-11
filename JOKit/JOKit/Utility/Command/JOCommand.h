@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JOMacro.h"
 #import "JOSignal.h"
 
 /**

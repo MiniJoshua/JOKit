@@ -78,6 +78,10 @@
 		42B7F4561D597A59000AC728 /* JOSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4551D597A59000AC728 /* JOSignal.m */; };
 		42B7F4571D5987B2000AC728 /* JOSignal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42B7F4541D597A59000AC728 /* JOSignal.h */; };
 		42B7F45A1D59DE29000AC728 /* JONetManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4591D59DE29000AC728 /* JONetManage.m */; };
+		42CA01231D5E24550085D075 /* JSONModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 423DCEEF1D547BE9008263E7 /* JSONModel.h */; };
+		42CA01241D5E24550085D075 /* JSONModelError.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 423DCEF31D547BE9008263E7 /* JSONModelError.h */; };
+		42CA01251D5E24550085D075 /* JSONKeyMapper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 423DCEFE1D547BE9008263E7 /* JSONKeyMapper.h */; };
+		42CA01261D5E24550085D075 /* JSONValueTransformer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 423DCF001D547BE9008263E7 /* JSONValueTransformer.h */; };
 		42F762A31D5C63DB00C81515 /* JONetRequestConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421931E21D586FA90010392B /* JONetRequestConfig.h */; };
 		42F762A41D5C63DB00C81515 /* JODataRequestConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421931E51D5872700010392B /* JODataRequestConfig.h */; };
 		42F762A51D5C63DB00C81515 /* JOFileUploadConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421931E81D5872880010392B /* JOFileUploadConfig.h */; };
@@ -93,6 +97,10 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				42CA01231D5E24550085D075 /* JSONModel.h in CopyFiles */,
+				42CA01241D5E24550085D075 /* JSONModelError.h in CopyFiles */,
+				42CA01251D5E24550085D075 /* JSONKeyMapper.h in CopyFiles */,
+				42CA01261D5E24550085D075 /* JSONValueTransformer.h in CopyFiles */,
 				420C08D71D5C8E6700CC9E32 /* UIView+JOAutolayout.h in CopyFiles */,
 				42F762A31D5C63DB00C81515 /* JONetRequestConfig.h in CopyFiles */,
 				42F762A41D5C63DB00C81515 /* JODataRequestConfig.h in CopyFiles */,

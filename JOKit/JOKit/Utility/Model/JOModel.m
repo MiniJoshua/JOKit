@@ -13,7 +13,13 @@
 
 - (NSDictionary *)modelDic {
 
-    return [self joAllPropertyDicsWithKeyMapper:[[self class] propertyKeyMapper]];
+    Class tempClass = [self class];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    do{
+        [dic setValuesForKeysWithDictionary:[tempClass propertyKeyMapper]];
+        tempClass = [tempClass superclass];
+    }while (![tempClass isEqual:[JOModel class]]);
+    return [self joAllPropertyDicsWithKeyMapper:dic];
 }
 
 + (NSDictionary *)propertyKeyMapper {

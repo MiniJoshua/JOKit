@@ -7,6 +7,7 @@
 //
 
 #import "JONetRequestConfig.h"
+#import "JOMacro.h"
 
 typedef NS_ENUM(NSUInteger, JOHttpMethod) {
 
@@ -21,5 +22,16 @@ typedef NS_ENUM(NSUInteger, JOHttpMethod) {
 @interface JODataRequestConfig : JONetRequestConfig
 
 @property (nonatomic, assign) JOHttpMethod httpMethod;
+
+/**
+ *  创建一个DataRequestConfig.
+ *
+ *  @param urlString  URLString.
+ *  @param postData   发送的数据参数.
+ *  @param httpMethod 请求的方法.
+ *
+ *  @return JODataRequestConfig.
+ */
+JO_EXTERN JODataRequestConfig *JODataRequestConfigMake(NSString *urlString,NSDictionary *postData,JOHttpMethod httpMethod);
 
 @end

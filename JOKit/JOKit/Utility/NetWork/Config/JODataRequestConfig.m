@@ -10,4 +10,13 @@
 
 @implementation JODataRequestConfig
 
+JODataRequestConfig *JODataRequestConfigMake(NSString *urlString,NSDictionary *postData,JOHttpMethod httpMethod) {
+
+    JODataRequestConfig *dataRequestConfig = [JODataRequestConfig new];
+    [dataRequestConfig setUrlString:urlString];
+    [dataRequestConfig setPostData:postData];
+    [dataRequestConfig setHttpMethod:httpMethod];
+    return dataRequestConfig;
+}
+
 @end

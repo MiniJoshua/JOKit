@@ -7,14 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JOCommand.h"
 #import "JOMacro.h"
-
-@class JOCommand;
 
 @interface JOViewModel : NSObject
 
 @property (nonatomic, strong) JOCommand *dataReqeustCommand;
-@property (nonatomic, strong) JOCommand *viewUpdateCommand;
 
 - (void)configure;
 

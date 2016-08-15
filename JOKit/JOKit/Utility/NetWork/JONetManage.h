@@ -29,14 +29,13 @@ typedef void(^JONetFileProgressBlock) (NSProgress * progress);
 
 /**
  *  用于返回的数据的解析,传入你想要将解析后的数据模型(JSONModel)传给的对象.
- *  (其实只是使用这个对象,然后得到这个对象的类名去初始化并赋值一个对象,并返回该对象)
+ *  可以传入多个Calss类型,按顺序返回第一个解析成功的数据模型.
  *  JSONModel *(^JSONModelParseHandler) (JSONModel *josnModel)
  *
  *  @param josnModel 传入你想要赋值的JSONModel数据模型对象.
  *
  *  @return 返回解析后的数据模型.
  */
-//TODO: 可以需改成传入多个Model类型,因为很多时候,数据返回可能存在不同的形式,这个时候需要不同的Model去解析
 typedef id(^JSONModelParseHandler) (Class class1,...);
 
 /**

@@ -50,7 +50,7 @@ typedef void(^JONetReqeustDataParseHandler) (JSONModelParseHandler parseHandler)
  *
  *  @param response 网络请求返回的数据.
  */
-typedef void(^JONetRequestSuccessHandler) (NSDictionary *response);
+typedef void(^JONetRequestSuccessHandler) (NSURLResponse *response, NSDictionary *responseDic);
 
 /**
  *  网络请求失败的Handler.

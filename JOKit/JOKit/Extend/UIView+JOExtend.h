@@ -29,4 +29,9 @@
  */
 - (UIImage *)joViewImage;
 
+/**
+ *  移除视图上面所有的子视图
+ */
+- (void)removeAllSubviews;
+
 @end

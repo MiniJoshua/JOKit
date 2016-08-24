@@ -7,6 +7,7 @@
 //
 
 #import "JOSignal.h"
+#import <objc/runtime.h>
 
 @interface JOSignal()
 
@@ -32,6 +33,8 @@
         if (signalBlock) {
             _signalBlock = nil;
             _signalBlock = [signalBlock copy];
+            
+//            [self signaleBlockExcute];
         }
     }
     return self;
@@ -39,9 +42,7 @@
 
 - (void)subscribeNext:(JOSignalNextBlock)nextBlock {
     
-    [self setCurrentNextBlock:nextBlock];
-    [self signaleBlockExcute];
-    
+    [self subscribeNext:nextBlock complete:nil error:nil];
 }
 
 - (void)subscribeNext:(JOSignalNextBlock)nextBlock complete:(JOSignalCompleteBlock)completeBlock {
@@ -59,21 +60,16 @@
 
 - (void)subscribeComplete:(JOSignalCompleteBlock)completeBlock {
 
-    [self setCurrentCompleteBlock:completeBlock];
-    [self signaleBlockExcute];
+    [self subscribeNext:nil complete:completeBlock error:nil];
 }
 
 - (void)subscribeComplete:(JOSignalCompleteBlock)completeBlock error:(JOSignalErrorBlock)errorBlock {
-    
-    [self setCurrentCompleteBlock:completeBlock];
-    [self setCurrentErrorBlock:errorBlock];
-    [self signaleBlockExcute];
+    [self subscribeNext:nil complete:completeBlock error:errorBlock];
 }
 
 - (void)subscribeError:(JOSignalErrorBlock)errorBlock {
     
-    [self setCurrentErrorBlock:errorBlock];
-    [self signaleBlockExcute];
+    [self subscribeNext:nil complete:nil error:errorBlock];
 }
 
 #pragma mark - private Block 
@@ -104,9 +100,16 @@
 
 - (void)signaleBlockExcute {
 
-    if (_signalBlock) {
-        _signalBlock(self);
+    if (objc_getAssociatedObject(self, _cmd)) {
+        //
+    }else{
+        
+        if (_signalBlock) {
+            _signalBlock(self);
+        }
+        objc_setAssociatedObject(self, _cmd, @"only", OBJC_ASSOCIATION_RETAIN);
     }
+    
 }
 
 #pragma mark - signal delegate

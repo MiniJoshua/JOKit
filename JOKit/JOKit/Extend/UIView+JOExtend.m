@@ -35,4 +35,12 @@
     return image;
 }
 
+- (void)removeAllSubviews {
+
+    for (UIView *view in self.subviews) {
+        [view setHidden:YES];
+        [view removeFromSuperview];
+    }
+}
+
 @end

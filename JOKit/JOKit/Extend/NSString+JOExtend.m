@@ -288,9 +288,14 @@ BOOL JOStringIsValidIDCardNum(NSString *string) {
 - (CGSize)joSizeWithFont:(UIFont *)font size:(CGSize)size lineSpace:(CGFloat)lineSpace {
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:lineSpace];
+//    [paragraphStyle setLineSpacing:lineSpace];
     [paragraphStyle setAlignment:NSTextAlignmentLeft];
     [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    
+    if (!([self joSizeWithFont:font size:CGSizeMake(HUGE, HUGE) lineSpace:lineSpace paragraphStyle:paragraphStyle].width <= size.width)) {
+        //多行的时候
+        [paragraphStyle setLineSpacing:lineSpace];
+    }
     
     return [self joSizeWithFont:font size:size lineSpace:lineSpace paragraphStyle:paragraphStyle];
 }

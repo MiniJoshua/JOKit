@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "JOKit"
-  s.version      = '1.0.10'
+  s.version      = '1.0.11'
   s.summary      = "Project Base SDK"
   s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
   s.license      = "MIT"
@@ -46,6 +46,6 @@ end
 #s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libJOProjectBaseSDK" }
 
 s.dependency "AFNetworking", "~> 3.1.0"
-s.dependency "JSONModel", "~> 1.3.0"
+s.dependency "JSONModel", "~> 1.4.0"
 
 end

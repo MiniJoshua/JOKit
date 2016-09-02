@@ -26,6 +26,14 @@
 #define JOMethod()
 #endif
 
+#ifndef JO_INSTANCETYPE
+#if __has_feature(objc_instancetype)
+#define JO_INSTANCETYPE instancetype
+#else
+#define JO_INSTANCETYPE id
+#endif
+#endif
+
 
 #ifdef __cplusplus
 #define JO_EXTERN		extern "C" __attribute__((visibility ("default")))

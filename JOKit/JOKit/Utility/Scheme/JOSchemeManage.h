@@ -11,6 +11,7 @@
 
 //对应的是plist中的key
 static NSString *const kMapKey = @"Map";
+static NSString *const kParmasKey = @"Parmas";
 static NSString *const kClassKey = @"Class";
 static NSString *const kModelKey = @"Model";
 

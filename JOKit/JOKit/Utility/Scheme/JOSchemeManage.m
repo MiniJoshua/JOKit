@@ -45,7 +45,9 @@
     @weakify(self);
     [maps enumerateObjectsUsingBlock:^(NSDictionary  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     @strongify(self);
-        [self map:[obj objectForKey:kMapKey] blindClass:[NSClassFromString([obj objectForKey:kClassKey]) class] isModel:[[obj objectForKey:kModelKey] boolValue]];
+        NSString *mapString = [obj objectForKey:kMapKey];
+        NSString *paramsString = [[obj objectForKey:kParmasKey] componentsJoinedByString:@"/"];
+        [self map:[NSString stringWithFormat:@"%@:%@",mapString,paramsString] blindClass:[NSClassFromString([obj objectForKey:kClassKey]) class] isModel:[[obj objectForKey:kModelKey] boolValue]];
     }];
 }
 

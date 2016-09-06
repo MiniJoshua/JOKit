@@ -1,14 +1,15 @@
 
 Pod::Spec.new do |s|
 
-s.name         = "JOKit"
-s.version      = '1.0.13'
-s.summary      = "Project Base SDK"
-s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
-s.license      = "MIT"
-s.author        = { "Joshua" => "505398605@qq.com" }
-s.platform     = :ios, '7.0'
-s.source       = { :git => "https://github.com/xinlidexiaoman/JOKit.git", :tag => s.version}
+
+  s.name         = "JOKit"
+  s.version      = '1.0.12'
+  s.summary      = "Project Base SDK"
+  s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
+  s.license      = "MIT"
+  s.author        = { "Joshua" => "505398605@qq.com" }
+  s.platform     = :ios, '7.0'
+  s.source       = { :git => "https://github.com/xinlidexiaoman/JOKit.git", :tag => s.version}
 
 
 #s.resource = 'JOBaseSDK/Resources/**/*.{png,txt,a}'
@@ -49,11 +50,14 @@ ss.dependency 'JOKit/Macro'
 ss.source_files = 'JOKit/**/Extend/*.{h,m}'
 end
 
+<<<<<<< HEAD
 s.subspec 'UIKit' do |ss|
 ss.dependency 'JOKit/JOKit'
 ss.source_files = 'JOKit/**/UIKit/**/*.{h,m}'
 end
 
+=======
+>>>>>>> parent of 2f56b4f... 版本号增加至1.0.13
 #s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libJOProjectBaseSDK" }
 
 s.dependency "AFNetworking", "~> 3.1.0"

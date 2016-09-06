@@ -19,7 +19,6 @@ DerivedData
 *.hmap
 *.ipa
 *podSrc
-*.podspec
 
 # JOKitDemo
 JOKitDemo

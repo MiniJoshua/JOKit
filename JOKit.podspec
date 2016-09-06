@@ -44,6 +44,7 @@ ss.source_files = 'JOKit/**/Extend/*.{h,m}'
 end
 
 s.subspec 'UIKit' do |ss|
+ss.dependency 'JOKit/JOKit.h'
 ss.dependency 'JOKit/Macro'
 ss.dependency 'JOKit/Extend'
 ss.dependency 'JOKit/Utility'

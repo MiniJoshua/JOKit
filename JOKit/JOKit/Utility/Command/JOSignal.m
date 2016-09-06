@@ -33,8 +33,6 @@
         if (signalBlock) {
             _signalBlock = nil;
             _signalBlock = [signalBlock copy];
-            
-//            [self signaleBlockExcute];
         }
     }
     return self;

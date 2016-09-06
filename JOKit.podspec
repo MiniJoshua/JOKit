@@ -25,28 +25,28 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-s.subspec 'JOKit' do |ss|
-s.source_files  = 'JOKit/**/JOKit.h'
+s.subspec 'JOKit' do |JOKit|
+s.source_files  = 'JOKit/JOKit.h'
 end
 
 
-s.subspec 'Macro' do |ss|
+s.subspec 'Macro' do |Macro|
 ss.source_files = 'JOKit/**/Macro/JOMacro.h'
 end
 
-s.subspec 'Utility' do |ss|
+s.subspec 'Utility' do |Utility|
 ss.dependency 'JOKit/Macro'
 ss.dependency 'JOKit/Extend'
 ss.source_files = 'JOKit/**/Utility/**/*.{h,m}'
 #ss.public_header_files = 'JOKit/**/Utility/**/*.h'
 end
 
-s.subspec 'Extend' do |ss|
+s.subspec 'Extend' do |Extend|
 ss.dependency 'JOKit/Macro'
 ss.source_files = 'JOKit/**/Extend/*.{h,m}'
 end
 
-s.subspec 'UIKit' do |ss|
+s.subspec 'UIKit' do |UIKit|
 ss.dependency 'JOKit/JOKit'
 ss.dependency 'JOKit/Macro'
 ss.dependency 'JOKit/Extend'

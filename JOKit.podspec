@@ -48,9 +48,9 @@ end
 
 s.subspec 'UIKit' do |ss|
 ss.dependency 'JOKit/JOKit'
-#ss.dependency 'JOKit/Macro'
-#ss.dependency 'JOKit/Extend'
-#ss.dependency 'JOKit/Utility'
+ss.dependency 'JOKit/Macro'
+ss.dependency 'JOKit/Extend'
+ss.dependency 'JOKit/Utility'
 ss.source_files = 'JOKit/**/UIKit/**/*.{h,m}'
 end
 

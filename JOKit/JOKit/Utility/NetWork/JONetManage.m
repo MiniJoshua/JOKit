@@ -128,14 +128,22 @@ static inline void JOJSONModelParse(NSDictionary *responseDic, JONetReqeustDataP
             
             if ([[class1 new] isKindOfClass:NSClassFromString(@"JSONModel")]) {
                 
-                NSError *jsonError;
-
+//                NSError *jsonError;
                 va_list args;
                 va_start(args, class1);
                 Class arg = class1;
                 while (arg) {
+
+                    id model = nil;
+                    SEL initSelector = sel_registerName("initWithDictionary:error:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                    if ([arg instancesRespondToSelector:initSelector]) {
+                        model = [[arg alloc] performSelector:initSelector withObject:responseDic withObject:NULL];
+                    }
+#pragma clang diagnostic pop
                     
-                    id model = [[arg alloc] initWithDictionary:responseDic error:&jsonError];
+//                    id model = [[arg alloc] initWithDictionary:responseDic error:&jsonError];
                     if (model) {
                         va_end(args);
                         return model;
@@ -150,7 +158,6 @@ static inline void JOJSONModelParse(NSDictionary *responseDic, JONetReqeustDataP
                 JOException(@"JONetManage JOJSONModelParse Exception.", @"暂时只能将得到的数据解析一个JSONModel的子类的数据模型");
                 return nil;
             }
-            
         });
     }
 }

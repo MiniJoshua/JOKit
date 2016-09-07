@@ -69,6 +69,7 @@ if (!format || ![format length]) { \
         }];
         
         if (correctState) {
+            
             self.params = nil;
             self.params = [paramsArray copy];
         }
@@ -123,8 +124,21 @@ if (!format || ![format length]) { \
             }];
             
             if (correctState) {
+                
+                NSMutableArray *checkParamsArray = [NSMutableArray array];
+                
+                [paramsArray enumerateObjectsUsingBlock:^(NSString  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    if ([[obj componentsSeparatedByString:@","] count] >1) {
+                        //代表数组
+                        [checkParamsArray addObject:[obj componentsSeparatedByString:@","]];
+                    }else {
+                        [checkParamsArray addObject:obj];
+                    }
+                }];
+                
                 self.paramsValue = nil;
-                self.paramsValue = [paramsArray copy];
+                self.paramsValue = [checkParamsArray copy];
             }
             
             [_params enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

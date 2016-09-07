@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UINavigationController *baseNavigationController;
 @property (nonatomic, strong) NSMutableDictionary *maps;
+@property (nonatomic, strong) NSMutableArray *paramsArray;
 
 @end
 
@@ -34,6 +35,7 @@
     self = [super init];
     if (self) {
         self.maps = [NSMutableDictionary dictionary];
+        self.paramsArray = [NSMutableArray array];
     }
     return self;
 }
@@ -71,6 +73,39 @@
 }
 
 #pragma mark - open
+
+- (void)open:(NSString *)format params:(id)param1,... {
+
+    va_list args;
+    va_start(args, param1);
+    id arg = param1;
+    
+    while (arg) {
+        [_paramsArray addObject:arg];
+        arg = va_arg(args, id);
+    }
+    va_end(args);
+    
+    NSString *openFormat = [[format componentsSeparatedByString:@":"] firstObject];
+    NSMutableArray *array = [NSMutableArray array];
+    [_paramsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([obj isKindOfClass:[NSString class]]) {
+            [array addObject:obj];
+        }else if ([obj isKindOfClass:[NSArray class]]) {
+            [array addObject:[obj componentsJoinedByString:@","]];
+        }else {
+            JOException(@"JOSchemeManage exception", @"open:params: param是不支持的类型,仅支持NSString NSArray");
+            *stop = YES;
+        }
+    }];
+    
+    if ([array count]) {
+        [self open:[NSString stringWithFormat:@"%@:%@",openFormat,[array componentsJoinedByString:@"/"]]];
+    }else {
+        [self open:[NSString stringWithFormat:@"%@:",openFormat]];
+    }
+}
 
 - (void)open:(NSString *)format {
 

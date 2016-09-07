@@ -36,12 +36,21 @@ static NSString *const kModelKey = @"Model";
 - (void)map:(NSString *)format blindClass:(Class)bindClass;
 - (void)map:(NSString *)format blindClass:(Class)bindClass isModel:(BOOL)modelState;
 
+
 /**
  *  打开一个地址.
  *
- *  @param format 地址.
+ *  @param format 地址 : viewMap:123/435,546/324  其中用,分隔的代表这个为数组
  */
-- (void)open:(NSString *)url;
+- (void)open:(NSString *)format;
+
+/**
+ *  打开一个地址
+ *
+ *  @param format 地址 :viewMap: 或者 viewMap
+ *  @param param1 参数 :只可以是字符串或者数组类型,数量必须与Map提交的数量一致
+ */
+- (void)open:(NSString *)format params:(id)param1,...;
 
 /**
  *  打开一个外部的URL,类似于调用系统的电话,邮件,浏览器....

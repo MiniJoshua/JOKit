@@ -76,6 +76,8 @@
 
 - (void)open:(NSString *)format params:(id)param1,... {
 
+    [_paramsArray removeAllObjects];
+    
     va_list args;
     va_start(args, param1);
     id arg = param1;

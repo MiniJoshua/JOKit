@@ -376,9 +376,6 @@ NSString *JODateFormatTimeline(NSString *timelineString,NSString *formatter) {
 
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timelineString longLongValue]];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-    [dateFormatter setLocale:[NSLocale autoupdatingCurrentLocale]];
-    [dateFormatter setDateFormat:formatter];
     return JODateFormatString([dateFormatter stringFromDate:date], formatter);
 }
 

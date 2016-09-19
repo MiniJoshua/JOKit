@@ -111,12 +111,6 @@ static inline void JOSessionConfiguration(NSURLSessionConfiguration *configurati
     }
 }
 
-//忽略掉这个方法,只是一个编译的占位方法.
-- (instancetype)initWithDictionary:(NSDictionary *)dic error:(NSError**)err {
-
-    return nil;
-}
-
 static inline void JOJSONModelParse(NSDictionary *responseDic, JONetReqeustDataParseHandler dataParseHandler) {
 
     if (!responseDic) {
@@ -128,7 +122,6 @@ static inline void JOJSONModelParse(NSDictionary *responseDic, JONetReqeustDataP
             
             if ([[class1 new] isKindOfClass:NSClassFromString(@"JSONModel")]) {
                 
-//                NSError *jsonError;
                 va_list args;
                 va_start(args, class1);
                 Class arg = class1;
@@ -142,8 +135,6 @@ static inline void JOJSONModelParse(NSDictionary *responseDic, JONetReqeustDataP
                         model = [[arg alloc] performSelector:initSelector withObject:responseDic withObject:NULL];
                     }
 #pragma clang diagnostic pop
-                    
-//                    id model = [[arg alloc] initWithDictionary:responseDic error:&jsonError];
                     if (model) {
                         va_end(args);
                         return model;

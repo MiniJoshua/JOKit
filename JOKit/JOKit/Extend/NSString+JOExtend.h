@@ -253,9 +253,80 @@ JO_EXTERN BOOL JOStringIsValidIDCardNum(NSString *string);
 - (NSString *)joStringByReplacingWithRegex:(NSString *)regex
                                    options:(NSRegularExpressionOptions)options
                                 withString:(NSString *)replacement;
+
 //TODO: 将URL的字符串中的中文做转化
 //TODO: HTML文件中某些字符的转化
 
 @end
 
+static NSString *const kDateFormatterComplete           = @"yyyy-MM-dd HH:mm:ss";
+static NSString *const kDateFormatterYear               = @"yyyy";
+static NSString *const kDateFormatterMonth              = @"MM";
+static NSString *const kDateFormatterDay                = @"dd";
+static NSString *const kDateFormatterHour               = @"HH";
+static NSString *const kDateFormatterMinute             = @"mm";
+static NSString *const kDateFormatterSecond             = @"ss";
 
+static NSString *const kDateFormatterYear_Month_Day       = @"yyyy-MM-dd";
+static NSString *const kDateFormatterYear_Month          = @"yyyy-MM";
+static NSString *const kDateFormatterMonth_Day           = @"MM-dd";
+
+static NSString *const kDateFormatterHour_Minute_Second   = @"HH:mm:ss";
+static NSString *const kDateFormatterHour_Minute         = @"HH:mm";
+static NSString *const kDateFormatterMinute_Second       = @"mm:ss";
+
+@interface NSString(JODateExtend)
+
+#pragma mark - 时间戳or时间转换为给定格式的字符串
+#pragma mark -
+
+JO_EXTERN NSString *JODateFormat(NSDate *date,NSString *formatter);
+
+/**
+ 将给定的时间字符串转换为指定的格式.
+
+ @param dateString 给定的时间.
+ @param formatter  指定的格式.
+
+ @return 转换后的字符串.
+ */
+JO_EXTERN NSString *JODateStringFormat(NSString *dateString,NSString *formatter);
+
+/**
+ 将时间戳转换为给定格式的字符串.
+
+ @param timeLineString 时间戳.
+ @param formatter      格式.
+
+ @return 转换后的格式.
+ */
+JO_EXTERN NSString *JOTimelineStringFormat(NSString *timelineString,NSString *formatter);
+
+
+/**
+ 将时间转换为时间戳.
+
+ @param date 时间.
+
+ @return 时间戳.
+ */
+JO_EXTERN NSString *JOConvertDateToTimelineString(NSDate *date);
+
+//当前时间的时间戳.
+#define JOCurrentTimeLineString JOConvertDateToTimeLineString([NSDate date])
+
+/**
+ 自定义个时间格式返回: 刚刚,几个小时前,几天前,2016-8-2 .
+
+ @param timelineString 时间戳
+ @param date           给定的时间
+ @param days           针对于给定多少天显示的是几天前.默认的的天数为5天
+
+ @return 时间的格式
+ */
+JO_EXTERN NSString *JOCustomFormatTimeline(NSString *timelineString,NSInteger days);
+JO_EXTERN NSString *JOCustomDefaultFormatTimeline(NSString *timelineString);
+JO_EXTERN NSString *JOCustomFormatDate(NSDate *date,NSInteger days);
+JO_EXTERN NSString *JOCustomDefaultFormatDate(NSDate *date);
+
+@end

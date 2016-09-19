@@ -350,3 +350,77 @@ BOOL JOStringIsValidIDCardNum(NSString *string) {
 }
 
 @end
+
+
+@implementation NSString(JODateExtend)
+
+NSString *JODateFormat(NSDate *date,NSString *formatter) {
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:formatter];
+    return [dateFormatter stringFromDate:date];
+}
+
+NSString *JODateFormatString(NSString *dateString,NSString *formatter) {
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [dateFormatter setLocale:[NSLocale autoupdatingCurrentLocale]];
+    [dateFormatter setDateFormat:kDateFormatterComplete];
+    NSDate *date = [dateFormatter dateFromString:dateString];
+    
+    return JODateFormat(date,formatter);
+}
+
+NSString *JODateFormatTimeline(NSString *timelineString,NSString *formatter) {
+
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timelineString longLongValue]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [dateFormatter setLocale:[NSLocale autoupdatingCurrentLocale]];
+    [dateFormatter setDateFormat:formatter];
+    return JODateFormatString([dateFormatter stringFromDate:date], formatter);
+}
+
+NSString *JOConvertDateToTimelineString(NSDate *date) {
+
+    return [NSString stringWithFormat:@"%.f",[date timeIntervalSince1970]];
+}
+
+NSString *JOCustomFormatTimeline(NSString *timelineString,NSInteger days) {
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timelineString longLongValue]];
+    return JOCustomFormatDate(date, days);
+}
+
+NSString *JOCustomDefaultFormatTimeline(NSString *timelineString) {
+    
+    return JOCustomFormatTimeline(timelineString, 5);
+}
+
+NSString *JOCustomFormatDate(NSDate *date,NSInteger days) {
+
+    NSInteger hours =  ABS(MIN(([date timeIntervalSinceDate:[NSDate date]])/3600, 0));
+    NSString *format = @"刚刚";
+    if (hours <= 0) {
+        format = @"刚刚";
+    } else if (hours > 0 && hours <= 24) {
+        format = [NSString stringWithFormat:@"%ld小时前", hours];
+    } else {
+        NSInteger day = ABS(MIN(([date timeIntervalSinceDate:[NSDate date]])/86400, 0));
+        if (day < days) {
+            format = [NSString stringWithFormat:@"%ld天前", days];
+        } else {
+            format = JODateFormat(date,kDateFormatterYear_Month_Day);
+        }
+    }
+    return format;
+}
+
+NSString *JOCustomDefaultFormatDate(NSDate *date) {
+
+    return JOCustomFormatDate(date,5);
+}
+
+@end
+

@@ -358,53 +358,51 @@ NSString *JODateFormat(NSDate *date,NSString *formatter) {
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:formatter];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [dateFormatter setLocale:[NSLocale autoupdatingCurrentLocale]];
     return [dateFormatter stringFromDate:date];
 }
 
 NSString *JODateFormatString(NSString *dateString,NSString *formatter) {
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-    [dateFormatter setLocale:[NSLocale autoupdatingCurrentLocale]];
     [dateFormatter setDateFormat:kDateFormatterComplete];
     NSDate *date = [dateFormatter dateFromString:dateString];
-    
     return JODateFormat(date,formatter);
 }
 
 NSString *JODateFormatTimeline(NSString *timelineString,NSString *formatter) {
 
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timelineString longLongValue]];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    return JODateFormatString([dateFormatter stringFromDate:date], formatter);
+    return JODateFormat(date, formatter);
 }
 
-NSString *JOConvertDateToTimelineString(NSDate *date) {
+NSString *JODateConvertToTimelineString(NSDate *date) {
 
     return [NSString stringWithFormat:@"%.f",[date timeIntervalSince1970]];
 }
 
-NSString *JOCustomFormatTimeline(NSString *timelineString,NSInteger days) {
+NSString *JODateCustomFormatTimeline(NSString *timelineString,NSInteger days) {
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timelineString longLongValue]];
-    return JOCustomFormatDate(date, days);
+    return JODateCustomFormat(date, days);
 }
 
-NSString *JOCustomDefaultFormatTimeline(NSString *timelineString) {
+NSString *JODateCustomDefaultFormatTimeline(NSString *timelineString) {
     
-    return JOCustomFormatTimeline(timelineString, 5);
+    return JODateCustomFormatTimeline(timelineString, 5);
 }
 
-NSString *JOCustomFormatDate(NSDate *date,NSInteger days) {
+NSString *JODateCustomFormat(NSDate *date,NSInteger days) {
 
-    NSInteger hours =  ABS(MIN(([date timeIntervalSinceDate:[NSDate date]])/3600, 0));
+    NSInteger hours =  ABS(MIN(([date timeIntervalSinceDate:[NSDate date]])/kSeconds_Hour, 0));
     NSString *format = @"刚刚";
     if (hours <= 0) {
         format = @"刚刚";
     } else if (hours > 0 && hours <= 24) {
         format = [NSString stringWithFormat:@"%ld小时前", hours];
     } else {
-        NSInteger day = ABS(MIN(([date timeIntervalSinceDate:[NSDate date]])/86400, 0));
+        NSInteger day = ABS(MIN(([date timeIntervalSinceDate:[NSDate date]])/kSeconds_Day, 0));
         if (day < days) {
             format = [NSString stringWithFormat:@"%ld天前", days];
         } else {
@@ -414,9 +412,9 @@ NSString *JOCustomFormatDate(NSDate *date,NSInteger days) {
     return format;
 }
 
-NSString *JOCustomDefaultFormatDate(NSDate *date) {
+NSString *JODateCustomDefaultFormat(NSDate *date) {
 
-    return JOCustomFormatDate(date,5);
+    return JODateCustomFormat(date,5);
 }
 
 @end

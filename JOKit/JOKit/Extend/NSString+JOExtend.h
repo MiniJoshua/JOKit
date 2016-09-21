@@ -259,22 +259,6 @@ JO_EXTERN BOOL JOStringIsValidIDCardNum(NSString *string);
 
 @end
 
-static NSString *const kDateFormatterComplete           = @"yyyy-MM-dd HH:mm:ss";
-static NSString *const kDateFormatterYear               = @"yyyy";
-static NSString *const kDateFormatterMonth              = @"MM";
-static NSString *const kDateFormatterDay                = @"dd";
-static NSString *const kDateFormatterHour               = @"HH";
-static NSString *const kDateFormatterMinute             = @"mm";
-static NSString *const kDateFormatterSecond             = @"ss";
-
-static NSString *const kDateFormatterYear_Month_Day       = @"yyyy-MM-dd";
-static NSString *const kDateFormatterYear_Month          = @"yyyy-MM";
-static NSString *const kDateFormatterMonth_Day           = @"MM-dd";
-
-static NSString *const kDateFormatterHour_Minute_Second   = @"HH:mm:ss";
-static NSString *const kDateFormatterHour_Minute         = @"HH:mm";
-static NSString *const kDateFormatterMinute_Second       = @"mm:ss";
-
 @interface NSString(JODateExtend)
 
 #pragma mark - 时间戳or时间转换为给定格式的字符串
@@ -300,7 +284,7 @@ JO_EXTERN NSString *JODateStringFormat(NSString *dateString,NSString *formatter)
 
  @return 转换后的格式.
  */
-JO_EXTERN NSString *JOTimelineStringFormat(NSString *timelineString,NSString *formatter);
+JO_EXTERN NSString *JODateFormatTimeline(NSString *timelineString,NSString *formatter);
 
 
 /**
@@ -310,23 +294,23 @@ JO_EXTERN NSString *JOTimelineStringFormat(NSString *timelineString,NSString *fo
 
  @return 时间戳.
  */
-JO_EXTERN NSString *JOConvertDateToTimelineString(NSDate *date);
+JO_EXTERN NSString *JODateConvertToTimelineString(NSDate *date);
 
 //当前时间的时间戳.
-#define JOCurrentTimeLineString JOConvertDateToTimeLineString([NSDate date])
+#define JODateCurrentTimeLineString JODateConvertToTimelineString([NSDate date])
 
 /**
  自定义个时间格式返回: 刚刚,几个小时前,几天前,2016-8-2 .
 
  @param timelineString 时间戳
  @param date           给定的时间
- @param days           针对于给定多少天显示的是几天前.默认的的天数为5天
+ @param days           针对于给定多少天以内显示的是几天前. 默认的的天数为5天
 
  @return 时间的格式
  */
-JO_EXTERN NSString *JOCustomFormatTimeline(NSString *timelineString,NSInteger days);
-JO_EXTERN NSString *JOCustomDefaultFormatTimeline(NSString *timelineString);
-JO_EXTERN NSString *JOCustomFormatDate(NSDate *date,NSInteger days);
-JO_EXTERN NSString *JOCustomDefaultFormatDate(NSDate *date);
+JO_EXTERN NSString *JODateCustomFormatTimeline(NSString *timelineString,NSInteger days);
+JO_EXTERN NSString *JODateCustomDefaultFormatTimeline(NSString *timelineString);
+JO_EXTERN NSString *JODateCustomFormat(NSDate *date,NSInteger days);
+JO_EXTERN NSString *JODateCustomDefaultFormat(NSDate *date);
 
 @end

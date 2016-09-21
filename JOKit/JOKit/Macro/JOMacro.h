@@ -19,11 +19,9 @@
 #endif
 
 #ifdef DEBUG
-#define JOLog(...) NSLog(__VA_ARGS__)
-#define JOMethod() NSLog(@"%s", __func__)
+#define JOLog(...) NSLog(@"[%s line:%d]  %@",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
 #else
 #define JOLog(...)
-#define JOMethod()
 #endif
 
 #ifndef JO_INSTANCETYPE
@@ -160,5 +158,8 @@ NSValue *value = objc_getAssociatedObject(self, @selector(_setter_:)); \
 return cValue; \
 }
 #endif
+
+
+#import "JODateMacro.h"
 
 #endif /* JOMacro_h */

@@ -134,7 +134,7 @@ return objc_getAssociatedObject(self, @selector(_setter_:)); \
  
  示例:
  @interface NSObject (MyAdd)
- @property (nonatomic, retain) CGPoint myPoint;
+ @property (nonatomic) CGPoint myPoint;
  @end
  
  #import <objc/runtime.h>
@@ -151,8 +151,8 @@ NSValue *value = [NSValue value:&object withObjCType:@encode(_type_)]; \
 objc_setAssociatedObject(self, _cmd, value, OBJC_ASSOCIATION_RETAIN); \
 [self didChangeValueForKey:@#_getter_]; \
 } \
-- (type)_getter_ { \
-_type_ cValue = { 0 }; \
+- (_type_)_getter_ { \
+_type_ cValue; \
 NSValue *value = objc_getAssociatedObject(self, @selector(_setter_:)); \
 [value getValue:&cValue]; \
 return cValue; \

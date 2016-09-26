@@ -41,6 +41,12 @@ JO_EXTERN NSDate *JODateYearMonthString(NSString *year,NSString *month);
 JO_EXTERN NSDate *JODateYearString(NSString *year);
 JO_EXTERN NSDate *JODateTimelineString(NSString *timelineString);
 
++ (NSDate *)joDateWithCompleteString:(NSString *)dateString;
++ (NSDate *)joDateWithYear:(NSString *)year month:(NSString *)month day:(NSString *)day;
++ (NSDate *)joDateWithYear:(NSString *)year month:(NSString *)month;
++ (NSDate *)joDateWithYear:(NSString *)year;
++ (NSDate *)joDateWithTimelineString:(NSString *)timelineString;
+
 /**
  根据给定的属性得到相应的NSDateComponents.
 
@@ -52,6 +58,9 @@ JO_EXTERN NSDate *JODateTimelineString(NSString *timelineString);
  */
 JO_EXTERN NSDateComponents *JODateComponents(NSString *identifier,NSCalendarUnit calendarUnit, NSDate *date);
 JO_EXTERN NSDateComponents *JODateDefaultComponents(NSCalendarUnit calendarUnit, NSDate *date);
+
+- (NSDateComponents *)joDateComponentsWithIdentifier:(NSString *)identifier calendarUnit:(NSCalendarUnit)calendarUnit;
+- (NSDateComponents *)joDateComponentsWithCalendarUnit:(NSCalendarUnit)calendarUnit;
 
 /**
  获取给定Date中的需要的值.
@@ -68,6 +77,14 @@ JO_EXTERN NSInteger JODateHour(NSDate *date);
 JO_EXTERN NSInteger JODateMinute(NSDate *date);
 JO_EXTERN NSInteger JODateSecond(NSDate *date);
 
+- (NSInteger)joDateEra;
+- (NSInteger)joDateYear;
+- (NSInteger)joDateMonth;
+- (NSInteger)joDateDay;
+- (NSInteger)joDateHour;
+- (NSInteger)joDateMinute;
+- (NSInteger)joDateSecond;
+
 /**
  给定的Date的月中计算,此月中的第几天是周几.
 
@@ -79,6 +96,9 @@ JO_EXTERN NSInteger JODateSecond(NSDate *date);
  */
 JO_EXTERN NSInteger JODateMonthDayInWeekLocation(NSDate *date,NSInteger start,NSInteger day);
 JO_EXTERN NSInteger JODateMonthDefaultDayInWeekLocation(NSDate *date);
+
+- (NSInteger)joDateMonthDayInWeekLocationWithStart:(NSInteger)start day:(NSInteger)day;
+- (NSInteger)joDateMonthDayInWeekLocation;
 
 /**
  与给定Date向前或向后移动多少得到的Date.
@@ -95,6 +115,13 @@ JO_EXTERN NSDate *JODateHourOffset(NSDate *date,NSInteger offset);
 JO_EXTERN NSDate *JODateMinuteOffset(NSDate *date,NSInteger offset);
 JO_EXTERN NSDate *JODateSecondOffset(NSDate *date,NSInteger offset);
 
+- (NSDate *)joDateYearWithOffset:(NSInteger)offset;
+- (NSDate *)joDateMonthWithOffset:(NSInteger)offset;
+- (NSDate *)joDateDayWithOffset:(NSInteger)offset;
+- (NSDate *)joDateHourWithOffset:(NSInteger)offset;
+- (NSDate *)joDateMinuteWithOffset:(NSInteger)offset;
+- (NSDate *)joDateSecondWithOffset:(NSInteger)offset;
+
 /**
  是否是闰年.
 
@@ -103,6 +130,7 @@ JO_EXTERN NSDate *JODateSecondOffset(NSDate *date,NSInteger offset);
  @return YES为闰年,NO为平年.
  */
 JO_EXTERN BOOL JODateIsLeapYear(NSDate *date);
+- (BOOL)joDateIsLeapYear;
 
 /**
  获取一个月或者一年里面有多少天数.
@@ -115,6 +143,10 @@ JO_EXTERN BOOL JODateIsLeapYear(NSDate *date);
 JO_EXTERN NSInteger JODateDaysInMonth(NSDate *date);
 JO_EXTERN NSInteger JODateDaysInYear(NSDate *date);
 JO_EXTERN NSInteger JODateDaysInYearString(NSString *year);
+
+- (NSInteger)joDateDaysInMonth;
+- (NSInteger)joDateDaysInYear;
++ (NSInteger)joDateDaysInYearWithYearString:(NSString *)yearString;
 
 /**
  给定Date中在的那一周第一天或者最后一天的Date.
@@ -131,6 +163,13 @@ JO_EXTERN NSDate *JODateEndWeek(NSDate *date,NSInteger start);
 JO_EXTERN NSDate *JODateDefaultEndWeek(NSDate *date);
 JO_EXTERN NSDate *JODateCurrentEndWeek();  //date默认为当前的Date.
 
+- (NSDate *)joDateStartWeekWithStart:(NSInteger)start;
+- (NSDate *)joDateStartWeek;
++ (NSDate *)joDateCurrentStartWeek;
+- (NSDate *)joDateEndWeekWithStart:(NSInteger)start;
+- (NSDate *)joDateEndWeek;
++ (NSDate *)joDateCurrentEndWeek;
+
 /**
  距离给定的时间各个时间类型的剩余量. 
  ps:可以用下面的属性拼接成的 1年1月12日 12时23分34秒  代表剩余量为:1年1月12日12时23分34秒
@@ -146,6 +185,12 @@ JO_EXTERN NSInteger JODateRemainDays(NSDate *toDate);
 JO_EXTERN NSInteger JODateRemainMonths(NSDate *toDate);
 JO_EXTERN NSInteger JODateRemainYears(NSDate *toDate);
 
++ (NSInteger)joDateRemainSecondsToDate:(NSDate *)date;
++ (NSInteger)joDateRemainMinutesToDate:(NSDate *)date;
++ (NSInteger)joDateRemainHoursToDate:(NSDate *)date;
++ (NSInteger)joDateRemainDaysToDate:(NSDate *)date;
++ (NSInteger)joDateRemainMonthsToDate:(NSDate *)date;
++ (NSInteger)joDateRemainYearsToDate:(NSDate *)date;
 
 /**
  剩余的时间格式为 1年1月12日 12时23分34秒 代表距离给定的时间剩余这么多.
@@ -156,5 +201,7 @@ JO_EXTERN NSInteger JODateRemainYears(NSDate *toDate);
  @return 剩余量.
  */
 JO_EXTERN NSString *JODateRemainTimeString(NSDate *toDate);
+
++ (NSString *)joDateRemainTimeStringToDate:(NSDate *)date;
 
 @end

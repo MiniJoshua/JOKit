@@ -19,30 +19,35 @@
  *  因为某些地方要是使用nil的字符串可能会引起crash.
  */
 JO_EXTERN NSString *JONormalString(NSString *string);
+- (NSString *)joNormalString;
 
 /**
  *  去掉字符串首尾的空格与回车键的字符.
  *
  */
 JO_EXTERN NSString *JOTrimString(NSString *string);
+- (NSString *)joTrimString;
 
 /**
  *  仅仅去掉字符串尾部的空格跟回车键的字符.
  *
  */
 JO_EXTERN NSString *JOTrimEndString(NSString *string);
+- (NSString *)joTrimEndString;
 
 /**
  *  仅仅去掉字符串头部的空格跟回车键的字符.
  *
  */
 JO_EXTERN NSString *JOTrimStartString(NSString *string);
+- (NSString *)joTrimStartString;
 
 /**
  *  处理字符串中所有的空格.
  *
  */
 JO_EXTERN NSString *JOTrimAllSpaceString(NSString *string);
+- (NSString *)joTrimAllSpaceString;
 
 #pragma mark - String的检测
 #pragma mark -
@@ -52,24 +57,28 @@ JO_EXTERN NSString *JOTrimAllSpaceString(NSString *string);
  *
  */
 JO_EXTERN BOOL JOStringIsInt(NSString *string);
+- (BOOL)joStringIsInt;
 
 /**
  *  是否为浮点型.
  *
  */
 JO_EXTERN BOOL JOStringIsFloat(NSString *string);
+- (BOOL)joStringIsFloat;
 
 /**
  *  将十六进制的字符串转换为十进制的整型.
  *
  */
 JO_EXTERN NSUInteger JOConvertHexStringToInt(NSString *string);
+- (NSUInteger)joConvertHexStringToInt;
 
 /**
  *  将10进制的整型转换为十六进制的字符串.
  *
  */
 JO_EXTERN NSString *JOConvertIntToHexString(long long int intValue);
++ (NSString *)joConvertToHexStringWithInt:(long long int) intValue;
 
 /**
  *  是否为有效的电话号码.
@@ -77,12 +86,14 @@ JO_EXTERN NSString *JOConvertIntToHexString(long long int intValue);
  *
  */
 JO_EXTERN BOOL JOStringIsValidPhoneNumber(NSString *string);
+- (BOOL)joStringIsValidPhoneNumber;
 
 /**
  *  是否为有效的邮箱地址.
  *
  */
 JO_EXTERN BOOL JOStringIsValidEmail(NSString *string);
+- (BOOL)joStringIsValidEmail;
 
 /**
  *  是否是合法的密码.
@@ -90,12 +101,14 @@ JO_EXTERN BOOL JOStringIsValidEmail(NSString *string);
  *
  */
 JO_EXTERN BOOL JOStringIsValidPassword(NSString *string);
+- (BOOL)joStringIsValidPassword;
 
 /**
  *  是否是合法的身份证号码.
  *
  */
 JO_EXTERN BOOL JOStringIsValidIDCardNum(NSString *string);
+- (BOOL)joStringIsValidIDCardNum;
 
 #pragma mark - String的Attributed的转换
 #pragma mark -
@@ -265,6 +278,7 @@ JO_EXTERN BOOL JOStringIsValidIDCardNum(NSString *string);
 #pragma mark -
 
 JO_EXTERN NSString *JODateFormat(NSDate *date,NSString *formatter);
+- (NSString *)joDateStringWithDate:(NSDate *)date format:(NSString *)formatter;
 
 /**
  将给定的时间字符串转换为指定的格式.
@@ -275,6 +289,7 @@ JO_EXTERN NSString *JODateFormat(NSDate *date,NSString *formatter);
  @return 转换后的字符串.
  */
 JO_EXTERN NSString *JODateStringFormat(NSString *dateString,NSString *formatter);
+- (NSString *)joDateStringWithForamt:(NSString *)formatter;
 
 /**
  将时间戳转换为给定格式的字符串.
@@ -285,7 +300,7 @@ JO_EXTERN NSString *JODateStringFormat(NSString *dateString,NSString *formatter)
  @return 转换后的格式.
  */
 JO_EXTERN NSString *JODateFormatTimeline(NSString *timelineString,NSString *formatter);
-
+- (NSString *)joDateFormatTimelineWithForamt:(NSString *)formatter;
 
 /**
  将时间转换为时间戳.
@@ -295,6 +310,7 @@ JO_EXTERN NSString *JODateFormatTimeline(NSString *timelineString,NSString *form
  @return 时间戳.
  */
 JO_EXTERN NSString *JODateConvertToTimelineString(NSDate *date);
++ (NSString *)joDateConvertToTimelineStringWithDate:(NSDate *)date;
 
 //当前时间的时间戳.
 #define JODateCurrentTimeLineString JODateConvertToTimelineString([NSDate date])
@@ -309,8 +325,12 @@ JO_EXTERN NSString *JODateConvertToTimelineString(NSDate *date);
  @return 时间的格式
  */
 JO_EXTERN NSString *JODateCustomFormatTimeline(NSString *timelineString,NSInteger days);
+- (NSString *)joDateCustomFormatTimelineWithDays:(NSInteger)days;
 JO_EXTERN NSString *JODateCustomDefaultFormatTimeline(NSString *timelineString);
+- (NSString *)joDateCustomDefaultFormatTimeline;
 JO_EXTERN NSString *JODateCustomFormat(NSDate *date,NSInteger days);
++ (NSString *)joDateCustomFormatWithDate:(NSDate *)date days:(NSInteger)days;
 JO_EXTERN NSString *JODateCustomDefaultFormat(NSDate *date);
++ (NSString *)joDateCustomDefaultFormatWithDate:(NSDate *)date;
 
 @end

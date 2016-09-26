@@ -37,6 +37,7 @@ JO_STATIC_INLINE UIColor* JORGBSAMake(CGFloat R,CGFloat A)                      
  *  @return UIColor对象.
  */
 JO_EXTERN UIColor *JORandomColor(void);
++ (UIColor *)joRandomColor;
 
 /**
  *  将RGBColor的结构体数据转换为UIColor的对象.
@@ -46,6 +47,7 @@ JO_EXTERN UIColor *JORandomColor(void);
  *  @return 转换后的UIColor的对象.
  */
 JO_EXTERN UIColor *JORGBToColor(JORGB rgbColor);
++ (UIColor *)joRGBToColor:(JORGB )rgbColor;
 
 #pragma mark - 十六进制的颜色与UIColor之间的转换
 #pragma mark -
@@ -58,6 +60,7 @@ JO_EXTERN UIColor *JORGBToColor(JORGB rgbColor);
  *  @return 转换后的UIColor对象.
  */
 JO_EXTERN UIColor *JOHexRGBStringToColor(NSString *hexString);
++ (UIColor *)joHexRGBStringToColorWithHexString:(NSString *)hexString;
 
 /**
  *  将十六进制的字符串格式的值转换为UIColor的对象.
@@ -68,6 +71,7 @@ JO_EXTERN UIColor *JOHexRGBStringToColor(NSString *hexString);
  *  @return 转换后的UIColor对象
  */
 JO_EXTERN UIColor *JOHexRGBStringDefineAlphaToColor(NSString *hexString,CGFloat alpha);
++ (UIColor *)joHexRGBStringToColorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
 
 /**
  *  将UIColor的对象转换为用十六进制字符串来表示.
@@ -77,6 +81,7 @@ JO_EXTERN UIColor *JOHexRGBStringDefineAlphaToColor(NSString *hexString,CGFloat 
  *  @return 转换后的十六进制的字符串.不包含alpha的位
  */
 JO_EXTERN NSString *JOColorToRGBHexString(UIColor *color);
+- (NSString *)joColorToRGBHexString;
 
 /**
  *  将UIColor的对象转换为用十六进制字符串来表示.
@@ -86,6 +91,7 @@ JO_EXTERN NSString *JOColorToRGBHexString(UIColor *color);
  *  @return  转换后的十六进制的字符串.包含alpha的位
  */
 JO_EXTERN NSString *JOColorToRGBAHexString(UIColor *color);
+- (NSString *)joColorToRGBAHexString;
 
 /**
  *  将UIColor的对象转换为用十六进制来表示.
@@ -95,6 +101,7 @@ JO_EXTERN NSString *JOColorToRGBAHexString(UIColor *color);
  *  @return 转换后的十六进制:0x66ccff
  */
 JO_EXTERN uint32_t JOColorToRGBHex(UIColor *color)NS_AVAILABLE_IOS(5_0);
+- (uint32_t)joColorToRGBHex;
 
 /**
  *  将UIColor的对象转换为用十六进制来表示.
@@ -104,6 +111,7 @@ JO_EXTERN uint32_t JOColorToRGBHex(UIColor *color)NS_AVAILABLE_IOS(5_0);
  *  @return 转换后的十六进制:0x66ccffff
  */
 JO_EXTERN uint32_t JOColorToRGBAHex(UIColor *color)NS_AVAILABLE_IOS(5_0);
+- (uint32_t)joColorToRGBAHex;
 
 #pragma mark - JORGB 与 UIColor 十六进制颜色表示 之间的转换
 #pragma mark -
@@ -117,6 +125,7 @@ JO_EXTERN uint32_t JOColorToRGBAHex(UIColor *color)NS_AVAILABLE_IOS(5_0);
  *  @return 转换后的JORGBColor的结构体.
  */
 JO_EXTERN JORGB JOColorToJORGB(UIColor *color)NS_AVAILABLE_IOS(5_0);
+- (JORGB)joColorToJORGB NS_AVAILABLE_IOS(5_0);
 
 /**
  *  将十六进制表示颜色的字符串转换为JORGBColor的结构体.默认的透明度为1.
@@ -126,6 +135,7 @@ JO_EXTERN JORGB JOColorToJORGB(UIColor *color)NS_AVAILABLE_IOS(5_0);
  *  @return 转换后的JORGBValue的结构体.
  */
 JO_EXTERN JORGB JOHexRGBStringToJORGB(NSString *hexString);
++ (JORGB)joHexRGBStringToJORGBWithHexString:(NSString *)hexString;
 
 /**
  *  将十六进制表示颜色的字符串转换为JORGBColor的结构体.
@@ -136,6 +146,7 @@ JO_EXTERN JORGB JOHexRGBStringToJORGB(NSString *hexString);
  *  @return 转换后的JORGBValue的结构体.
  */
 JO_EXTERN JORGB JOHexRGBStringDefineAlphaToJORGB(NSString *hexString,CGFloat alpha);
++ (JORGB)joHexRGBStringToJORGBWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
 
 #pragma mark - UIColor Space Model
 #pragma mark -
@@ -149,5 +160,6 @@ JO_EXTERN JORGB JOHexRGBStringDefineAlphaToJORGB(NSString *hexString,CGFloat alp
  *  @return 色空间模型的字符串.
  */
 JO_EXTERN NSString *JOColorSpaceModel(UIColor *color);
+- (NSString *)joColorSpaceModel;
 
 @end

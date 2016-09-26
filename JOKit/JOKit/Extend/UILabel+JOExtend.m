@@ -11,27 +11,22 @@
 @implementation UILabel(Extend)
 
 + (UILabel *)joNewLabelWithJOFont:(JOFont *)font {
-
     return JONewLabel(font,0,NSTextAlignmentLeft,NSLineBreakByWordWrapping);
 }
 
 + (UILabel *)joNewLabelWithJOFont:(JOFont *)font numberLines:(NSInteger)numberLines {
-
     return JONewLabel(font,numberLines,NSTextAlignmentLeft,NSLineBreakByWordWrapping);
 }
 
 + (UILabel *)joNewLabelWithJOFont:(JOFont *)font alignment:(NSTextAlignment)alignment {
-
     return JONewLabel(font,0,alignment,NSLineBreakByWordWrapping);
 }
 
 + (UILabel *)joNewLabelWithJOFont:(JOFont *)font lineBreakMode:(NSLineBreakMode)lineBreakMode {
-
     return JONewLabel(font,0,NSTextAlignmentLeft,NSLineBreakByWordWrapping);
 }
 
 + (UILabel *)joNewLabelWithJOFont:(JOFont *)font numberLines:(NSInteger)numberLines alignment:(NSTextAlignment)alignment {
-
     return JONewLabel(font,numberLines,alignment,NSLineBreakByWordWrapping);
 }
 
@@ -42,13 +37,19 @@
 }
 
 CGFloat JOLabelDynamicWidth(UILabel *label) {
-
     return [label sizeThatFits:CGSizeMake(HUGE, HUGE)].width+1;
 }
 
-CGFloat JOLabelDynamicHeight(UILabel *label,CGFloat width) {
+- (CGFloat)joLabelDynamicWidth {
+    return JOLabelDynamicWidth(self);
+}
 
+CGFloat JOLabelDynamicHeight(UILabel *label,CGFloat width) {
     return [label sizeThatFits:CGSizeMake(width, HUGE)].height+1;
+}
+
+- (CGFloat)joLabelDynamicHeight:(CGFloat)width {
+    return JOLabelDynamicHeight(self, width);
 }
 
 @end

@@ -45,6 +45,26 @@ NSDate *JODateTimelineString(NSString *timelineString) {
     return JODateCompleteString([dateFormatter stringFromDate:date]);
 }
 
++ (NSDate *)joDateWithCompleteString:(NSString *)dateString {
+    return JODateCompleteString(dateString);
+}
+
++ (NSDate *)joDateWithYear:(NSString *)year month:(NSString *)month day:(NSString *)day {
+    return JODateYearMonthDayString(year,month,day);
+}
+
++ (NSDate *)joDateWithYear:(NSString *)year month:(NSString *)month {
+    return JODateYearMonthString(year,month);
+}
+
++ (NSDate *)joDateWithYear:(NSString *)year {
+    return JODateYearString(year);
+}
+
++ (NSDate *)joDateWithTimelineString:(NSString *)timelineString {
+    return JODateTimelineString(timelineString);
+}
+
 NSDateComponents *JODateComponents(NSString *identifier,NSCalendarUnit calendarUnit, NSDate *date) {
 
     NSCalendar *gregorian = [[NSCalendar alloc]
@@ -54,6 +74,14 @@ NSDateComponents *JODateComponents(NSString *identifier,NSCalendarUnit calendarU
 
 NSDateComponents *JODateDefaultComponents(NSCalendarUnit calendarUnit, NSDate *date) {
     return JODateComponents(NSCalendarIdentifierGregorian, calendarUnit, date);
+}
+
+- (NSDateComponents *)joDateComponentsWithIdentifier:(NSString *)identifier calendarUnit:(NSCalendarUnit)calendarUnit {
+    return JODateComponents(identifier,calendarUnit,self);
+}
+
+- (NSDateComponents *)joDateComponentsWithCalendarUnit:(NSCalendarUnit)calendarUnit {
+    return JODateDefaultComponents(calendarUnit,self);
 }
 
 NSInteger JODateEra(NSDate *date) {
@@ -84,6 +112,34 @@ NSInteger JODateSecond(NSDate *date) {
     return [JODateDefaultComponents(NSCalendarUnitSecond, date) second];
 }
 
+- (NSInteger)joDateEra {
+    return JODateEra(self);
+}
+
+- (NSInteger)joDateYear {
+    return JODateYear(self);
+}
+
+- (NSInteger)joDateMonth {
+    return JODateMonth(self);
+}
+
+- (NSInteger)joDateDay {
+    return JODateDay(self);
+}
+
+- (NSInteger)joDateHour {
+    return JODateHour(self);
+}
+
+- (NSInteger)joDateMinute {
+    return JODateMinute(self);
+}
+
+- (NSInteger)joDateSecond {
+    return JODateSecond(self);
+}
+
 NSInteger JODateMonthDayInWeekLocation(NSDate *date,NSInteger start,NSInteger day) {
 
     NSCalendar *gregorian = [[NSCalendar alloc]
@@ -105,6 +161,13 @@ NSInteger JODateMonthDayInWeekLocation(NSDate *date,NSInteger start,NSInteger da
 NSInteger JODateMonthDefaultDayInWeekLocation(NSDate *date) {
 
     return JODateMonthDayInWeekLocation(date, 1,1);
+}
+
+- (NSInteger)joDateMonthDayInWeekLocationWithStart:(NSInteger)start day:(NSInteger)day {
+    return JODateMonthDayInWeekLocation(self,start,day);
+}
+- (NSInteger)joDateMonthDayInWeekLocation {
+    return JODateMonthDefaultDayInWeekLocation(self);
 }
 
 #define JOOffsetDate(_method_) \
@@ -139,6 +202,30 @@ NSDate *JODateSecondOffset(NSDate *date,NSInteger offset) {
 
 #undef JOOffsetComponent
 
+- (NSDate *)joDateYearWithOffset:(NSInteger)offset {
+    return JODateYearOffset(self,offset);
+}
+
+- (NSDate *)joDateMonthWithOffset:(NSInteger)offset {
+    return JODateMonthOffset(self,offset);
+}
+
+- (NSDate *)joDateDayWithOffset:(NSInteger)offset {
+    return JODateDayOffset(self,offset);
+}
+
+- (NSDate *)joDateHourWithOffset:(NSInteger)offset {
+    return JODateHourOffset(self,offset);
+}
+
+- (NSDate *)joDateMinuteWithOffset:(NSInteger)offset {
+    return JODateMinuteOffset(self,offset);
+}
+
+- (NSDate *)joDateSecondWithOffset:(NSInteger)offset {
+    return JODateSecondOffset(self,offset);
+}
+
 /*
  不能被4整除的一定是平年；能被4整除的不好说,一般来说是闰年,也有可能是平年.
  准确来说,如果能被4整除,同时不能被100整除,是闰年；
@@ -157,6 +244,10 @@ BOOL JODateIsLeapYear(NSDate *date) {
             return NO;
         }
     }
+}
+
+- (BOOL)joDateIsLeapYear {
+    return JODateIsLeapYear(self);
 }
 
 NSInteger JODateDaysInMonth(NSDate *date) {
@@ -191,6 +282,18 @@ NSInteger JODateDaysInYear(NSDate *date) {
 
 NSInteger JODateDaysInYearString(NSString *year) {
     return JODateDaysInYear(JODateYearString(year));
+}
+
+- (NSInteger)joDateDaysInMonth {
+    return JODateDaysInMonth(self);
+}
+
+- (NSInteger)joDateDaysInYear {
+    return JODateDaysInYear(self);
+}
+
++ (NSInteger)joDateDaysInYearWithYearString:(NSString *)yearString {
+    return JODateDaysInYearString(yearString);
 }
 
 #define JOWeekDate(day) \
@@ -239,6 +342,30 @@ NSDate *JODateCurrentEndWeek() {
     return JODateDefaultEndWeek(JODate());
 }
 
+- (NSDate *)joDateStartWeekWithStart:(NSInteger)start {
+    return JODateStartWeek(self, start);
+}
+
+- (NSDate *)joDateStartWeek {
+    return JODateDefaultStartWeek(self);
+}
+
++ (NSDate *)joDateCurrentStartWeek {
+    return JODateCurrentStartWeek();
+}
+
+- (NSDate *)joDateEndWeekWithStart:(NSInteger)start {
+    return JODateEndWeek(self,start);
+}
+
+- (NSDate *)joDateEndWeek {
+    return JODateDefaultEndWeek(self);
+}
+
++ (NSDate *)joDateCurrentEndWeek {
+    return JODateCurrentEndWeek();
+}
+
 #define JORemianTime(_type_) \
 NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; \
 NSDateComponents *components = [gregorian components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:JODate() toDate:toDate options:0]; \
@@ -270,11 +397,37 @@ NSInteger JODateRemainYears(NSDate *toDate) {
 
 #undef JOWeekDate
 
++ (NSInteger)joDateRemainSecondsToDate:(NSDate *)date {
+    return JODateRemainSeconds(date);
+}
+
++ (NSInteger)joDateRemainMinutesToDate:(NSDate *)date {
+    return JODateRemainMinutes(date);
+}
+
++ (NSInteger)joDateRemainHoursToDate:(NSDate *)date {
+    return JODateRemainHours(date);
+}
+
++ (NSInteger)joDateRemainDaysToDate:(NSDate *)date {
+    return JODateRemainDays(date);
+}
+
++ (NSInteger)joDateRemainMonthsToDate:(NSDate *)date {
+    return JODateRemainMonths(date);
+}
+
++ (NSInteger)joDateRemainYearsToDate:(NSDate *)date {
+    return JODateRemainYears(date);
+}
+
 NSString *JODateRemainTimeString(NSDate *toDate) {
     
     return [NSString stringWithFormat:@"%ld年%ld月%ld日 %ld时%ld分%ld秒",JODateRemainYears(toDate),JODateRemainMonths(toDate),JODateRemainDays(toDate),JODateRemainHours(toDate),JODateRemainMinutes(toDate),JODateRemainSeconds(toDate)];
 }
 
-
++ (NSString *)joDateRemainTimeStringToDate:(NSDate *)date {
+    return JODateRemainTimeString(date);
+}
 
 @end

@@ -16,9 +16,17 @@ NSString *JONormalString(NSString *string) {
     return (![string isEqual:[NSNull null]] && string)? string : @"";
 }
 
+- (NSString *)joNormalString {
+    return JONormalString(self);
+}
+
 NSString *JOTrimString(NSString *string) {
     
     return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+- (NSString *)joTrimString {
+    return JOTrimString(self);
 }
 
 NSString *JOTrimEndString(NSString *string) {
@@ -28,11 +36,19 @@ NSString *JOTrimEndString(NSString *string) {
     return [tempString substringFromIndex:1];
 }
 
+- (NSString *)joTrimEndString {
+    return JOTrimEndString(self);
+}
+
 NSString *JOTrimStartString(NSString *string) {
     
     NSString *tempString;
     tempString = [[string stringByAppendingString:@"a"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return [tempString substringToIndex:[tempString length]-1];
+}
+
+- (NSString *)joTrimStartString {
+    return JOTrimStartString(self);
 }
 
 NSString *JOTrimAllSpaceString(NSString *string) {
@@ -48,6 +64,11 @@ NSString *JOTrimAllSpaceString(NSString *string) {
     resultStr = [components componentsJoinedByString:@""];
     
     return resultStr;
+}
+
+- (NSString *)joTrimAllSpaceString {
+    
+    return JOTrimAllSpaceString(self);
 }
 
 BOOL JOStringIsInt(NSString *string) {
@@ -66,6 +87,10 @@ BOOL JOStringIsInt(NSString *string) {
     return [scan scanInt:&val] && [scan isAtEnd];
 }
 
+- (BOOL)joStringIsInt {
+    return JOStringIsInt(self);
+}
+
 BOOL JOStringIsFloat(NSString *string) {
     
     NSScanner* scan = [NSScanner scannerWithString:string];
@@ -73,9 +98,16 @@ BOOL JOStringIsFloat(NSString *string) {
     return [scan scanFloat:&val] && [scan isAtEnd];
 }
 
+- (BOOL)joStringIsFloat {
+    return JOStringIsFloat(self);
+}
+
 NSUInteger JOConvertHexStringToInt(NSString *string) {
-    
     return strtoul([string UTF8String], 0, 16);
+}
+
+- (NSUInteger)joConvertHexStringToInt {
+    return JOConvertHexStringToInt(self);
 }
 
 NSString *JOConvertIntToHexString(long long int intValue) {
@@ -101,15 +133,17 @@ NSString *JOConvertIntToHexString(long long int intValue) {
             case 15:
                 tempValue =@"F";break;
             default:tempValue=[[NSString alloc]initWithFormat:@"%lli",temp];
-                
         }
         hexString = [tempValue stringByAppendingString:hexString];
         if (intValue == 0) {
             break;
         }
-        
     }
     return hexString;
+}
+
++ (NSString *)joConvertToHexStringWithInt:(long long int) intValue {
+    return JOConvertIntToHexString(intValue);
 }
 
 BOOL JOStringIsValidPhoneNumber(NSString *string) {
@@ -134,6 +168,10 @@ BOOL JOStringIsValidPhoneNumber(NSString *string) {
     }
 }
 
+- (BOOL)joStringIsValidPhoneNumber {
+    return JOStringIsValidPhoneNumber(self);
+}
+
 BOOL JOStringIsValidEmail(NSString *string) {
     
     //    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
@@ -149,6 +187,10 @@ BOOL JOStringIsValidEmail(NSString *string) {
     return [predicate evaluateWithObject:string];
 }
 
+- (BOOL)joStringIsValidEmail {
+    return JOStringIsValidEmail(self);
+}
+
 BOOL JOStringIsValidPassword(NSString *string) {
     
     NSString *pattern = @"^[a-zA-Z0-9]{6,16}$";
@@ -160,19 +202,26 @@ BOOL JOStringIsValidPassword(NSString *string) {
     return NO;
 }
 
+- (BOOL)joStringIsValidPassword {
+    return JOStringIsValidPassword(self);
+}
+
 BOOL JOStringIsValidIDCardNum(NSString *string) {
     
-    if (string.length > 18 || JONormalString(string).length == 0)
-        return NO;
-    
+    if (string.length > 18 || JONormalString(string).length == 0) {
+       return NO;
+    }
+
     NSString *num = @"^(\\d{15}$|^\\d{18}$|^\\d{17}(\\d|X|x))$";
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", num];
-    if ([predicate evaluateWithObject:string])
-    {
+    if ([predicate evaluateWithObject:string]) {
         return YES;
     }
     return NO;
+}
+
+- (BOOL)joStringIsValidIDCardNum {
+    return JOStringIsValidIDCardNum(self);
 }
 
 #pragma mark - Attributed String
@@ -363,12 +412,20 @@ NSString *JODateFormat(NSDate *date,NSString *formatter) {
     return [dateFormatter stringFromDate:date];
 }
 
-NSString *JODateFormatString(NSString *dateString,NSString *formatter) {
+- (NSString *)joDateStringWithDate:(NSDate *)date format:(NSString *)formatter {
+    return JODateFormat(date,formatter);
+}
+
+NSString *JODateStringFormat(NSString *dateString,NSString *formatter) {
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:kDateFormatterComplete];
     NSDate *date = [dateFormatter dateFromString:dateString];
     return JODateFormat(date,formatter);
+}
+
+- (NSString *)joDateStringWithForamt:(NSString *)formatter {
+    return JODateStringFormat(self, formatter);
 }
 
 NSString *JODateFormatTimeline(NSString *timelineString,NSString *formatter) {
@@ -377,9 +434,17 @@ NSString *JODateFormatTimeline(NSString *timelineString,NSString *formatter) {
     return JODateFormat(date, formatter);
 }
 
+- (NSString *)joDateFormatTimelineWithForamt:(NSString *)formatter {
+    return JODateFormatTimeline(self,formatter);
+}
+
 NSString *JODateConvertToTimelineString(NSDate *date) {
 
     return [NSString stringWithFormat:@"%.f",[date timeIntervalSince1970]];
+}
+
++ (NSString *)joDateConvertToTimelineStringWithDate:(NSDate *)date {
+    return JODateConvertToTimelineString(date);
 }
 
 NSString *JODateCustomFormatTimeline(NSString *timelineString,NSInteger days) {
@@ -388,9 +453,18 @@ NSString *JODateCustomFormatTimeline(NSString *timelineString,NSInteger days) {
     return JODateCustomFormat(date, days);
 }
 
+- (NSString *)joDateCustomFormatTimelineWithDays:(NSInteger)days {
+    return JODateCustomFormatTimeline(self,days);
+}
+
+
 NSString *JODateCustomDefaultFormatTimeline(NSString *timelineString) {
     
     return JODateCustomFormatTimeline(timelineString, 5);
+}
+
+- (NSString *)joDateCustomDefaultFormatTimeline {
+    return JODateCustomDefaultFormatTimeline(self);
 }
 
 NSString *JODateCustomFormat(NSDate *date,NSInteger days) {
@@ -412,9 +486,17 @@ NSString *JODateCustomFormat(NSDate *date,NSInteger days) {
     return format;
 }
 
++ (NSString *)joDateCustomFormatWithDate:(NSDate *)date days:(NSInteger)days {
+    return JODateCustomFormat(date,days);
+}
+
 NSString *JODateCustomDefaultFormat(NSDate *date) {
 
     return JODateCustomFormat(date,5);
+}
+
++ (NSString *)joDateCustomDefaultFormatWithDate:(NSDate *)date {
+    return JODateCustomDefaultFormat(date);
 }
 
 @end

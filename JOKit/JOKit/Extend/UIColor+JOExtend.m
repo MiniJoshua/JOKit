@@ -14,8 +14,16 @@ UIColor *JORandomColor() {
     return [UIColor colorWithRed:arc4random()%256/255.f green:arc4random()%256/255.f blue:arc4random()%256/255.f alpha:fabs(1.)];
 }
 
++ (UIColor *)joRandomColor {
+    return JORandomColor();
+}
+
 UIColor *JORGBToColor(JORGB rgbColor) {
     return [UIColor colorWithRed:rgbColor.r green:rgbColor.g blue:rgbColor.b alpha:rgbColor.a];
+}
+
++ (UIColor *)joRGBToColor:(JORGB )rgbColor {
+    return JORGBToColor(rgbColor);
 }
 
 #pragma mark - Private:hexRGB to UIColor
@@ -108,10 +116,13 @@ sscanf([hexString UTF8String], "%X", &result);\
             a = 1.;
         }
     }
-    
     return JORGBAMake(r, g, b, a);
     
 #undef JOHexStringToInt
+}
+
++ (UIColor *)joHexRGBStringToColorWithHexString:(NSString *)hexString {
+    return JOHexRGBStringToColor(hexString);
 }
 
 UIColor *JOHexRGBStringDefineAlphaToColor(NSString *hexString,CGFloat alpha) {
@@ -124,10 +135,14 @@ UIColor *JOHexRGBStringDefineAlphaToColor(NSString *hexString,CGFloat alpha) {
     return [UIColor colorWithRed:r green:g blue:b alpha:alpha];
 }
 
++ (UIColor *)joHexRGBStringToColorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha {
+    return JOHexRGBStringDefineAlphaToColor(hexString,alpha);
+}
+
 #pragma mark - private UIColor to hexstring
 #pragma mark -
 
-NSString *JOConvertColorToRGBHexStringWithAlphaState(UIColor *color,BOOL state){
+NSString *JOConvertColorToRGBHexStringWithAlphaState(UIColor *color,BOOL state) {
     
     CGColorRef colorRef = color.CGColor;
     size_t count = CGColorGetNumberOfComponents(colorRef);
@@ -151,17 +166,23 @@ NSString *JOConvertColorToRGBHexStringWithAlphaState(UIColor *color,BOOL state){
     return hex;
 }
 
-NSString *JOColorToRGBHexString(UIColor *color){
-
+NSString *JOColorToRGBHexString(UIColor *color) {
     return JOConvertColorToRGBHexStringWithAlphaState(color, NO);
 }
 
-NSString *JOColorToRGBAHexString(UIColor *color){
+- (NSString *)joColorToRGBHexString {
+    return JOColorToRGBHexString(self);
+}
 
+NSString *JOColorToRGBAHexString(UIColor *color) {
     return JOConvertColorToRGBHexStringWithAlphaState(color, YES);
 }
 
-uint32_t JOColorToRGBHex(UIColor *color){
+- (NSString *)joColorToRGBAHexString {
+    return JOColorToRGBAHexString(self);
+}
+
+uint32_t JOColorToRGBHex(UIColor *color) {
 
     CGFloat r = 0, g = 0, b = 0, a = 0;
     [color getRed:&r green:&g blue:&b alpha:&a];
@@ -171,7 +192,11 @@ uint32_t JOColorToRGBHex(UIColor *color){
     return (red << 16) + (green << 8) + blue;
 }
 
-uint32_t JOColorToRGBAHex(UIColor *color){
+- (uint32_t)joColorToRGBHex {
+    return JOColorToRGBHex(self);
+}
+
+uint32_t JOColorToRGBAHex(UIColor *color) {
 
     CGFloat r = 0, g = 0, b = 0, a = 0;
     [color getRed:&r green:&g blue:&b alpha:&a];
@@ -182,10 +207,14 @@ uint32_t JOColorToRGBAHex(UIColor *color){
     return (red << 24) + (green << 16) + (blue << 8) + alpha;
 }
 
+- (uint32_t)joColorToRGBAHex {
+    return JOColorToRGBAHex(self);
+}
+
 #pragma mark - JORGB 与 UIColor 十六进制颜色表示 之间的转换
 #pragma mark -
 
-JORGB JOColorToJORGB(UIColor *color){
+JORGB JOColorToJORGB(UIColor *color) {
 
     CGFloat r = 0, g = 0, b = 0, a = 0;
     [color getRed:&r green:&g blue:&b alpha:&a];
@@ -203,20 +232,30 @@ JORGB JOColorToJORGB(UIColor *color){
     return rgbColor;
 }
 
-JORGB JOHexRGBStringToJORGB(NSString *hexString){
+- (JORGB)joColorToJORGB {
+    return JOColorToJORGB(self);
+}
 
+JORGB JOHexRGBStringToJORGB(NSString *hexString) {
     return JOColorToJORGB(JOHexRGBStringToColor(hexString));
 }
 
-JORGB JOHexRGBStringDefineAlphaToJORGB(NSString *hexString,CGFloat alpha){
++ (JORGB)joHexRGBStringToJORGBWithHexString:(NSString *)hexString {
+    return JOHexRGBStringToJORGB(hexString);
+}
 
+JORGB JOHexRGBStringDefineAlphaToJORGB(NSString *hexString,CGFloat alpha) {
     return JOColorToJORGB(JOHexRGBStringDefineAlphaToColor(hexString, alpha));
+}
+
++ (JORGB)joHexRGBStringToJORGBWithHexString:(NSString *)hexString alpha:(CGFloat)alpha {
+    return JOHexRGBStringDefineAlphaToJORGB(hexString,alpha);
 }
 
 #pragma mark - UIColor Space Model
 #pragma mark -
 
-NSString *JOColorSpaceModel(UIColor *color){
+NSString *JOColorSpaceModel(UIColor *color) {
 
     CGColorSpaceModel model =  CGColorSpaceGetModel(CGColorGetColorSpace(color.CGColor));
     switch (model) {
@@ -247,6 +286,10 @@ NSString *JOColorSpaceModel(UIColor *color){
         default:
             return @"ColorSpaceInvalid";
     }
+}
+
+- (NSString *)joColorSpaceModel {
+    return JOColorSpaceModel(self);
 }
 
 @end

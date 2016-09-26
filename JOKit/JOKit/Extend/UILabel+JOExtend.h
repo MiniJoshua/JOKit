@@ -47,9 +47,6 @@ JO_STATIC_INLINE UILabel *JONewLabel(JOFont *font,NSInteger numberLines,NSTextAl
  */
 - (void)setJOFont:(JOFont *)font;
 
-#pragma mark - 动态大小获取
-#pragma mark -
-
 /**
  *  动态宽度获取.
  *
@@ -58,6 +55,7 @@ JO_STATIC_INLINE UILabel *JONewLabel(JOFont *font,NSInteger numberLines,NSTextAl
  *  @return 宽度.
  */
 JO_EXTERN CGFloat JOLabelDynamicWidth(UILabel *label);
+- (CGFloat)joLabelDynamicWidth;
 
 /**
  *  动态高度获取.
@@ -68,5 +66,6 @@ JO_EXTERN CGFloat JOLabelDynamicWidth(UILabel *label);
  *  @return 动态高度.
  */
 JO_EXTERN CGFloat JOLabelDynamicHeight(UILabel *label,CGFloat width);
+- (CGFloat)joLabelDynamicHeight:(CGFloat)width;
 
 @end

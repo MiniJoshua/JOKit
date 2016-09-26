@@ -474,11 +474,11 @@ NSString *JODateCustomFormat(NSDate *date,NSInteger days) {
     if (hours <= 0) {
         format = @"刚刚";
     } else if (hours > 0 && hours <= 24) {
-        format = [NSString stringWithFormat:@"%ld小时前", hours];
+        format = [NSString stringWithFormat:@"%ld小时前", (long)hours];
     } else {
         NSInteger day = ABS(MIN(([date timeIntervalSinceDate:[NSDate date]])/kSeconds_Day, 0));
         if (day < days) {
-            format = [NSString stringWithFormat:@"%ld天前", days];
+            format = [NSString stringWithFormat:@"%ld天前", (long)days];
         } else {
             format = JODateFormat(date,kDateFormatterYear_Month_Day);
         }

@@ -423,7 +423,7 @@ NSInteger JODateRemainYears(NSDate *toDate) {
 
 NSString *JODateRemainTimeString(NSDate *toDate) {
     
-    return [NSString stringWithFormat:@"%ld年%ld月%ld日 %ld时%ld分%ld秒",JODateRemainYears(toDate),JODateRemainMonths(toDate),JODateRemainDays(toDate),JODateRemainHours(toDate),JODateRemainMinutes(toDate),JODateRemainSeconds(toDate)];
+    return [NSString stringWithFormat:@"%ld年%ld月%ld日 %ld时%ld分%ld秒",(long)JODateRemainYears(toDate),(long)JODateRemainMonths(toDate),(long)JODateRemainDays(toDate),(long)JODateRemainHours(toDate),(long)JODateRemainMinutes(toDate),(long)JODateRemainSeconds(toDate)];
 }
 
 + (NSString *)joDateRemainTimeStringToDate:(NSDate *)date {

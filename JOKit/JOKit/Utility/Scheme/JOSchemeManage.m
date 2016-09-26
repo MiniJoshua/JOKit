@@ -9,6 +9,7 @@
 #import "JOSchemeManage.h"
 #import "JOExceptionHelper.h"
 #import "JOSchemeItem.h"
+#import "NSObject+JOExtend.h"
 
 @interface JOSchemeManage()
 
@@ -88,58 +89,40 @@
     }
     va_end(args);
     
-    NSString *openFormat = [[format componentsSeparatedByString:@":"] firstObject];
-    NSMutableArray *array = [NSMutableArray array];
-    [_paramsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([obj isKindOfClass:[NSString class]]) {
-            [array addObject:obj];
-        }else if ([obj isKindOfClass:[NSArray class]]) {
-            [array addObject:[obj componentsJoinedByString:@","]];
-        }else {
-            JOException(@"JOSchemeManage exception", @"open:params: param是不支持的类型,仅支持NSString NSArray");
-            *stop = YES;
-        }
-    }];
+    NSString *replaceFormat = [format stringByReplacingOccurrencesOfString:@":" withString:@""];
     
-    if ([array count]) {
-        [self open:[NSString stringWithFormat:@"%@:%@",openFormat,[array componentsJoinedByString:@"/"]]];
+    if (replaceFormat && [replaceFormat length]) {
+        JOSchemeItem *item = [_maps objectForKey:replaceFormat];
+        [item itemOpenWithparams:_paramsArray];
+        
+        if (!self.baseNavigationController) {
+            JOException(@"JOSchemeManage exception",@"请先设置NavigationController");
+            return;
+        }
+        
+        //如果是模态的状态需要先disMiss后再操作
+        if (self.baseNavigationController.presentedViewController) {
+            [self.baseNavigationController dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+        //根据返回的ViewController是否是UINavigationController的类来判断是否需要模态显示该视图
+        UIViewController *toViewController = [item viewController];
+        if ([toViewController isKindOfClass:[UINavigationController class]]) {
+            [self.baseNavigationController presentViewController:toViewController animated:YES completion:nil];
+        }else {
+            
+            [self.baseNavigationController pushViewController:toViewController animated:YES];
+        }
+        
     }else {
-        [self open:[NSString stringWithFormat:@"%@:",openFormat]];
+        JOException(@"JOSchemeManage exception.", @"open: format 不能为空");
     }
+    
 }
 
 - (void)open:(NSString *)format {
-
-    NSString *keyString = @"";
-    NSArray *schemeArray = [format componentsSeparatedByString:@":"];
-    if ([schemeArray count]) {
-        keyString = [schemeArray firstObject];
-    }else {
-        JOException(@"JOSchemeManage exception",@"open: format仅支持obj:param1/param2/param3 or obj:param1 or obj: or obj");
-    }
     
-    JOSchemeItem *item = [_maps objectForKey:keyString];
-    [item itemOpen:format];
-    
-    if (!self.baseNavigationController) {
-        JOException(@"JOSchemeManage exception",@"请先设置NavigationController");
-        return;
-    }
-    
-    //如果是模态的状态需要先disMiss后再操作
-    if (self.baseNavigationController.presentedViewController) {
-        [self.baseNavigationController dismissViewControllerAnimated:YES completion:nil];
-    }
-    
-    //根据返回的ViewController是否是UINavigationController的类来判断是否需要模态显示该视图
-    UIViewController *toViewController = [item viewController];
-    if ([toViewController isKindOfClass:[UINavigationController class]]) {
-        [self.baseNavigationController presentViewController:toViewController animated:YES completion:nil];
-    }else {
-    
-        [self.baseNavigationController pushViewController:toViewController animated:YES];
-    }
+    [self open:format params:nil];
 }
 
 - (void)openExternal:(NSString *)url {

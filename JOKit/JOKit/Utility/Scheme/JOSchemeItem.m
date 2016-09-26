@@ -100,61 +100,18 @@ if (!format || ![format length]) { \
     }
 }
 
-- (void)itemOpen:(NSString *)format {
-
-    FormatAssert(format);
+- (void)itemOpenWithparams:(NSArray *)params {
     
     self.paramDics = [NSMutableDictionary dictionary];
-    NSArray *schemeArray = [format componentsSeparatedByString:@":"];
-    
-    if ([schemeArray count] == 1){
-        
-        self.paramsValue = [NSArray array];
-    }else if ([schemeArray count] == 2){
-        
-        JOBlock_Variable BOOL correctState = YES;
-        NSArray *paramsArray = [[schemeArray lastObject] componentsSeparatedByString:@"/"];
-        
-        if ([paramsArray count] == [_params count]) {
-            [paramsArray enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (!obj || ![obj length]) {
-                    correctState = NO;
-                    *stop = YES;
-                }
-            }];
-            
-            if (correctState) {
-                
-                NSMutableArray *checkParamsArray = [NSMutableArray array];
-                
-                [paramsArray enumerateObjectsUsingBlock:^(NSString  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    
-                    if ([[obj componentsSeparatedByString:@","] count] >1) {
-                        //代表数组
-                        [checkParamsArray addObject:[obj componentsSeparatedByString:@","]];
-                    }else {
-                        [checkParamsArray addObject:obj];
-                    }
-                }];
-                
-                self.paramsValue = nil;
-                self.paramsValue = [checkParamsArray copy];
-            }
-            
-            [_params enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [_paramDics setObject:_paramsValue[idx] forKey:obj];
-            }];
-            
-        }else {
-            if (_params) {
-                JOException(@"JOSchemeItem exception.",@"map传的格式与open传的格式不一致,请检查");
-            }
-            return;
-        }
-        
+
+    if ([_params count] == [params count]) {
+        [_params enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [_paramDics setObject:params[idx] forKey:obj];
+        }];
     }else {
-        JOException(@"JOSchemeItem exception.",@"itemOpen: format仅支持obj:param1/param2/param3 or obj:param1 or obj: or obj");
+        JOException(@"JOSchemeItem exception.", @"itemOpen: params的数量与Map中给定的params数量不一致");
     }
+
 }
 
 @end

@@ -35,6 +35,6 @@
  *
  *  @param format 地址.
  */
-- (void)itemOpen:(NSString *)format;
+- (void)itemOpenWithparams:(NSArray *)params;
 
 @end

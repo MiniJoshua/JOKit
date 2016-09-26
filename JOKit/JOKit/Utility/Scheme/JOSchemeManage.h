@@ -36,19 +36,18 @@ static NSString *const kModelKey = @"Model";
 - (void)map:(NSString *)format blindClass:(Class)bindClass;
 - (void)map:(NSString *)format blindClass:(Class)bindClass isModel:(BOOL)modelState;
 
-
 /**
  *  打开一个地址.
  *
- *  @param format 地址 : viewMap:123/435,546/324  其中用,分隔的代表这个为数组
+ *  @param format 地址 : viewMap 代表无参数的形式
  */
 - (void)open:(NSString *)format;
 
 /**
  *  打开一个地址
  *
- *  @param format 地址 :viewMap: 或者 viewMap
- *  @param param1 参数 :只可以是字符串或者数组类型,数量必须与Map提交的数量一致
+ *  @param format 地址 :viewMap.
+ *  @param param1 参数 :现在可以是任何类型的参数形式. 顺序必须保持与map中给定的一致,不然你取的值可能错乱. plist里面Params里面的顺序跟这个需要保持一致.
  */
 - (void)open:(NSString *)format params:(id)param1,...;
 

@@ -41,7 +41,7 @@ ss.source_files  = 'JOKit/**/JOKit.h'
 end
 
 s.subspec 'Macro' do |ss|
-ss.source_files = 'JOKit/**/Macro/*.h'
+ss.source_files  = 'JOKit/**/Macro/*.h'
 #ss.source_files = 'JOKit/**/Macro/JODateMacro.h'
 end
 

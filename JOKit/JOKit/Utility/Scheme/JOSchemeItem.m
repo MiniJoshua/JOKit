@@ -82,12 +82,15 @@ if (!format || ![format length]) { \
 - (UIViewController *)viewController {
     
     SEL initSelector = sel_registerName("initWithSchemeParams:");
+    SEL initSelector1 = sel_registerName("init");
     
     UIViewController *viewController = nil;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if ([_bindClass instancesRespondToSelector:initSelector]) {
         viewController = [[_bindClass alloc] performSelector:initSelector withObject:_paramDics];
+    }else if([_bindClass instancesRespondToSelector:initSelector1]) {
+        viewController = [[_bindClass alloc] performSelector:initSelector1];
     }
 #pragma clang diagnostic pop
     

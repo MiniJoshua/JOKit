@@ -34,6 +34,7 @@
 #import "CGGeometry+JOExtend.h"
 #import "NSDate+JOExtend.h"
 #import "UIView+JOAutolayout.h"
+#import "CALayer+JOExtend.h"
 
 //Net
 #import "JONetRequestConfig.h"

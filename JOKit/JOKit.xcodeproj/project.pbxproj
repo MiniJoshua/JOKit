@@ -79,7 +79,9 @@
 		423DCF401D547BFB008263E7 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCF2E1D547BFB008263E7 /* UIProgressView+AFNetworking.m */; };
 		423DCF411D547BFB008263E7 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCF301D547BFB008263E7 /* UIRefreshControl+AFNetworking.m */; };
 		423DCF421D547BFB008263E7 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCF321D547BFB008263E7 /* UIWebView+AFNetworking.m */; };
+		42655B8D1DA8CA81008BE82D /* CALayer+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */; };
 		42672A511D50820700051FE1 /* JOKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42672A501D50820700051FE1 /* JOKit.h */; };
+		429E606B1D9D0CA500B4A8BE /* CALayer+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */; };
 		42B7F4561D597A59000AC728 /* JOSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4551D597A59000AC728 /* JOSignal.m */; };
 		42B7F4571D5987B2000AC728 /* JOSignal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42B7F4541D597A59000AC728 /* JOSignal.h */; };
 		42B7F45A1D59DE29000AC728 /* JONetManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4591D59DE29000AC728 /* JONetManage.m */; };
@@ -105,6 +107,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				42655B8D1DA8CA81008BE82D /* CALayer+JOExtend.h in CopyFiles */,
 				42E8029A1D914AA200EE89B6 /* JODateMacro.h in CopyFiles */,
 				42E802981D90E35600EE89B6 /* NSDate+JOExtend.h in CopyFiles */,
 				4206AF481D7D8999002F6397 /* JOSchemeManage.h in CopyFiles */,
@@ -255,6 +258,8 @@
 		423DCF321D547BFB008263E7 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		42672A4D1D50820700051FE1 /* libJOKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJOKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		42672A501D50820700051FE1 /* JOKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JOKit.h; sourceTree = "<group>"; };
+		429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+JOExtend.h"; sourceTree = "<group>"; };
+		429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+JOExtend.m"; sourceTree = "<group>"; };
 		42B7F4541D597A59000AC728 /* JOSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOSignal.h; sourceTree = "<group>"; };
 		42B7F4551D597A59000AC728 /* JOSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOSignal.m; sourceTree = "<group>"; };
 		42B7F4581D59DE29000AC728 /* JONetManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JONetManage.h; sourceTree = "<group>"; };
@@ -361,6 +366,8 @@
 				42DE04D71D8FF36400393991 /* NSDate+JOExtend.h */,
 				42DE04D81D8FF36400393991 /* NSDate+JOExtend.m */,
 				422EFAD71D51C10200E427F6 /* CGGeometry+JOExtend.h */,
+				429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */,
+				429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */,
 			);
 			path = Extend;
 			sourceTree = "<group>";
@@ -716,6 +723,7 @@
 				422EFAFD1D51FBEC00E427F6 /* JOFileHelper.m in Sources */,
 				423DCF091D547BE9008263E7 /* JSONModel+networking.m in Sources */,
 				423DCF3A1D547BFB008263E7 /* AFAutoPurgingImageCache.m in Sources */,
+				429E606B1D9D0CA500B4A8BE /* CALayer+JOExtend.m in Sources */,
 				423DCF401D547BFB008263E7 /* UIProgressView+AFNetworking.m in Sources */,
 				422EFB011D51FCEE00E427F6 /* JOLogHelper.m in Sources */,
 				42B7F45A1D59DE29000AC728 /* JONetManage.m in Sources */,

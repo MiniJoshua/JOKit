@@ -10,6 +10,7 @@
 
 static NSString *const kJOAnimationValueKey = @"kJOAnimationValueKey";
 static NSString *const kJOAnimationGroupKey = @"kJOAnimationGroupKey";
+static NSString *const kJOAnimationSpringKey = @"kJOAnimationSpringKey";
 
 @interface CALayer()<CAAnimationDelegate>
 
@@ -107,11 +108,9 @@ if (animationBlock) { \
     [self joLayerAnimationWithKeyPath:keyPath values:values duration:duration repeatCount:repeatCount animationBlock:nil animationDelegateBlock:nil];
 }
 
-
 - (void)joLayerAnimationWithBackgoundColors:(NSArray *)colors duration:(NSTimeInterval)duration repeatCount:(CGFloat)repeatCount {
     [self joLayerAnimationWithKeyPath:kJOLayerKeyPathBackgoundColor values:colors duration:duration repeatCount:repeatCount animationBlock:nil animationDelegateBlock:nil];
 }
-
 
 - (void)joLayerAnimationWithPositions:(NSArray <NSValue *>*)positions duration:(NSTimeInterval)duration repeatCount:(CGFloat)repeatCount {
     [self joLayerAnimationWithKeyPath:kJOLayerKeyPathPosition values:positions duration:duration repeatCount:repeatCount animationBlock:nil animationDelegateBlock:nil];
@@ -165,7 +164,48 @@ if (animationBlock) { \
     [self joLayerAnimationWithArray:animationArray duration:duration repeatCount:repeatCount animationBlock:nil animationDelegateBlock:nil];
 }
 
+#pragma mark - CASpringAnimation
+#pragma mark -
+
+- (void)joLayerSpringAnimationWithKeyPath:(NSString *)keyPath
+                                fromValue:(id)fromValue
+                                  toValue:(id)toValue
+                                     mass:(CGFloat)mass
+                                stiffness:(CGFloat)stiffness
+                                  damping:(CGFloat)damping
+                            startVelocity:(CGFloat)velocity
+                           animationBlock:(JOAnimationBlock)animationBlock
+                   animationDelegateBlock:(JOAnimationDelegateBlock)delegateBlock {
+    
+    [self addBlockToDicWithKey:keyPath block:delegateBlock];
+    CASpringAnimation *springAnimation = [CASpringAnimation animationWithKeyPath:keyPath];
+    [springAnimation setValue:keyPath forKey:kJOAnimationValueKey];
+    springAnimation.fromValue = fromValue;
+    springAnimation.toValue = toValue;
+    springAnimation.mass = mass;
+    springAnimation.stiffness = stiffness;
+    springAnimation.damping = damping;
+    springAnimation.initialVelocity = velocity;
+    springAnimation.duration = springAnimation.settlingDuration;
+    springAnimation.delegate = self;
+    if (animationBlock) {
+        animationBlock(self,springAnimation);
+    }
+    [self addAnimation:springAnimation forKey:nil];
+}
+
+- (void)joLayerSpringAnimationWithKeyPath:(NSString *)keyPath
+                                fromValue:(id)fromValue
+                                  toValue:(id)toValue
+                                     mass:(CGFloat)mass
+                                stiffness:(CGFloat)stiffness
+                                  damping:(CGFloat)damping
+                            startVelocity:(CGFloat)velocity {
+    [self joLayerSpringAnimationWithKeyPath:keyPath fromValue:fromValue toValue:toValue mass:mass stiffness:stiffness damping:damping startVelocity:velocity animationBlock:nil animationDelegateBlock:nil];
+}
+
 #pragma mark - Animation Delegate
+#pragma mark -
 
 - (void)animationDidStart:(CAAnimation *)anim {
     

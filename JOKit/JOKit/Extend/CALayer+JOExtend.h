@@ -173,4 +173,37 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
                          duration:(NSTimeInterval)duration
                       repeatCount:(CGFloat)repeatCount;
 
+#pragma mark - CASpringAnimation
+#pragma mark - 
+
+/**
+ 执行一个弹簧性质的动画.为给定动画的持续时间:是因为这个最好是按其提供的结算时间(settlingDuration)去设置.
+
+ @param keyPath        对应的属性.
+ @param fromValue      初始值.
+ @param toValue        到达的值.
+ @param mass           质量. 默认值为1（影响弹簧的惯性，质量越大，弹簧惯性越大，运动的幅度越大）
+ @param stiffness      弹性系数. 默认值为100（弹性系数越大，弹簧的运动越快）
+ @param damping        阻尼系数. 默认值为10（阻尼系数越大，弹簧的停止越快)
+ @param velocity       初始速率. 默认值为0（弹簧动画的初始速度大小，弹簧运动的初始方向与初始速率的正负一致，若初始速率为0，表示忽略该属性）
+ @param animationBlock JOAnimationBlock
+ @param delegateBlock  JOAnimationDelegateBlock
+ */
+- (void)joLayerSpringAnimationWithKeyPath:(NSString *)keyPath
+                                fromValue:(id)fromValue
+                                  toValue:(id)toValue
+                                     mass:(CGFloat)mass
+                                stiffness:(CGFloat)stiffness
+                                  damping:(CGFloat)damping
+                            startVelocity:(CGFloat)velocity
+                           animationBlock:(JOAnimationBlock)animationBlock
+                   animationDelegateBlock:(JOAnimationDelegateBlock)delegateBlock;
+
+- (void)joLayerSpringAnimationWithKeyPath:(NSString *)keyPath
+                                fromValue:(id)fromValue
+                                  toValue:(id)toValue
+                                     mass:(CGFloat)mass
+                                stiffness:(CGFloat)stiffness
+                                  damping:(CGFloat)damping
+                            startVelocity:(CGFloat)velocity;
 @end

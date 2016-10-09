@@ -76,7 +76,6 @@
 @property (nonatomic) CGPoint       origin;
 @property (nonatomic) CGSize        size;
 
-
 /**
  中心点的位移.
 
@@ -97,6 +96,82 @@
  @param size 给定的Size.
  */
 - (void)joSizeToFit:(CGSize)size;
+
+@end
+
+@interface UIView(JOMotionEffectExtend)
+
+//@property (nonatomic, strong, readonly) UIMotionEffectGroup *motionEffectGroup;
+
+/**
+ 添加X轴跟Y轴上面的位移距离使其达到动态展现的效果.
+
+ @param offsetX X轴的位移距离.
+ @param offsetY Y轴的位移距离.
+ */
+- (void)joAddMotionEffectWithXAxisOffset:(CGFloat)offsetX YAxisOffset:(CGFloat)offsetY;
+
+/**
+ 移除动态展现的效果.
+ */
+- (void)joRemoveMotionEffectExtend;
+
+@end
+
+typedef NS_ENUM(NSUInteger, JOAnimation){
+    
+    JOAnimationFade,                    //淡入淡出
+    JOAnimationPush,                    //推入
+    JOAnimationReveal,                  //揭开
+    JOAnimationMoveIn,                  //覆盖
+    JOAnimationCube,                    //立方体的效果
+    JOAnimationOglFlip,                 //翻转
+    JOAnimationSuckEffect,              //吸收
+    JOAnimationRippleEffect,            //波纹
+    JOAnimationPageCurl,                //翻页
+    JOAnimationUnPageCurl,              //反翻页
+    JOAnimationCameraIrisHollowOpen,    //镜头打开的效果
+    JOAnimationCameraIrisHollowClose,   //镜头关闭的效果
+    JOAnimationCurlDown,                //下翻页
+    JOAnimationCurlUp,                  //上翻页
+    JOAnimationFlipFromLeft,            //左翻转
+    JOAnimationFlipFromRight,           //右翻转
+};
+
+typedef NS_ENUM(NSUInteger, JODirection) {
+    
+    JODirectionLeft,
+    JODirectionRight,
+    JODirectionTop,
+    JODirectionBottom,
+};
+
+typedef NS_ENUM(NSUInteger, JOAnimationCurve) {
+    JOAnimationCurveEaseInOut,
+    JOAnimationCurveEaseIn,
+    JOAnimationCurveEaseOut,
+    JOAnimationCurveLinear,
+};
+
+@interface UIView(JOAnimationExtend)
+
+/**
+ 执行一个系统提供的动画.
+
+ @param duration      动画的时长. 默认的时长:0.5s.
+ @param animationType 动画的类型. 具体的动画类型参考JOAnimation.
+ @param directionType 动画的方向. e.g:MoveIn的动画是从左进入的还是从右进入的...  默认的方向是:从左进入 JODirectionLeft
+ @param timingOptions 线性的函数. 默认:UIViewAnimationOptionCurveEaseInOut
+ */
+- (void)joAnimationWithDuration:(NSTimeInterval)duration
+                      animation:(JOAnimation)animation
+                      direction:(JODirection)direction
+                 animationCurve:(JOAnimationCurve)animationCurve;
+- (void)joAnimationWithDuration:(NSTimeInterval)duration
+                      animation:(JOAnimation)animation
+                      direction:(JODirection)direction;
+- (void)joAnimationWithDuration:(NSTimeInterval)duration animation:(JOAnimation)animation;
+- (void)joAnimationWithAnimation:(JOAnimation)animation;
 
 
 @end

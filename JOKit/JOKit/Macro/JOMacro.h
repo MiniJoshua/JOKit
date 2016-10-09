@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 #import <sys/time.h>
 
 #ifndef JOMacro_h

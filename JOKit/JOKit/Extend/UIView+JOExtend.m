@@ -69,6 +69,14 @@
     [[self layer] setBorderColor:color.CGColor];
 }
 
+- (void)joViewBlurWithEffectStyle:(UIBlurEffectStyle)style {
+    
+    UIBlurEffect *blurEffect=[UIBlurEffect effectWithStyle:style];
+    UIVisualEffectView *visualEffectView=[[UIVisualEffectView alloc]initWithEffect:blurEffect];
+    [visualEffectView setFrame:self.bounds];
+    [self addSubview:visualEffectView];
+}
+
 @end
 
 @implementation UIView(JOFrameExtend)

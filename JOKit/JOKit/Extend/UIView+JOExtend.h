@@ -49,6 +49,13 @@
 /*设置view的border的宽度跟颜色*/
 - (void)joViewBorderWidth:(CGFloat)width color:(UIColor *)color;
 
+/**
+ 给视图View增加毛玻璃的效果.
+
+ @param style 模糊的样式.
+ */
+- (void)joViewBlurWithEffectStyle:(UIBlurEffectStyle)style;
+
 @end
 
 @interface UIView(JOFrameExtend)

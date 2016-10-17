@@ -10,7 +10,6 @@
 
 static NSString *const kJOAnimationValueKey = @"kJOAnimationValueKey";
 static NSString *const kJOAnimationGroupKey = @"kJOAnimationGroupKey";
-static NSString *const kJOAnimationSpringKey = @"kJOAnimationSpringKey";
 
 @interface CALayer()<CAAnimationDelegate>
 
@@ -41,14 +40,15 @@ JO_DYNAMIC_PROPERTY_OBJECT(animationBlockDic,setAnimationBlockDic,RETAIN,NSMutab
 [animation setValue:keyPath forKey:kJOAnimationValueKey]; \
 animation.duration = duration; \
 animation.delegate = self; \
+if (animationBlock) { \
+animationBlock(self,animation); \
+} \
 if (repeatCount == 0.) { \
     animation.repeatCount = INFINITY; \
 }else { \
     animation.repeatCount = repeatCount; \
 } \
-if (animationBlock) { \
-    animationBlock(self,animation); \
-} \
+
 
 #pragma mark  - CABasicAnimation
 #pragma mark  -
@@ -80,6 +80,46 @@ if (animationBlock) { \
 
 #pragma mark  - CAKeyframeAnimation
 #pragma mark  -
+
+- (void)joLayerAnimationWithKeyPath:(NSString *)keyPath
+                               path:(CGPathRef)path
+                           duration:(NSTimeInterval)duration
+                        repeatCount:(CGFloat)repeatCount
+                     animationBlock:(JOAnimationBlock)animationBlock
+             animationDelegateBlock:(JOAnimationDelegateBlock)delegateBlock {
+
+    [self addBlockToDicWithKey:keyPath block:delegateBlock];
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:keyPath];
+    animation.path = path;
+    JOAnimationSetup;
+    [self addAnimation:animation forKey:nil];
+}
+
+- (void)joLayerAnimationWithPath:(CGPathRef)path
+                        duration:(NSTimeInterval)duration
+                     repeatCount:(CGFloat)repeatCount
+                  animationBlock:(JOAnimationBlock)animationBlock
+          animationDelegateBlock:(JOAnimationDelegateBlock)delegateBlock {
+
+    [self joLayerAnimationWithKeyPath:kJOLayerKeyPathPosition
+                                 path:path
+                             duration:duration
+                          repeatCount:repeatCount
+                       animationBlock:animationBlock
+               animationDelegateBlock:delegateBlock];
+}
+
+- (void)joLayerAnimationWithPath:(CGPathRef)path
+                        duration:(NSTimeInterval)duration
+                     repeatCount:(CGFloat)repeatCount {
+    [self joLayerAnimationWithKeyPath:kJOLayerKeyPathPosition
+                                 path:path
+                             duration:duration
+                          repeatCount:repeatCount
+                       animationBlock:nil
+               animationDelegateBlock:nil];
+}
 
 - (void)joLayerAnimationWithKeyPath:(NSString *)keyPath
                              values:(NSArray *)values
@@ -131,6 +171,8 @@ if (animationBlock) { \
 - (void)joLayerAnimationWithScales:(NSArray <NSValue *>*)scales duration:(NSTimeInterval)duration repeatCount:(CGFloat)repeatCount {
     [self joLayerAnimationWithKeyPath:kJOLayerKeyPathScale values:scales duration:duration repeatCount:repeatCount animationBlock:nil animationDelegateBlock:nil];
 }
+
+#undef JOAnimationSetup
 
 #pragma mark - CAAnimationGroup
 #pragma mark -
@@ -201,7 +243,16 @@ if (animationBlock) { \
                                 stiffness:(CGFloat)stiffness
                                   damping:(CGFloat)damping
                             startVelocity:(CGFloat)velocity {
-    [self joLayerSpringAnimationWithKeyPath:keyPath fromValue:fromValue toValue:toValue mass:mass stiffness:stiffness damping:damping startVelocity:velocity animationBlock:nil animationDelegateBlock:nil];
+    
+    [self joLayerSpringAnimationWithKeyPath:keyPath
+                                  fromValue:fromValue
+                                    toValue:toValue
+                                       mass:mass
+                                  stiffness:stiffness
+                                    damping:damping
+                              startVelocity:velocity
+                             animationBlock:nil
+                     animationDelegateBlock:nil];
 }
 
 #pragma mark - Animation Delegate

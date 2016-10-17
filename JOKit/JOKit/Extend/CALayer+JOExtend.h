@@ -41,6 +41,17 @@ static NSString *const kJOLayerKeyPathBounds            = @"bounds";
 static NSString *const kJOLayerKeyPathBoundsOrigin      = @"bounds.origin";
 static NSString *const kJOLayerKeyPathBoundsSize        = @"bounds.size";
 
+static NSString *const kJOShapeLayerKeyPathPath         = @"path";
+static NSString *const kJOShapeLayerKeyPathFillColor    = @"fillColor";
+static NSString *const kJOShapeLayerKeyPathStrokeColor  = @"strokeColor";
+static NSString *const kJOShapeLayerKeyPathLineWidth    = @"lineWidth";
+
+static NSString *const kJOGradientLayerKeyPathColors    = @"colors";
+static NSString *const kJOGradientLayerKeyPathLocations = @"locations";
+static NSString *const kJOGradientLayerKeyPathStartPoint= @"startPoint";
+static NSString *const kJOGradientLayerKeyPathEndPoint  = @"endPoint";
+
+
 /**
  动画的代理的Block,只会在动画开始跟结束才会调用.
 
@@ -98,6 +109,34 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
 
 #pragma mark  - CAKeyframeAnimation
 #pragma mark  -
+
+
+/**
+ 给layer增加一个给定path路径的动画.
+
+ @param keyPath        对应需要操作动画的属性。 默认为postion的
+ @param path           路径的path.
+ @param duration       持续的时间.
+ @param repeatCount    重复的次数. 0为一直循环下去.
+ @param animationBlock JOAnimationBlock
+ @param delegateBlock  JOAnimationDelegateBlock
+ */
+- (void)joLayerAnimationWithKeyPath:(NSString *)keyPath
+                               path:(CGPathRef)path
+                           duration:(NSTimeInterval)duration
+                        repeatCount:(CGFloat)repeatCount
+                     animationBlock:(JOAnimationBlock)animationBlock
+             animationDelegateBlock:(JOAnimationDelegateBlock)delegateBlock;
+
+- (void)joLayerAnimationWithPath:(CGPathRef)path
+                        duration:(NSTimeInterval)duration
+                     repeatCount:(CGFloat)repeatCount
+                  animationBlock:(JOAnimationBlock)animationBlock
+          animationDelegateBlock:(JOAnimationDelegateBlock)delegateBlock;
+
+- (void)joLayerAnimationWithPath:(CGPathRef)path
+                        duration:(NSTimeInterval)duration
+                     repeatCount:(CGFloat)repeatCount;
 
 /**
  给某个layer的属性加一个动画. 动画的时间函数为线性的.

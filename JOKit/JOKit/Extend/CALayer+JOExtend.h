@@ -18,7 +18,7 @@ struct CATransform3D
     CGFloat m41（x平移）, m42（y平移）, m43（z平移）, m44（）;
 };
  */
-
+static NSString *const kJOLayerKeyPathOpacity           = @"opacity";
 static NSString *const kJOLayerKeyPathBackgoundColor    = @"backgroundColor";
 static NSString *const kJOLayerKeyPathCornerRadius      = @"cornerRadius";
 static NSString *const kJOLayerKeyPathBorderWidth       = @"borderWidth";
@@ -213,7 +213,7 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
                       repeatCount:(CGFloat)repeatCount;
 
 #pragma mark - CASpringAnimation
-#pragma mark - 
+#pragma mark -
 
 /**
  执行一个弹簧性质的动画.为给定动画的持续时间:是因为这个最好是按其提供的结算时间(settlingDuration)去设置.
@@ -245,4 +245,18 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
                                 stiffness:(CGFloat)stiffness
                                   damping:(CGFloat)damping
                             startVelocity:(CGFloat)velocity;
+@end
+
+#pragma mark - CAShapeLayer 的规则多边形
+#pragma mark - 
+
+@interface CAShapeLayer(JORegularPolygonalExtend)
+
+/**
+ 生成规则的多边形.
+
+ @param polygonals 需要生成的变数.
+ */
+- (void)joShapeLayerWithPolygonals:(NSInteger)polygonals;
+
 @end

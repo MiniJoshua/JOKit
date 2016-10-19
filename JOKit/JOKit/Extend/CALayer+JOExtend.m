@@ -275,3 +275,59 @@ if (repeatCount == 0.) { \
 }
 
 @end
+
+@implementation CAShapeLayer(JORegularPolygonalExtend)
+
+- (void)joShapeLayerWithPolygonals:(NSInteger)polygonals {
+    
+    if (polygonals > 2) {
+        
+        UIBezierPath *shaperPath = [UIBezierPath bezierPath];
+        BOOL oddState = polygonals%2;
+        CGFloat angle = 2*M_PI/polygonals;
+        
+        CGFloat startAngle = -M_PI/2.;
+        if (!oddState) {
+            startAngle = -M_PI/2. - angle/2.;
+        }
+        
+        NSMutableArray *pointArray = [NSMutableArray arrayWithCapacity:polygonals];
+        for (int i = 0; i < polygonals; i++) {
+            
+            CAShapeLayer *tempLayer = [CAShapeLayer layer];
+            [tempLayer setFrame:CGRectMake(0., 0., 4., 4.)];
+            [self addSublayer:tempLayer];
+            
+            UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.frame.size.width/2., self.frame.size.height/2.) radius:MIN(self.frame.size.width/2., self.frame.size.height/2.) startAngle:startAngle-0.01 endAngle:startAngle clockwise:YES];
+            
+            startAngle += angle;
+            
+            [tempLayer joLayerAnimationWithPath:path.CGPath duration:0.0001 repeatCount:1 animationBlock:^(CALayer *layer, CAAnimation *animation) {
+                animation.removedOnCompletion = NO;
+                animation.fillMode = kCAFillModeBoth;
+            } animationDelegateBlock:^(CALayer *layer, CAAnimation *animation, BOOL finishState) {
+                if (finishState) {
+                    
+                    [pointArray addObject:[tempLayer.presentationLayer valueForKeyPath:@"position"]];
+
+                    if ([pointArray count] == polygonals) {
+                        for (int i = 0 ; i < polygonals ; i++) {
+                            
+                            if (i == 0) {
+                                [shaperPath moveToPoint:[[pointArray objectAtIndex:0] CGPointValue]];
+                            }else {
+                                [shaperPath addLineToPoint:[[pointArray objectAtIndex:i] CGPointValue]];
+                            }
+                        }
+                        [shaperPath addLineToPoint:[[pointArray objectAtIndex:0] CGPointValue]];
+                        [self setPath:shaperPath.CGPath];
+                    }
+                }
+            }];
+        }
+    }else {
+        JOThrowException(@"CAShapeLayer exception", @"joShapeLayerWithPolygonalCount: 多边形最小值应为3");
+    }
+}
+
+@end

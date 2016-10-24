@@ -33,6 +33,14 @@
 #endif
 #endif
 
+#ifndef JOThrowException
+#define JOThrowException(exceptionName , reason) \
+NS_DURING \
+[NSException raise:exceptionName format:@"%@",reason]; \
+NS_HANDLER \
+NSLog(@"ExceptionName:%@ %@",exceptionName,reason); \
+NS_ENDHANDLER
+#endif
 
 #ifdef __cplusplus
 #define JO_EXTERN		extern "C" __attribute__((visibility ("default")))
@@ -53,7 +61,6 @@
 #endif
 
 //#define JO_STATIC_INLINE  static inline
-
 
 #define JOArgumentsCAssertNotNil(condition, description, ...) NSCAssert((condition), (description), ##__VA_ARGS__)
 

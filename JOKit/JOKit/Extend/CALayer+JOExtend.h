@@ -45,6 +45,8 @@ static NSString *const kJOShapeLayerKeyPathPath         = @"path";
 static NSString *const kJOShapeLayerKeyPathFillColor    = @"fillColor";
 static NSString *const kJOShapeLayerKeyPathStrokeColor  = @"strokeColor";
 static NSString *const kJOShapeLayerKeyPathLineWidth    = @"lineWidth";
+static NSString *const kJOShapeLayerKeyPathStrokeStart  = @"strokeStart";
+static NSString *const kJOShapeLayerKeyPathStrokeEnd    = @"strokeEnd";
 
 static NSString *const kJOGradientLayerKeyPathColors    = @"colors";
 static NSString *const kJOGradientLayerKeyPathLocations = @"locations";

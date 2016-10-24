@@ -81,6 +81,10 @@
 		423DCF421D547BFB008263E7 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCF321D547BFB008263E7 /* UIWebView+AFNetworking.m */; };
 		42655B8D1DA8CA81008BE82D /* CALayer+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */; };
 		42672A511D50820700051FE1 /* JOKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42672A501D50820700051FE1 /* JOKit.h */; };
+		428F0A811DAE2F44008E1793 /* JOLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 428F0A801DAE2F44008E1793 /* JOLoadingView.m */; };
+		428F0A821DAE3AB8008E1793 /* JOBannerView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 423569CF1D7EB38A00D39487 /* JOBannerView.h */; };
+		428F0A831DAE3AB8008E1793 /* JOLoadingView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 428F0A7F1DAE2F44008E1793 /* JOLoadingView.h */; };
+		428F0A861DAE5183008E1793 /* JOLoadingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 428F0A851DAE5183008E1793 /* JOLoadingItem.m */; };
 		429E606B1D9D0CA500B4A8BE /* CALayer+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */; };
 		42B7F4561D597A59000AC728 /* JOSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4551D597A59000AC728 /* JOSignal.m */; };
 		42B7F4571D5987B2000AC728 /* JOSignal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42B7F4541D597A59000AC728 /* JOSignal.h */; };
@@ -98,6 +102,7 @@
 		42F762A61D5C63DB00C81515 /* JOFileDownloadConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421931EB1D5872AA0010392B /* JOFileDownloadConfig.h */; };
 		42F762A71D5C63DB00C81515 /* JONetManage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42B7F4581D59DE29000AC728 /* JONetManage.h */; };
 		42F762A81D5C63DB00C81515 /* JOModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421931DD1D586D260010392B /* JOModel.h */; };
+		42F79CEA1DAF33E500775C8B /* JOLoadingItem.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 428F0A841DAE5183008E1793 /* JOLoadingItem.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -107,6 +112,9 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				42F79CEA1DAF33E500775C8B /* JOLoadingItem.h in CopyFiles */,
+				428F0A821DAE3AB8008E1793 /* JOBannerView.h in CopyFiles */,
+				428F0A831DAE3AB8008E1793 /* JOLoadingView.h in CopyFiles */,
 				42655B8D1DA8CA81008BE82D /* CALayer+JOExtend.h in CopyFiles */,
 				42E8029A1D914AA200EE89B6 /* JODateMacro.h in CopyFiles */,
 				42E802981D90E35600EE89B6 /* NSDate+JOExtend.h in CopyFiles */,
@@ -258,6 +266,10 @@
 		423DCF321D547BFB008263E7 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		42672A4D1D50820700051FE1 /* libJOKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJOKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		42672A501D50820700051FE1 /* JOKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JOKit.h; sourceTree = "<group>"; };
+		428F0A7F1DAE2F44008E1793 /* JOLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLoadingView.h; sourceTree = "<group>"; };
+		428F0A801DAE2F44008E1793 /* JOLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLoadingView.m; sourceTree = "<group>"; };
+		428F0A841DAE5183008E1793 /* JOLoadingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLoadingItem.h; sourceTree = "<group>"; };
+		428F0A851DAE5183008E1793 /* JOLoadingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLoadingItem.m; sourceTree = "<group>"; };
 		429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+JOExtend.h"; sourceTree = "<group>"; };
 		429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+JOExtend.m"; sourceTree = "<group>"; };
 		42B7F4541D597A59000AC728 /* JOSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOSignal.h; sourceTree = "<group>"; };
@@ -481,6 +493,10 @@
 			children = (
 				423569CF1D7EB38A00D39487 /* JOBannerView.h */,
 				423569D01D7EB38A00D39487 /* JOBannerView.m */,
+				428F0A7F1DAE2F44008E1793 /* JOLoadingView.h */,
+				428F0A801DAE2F44008E1793 /* JOLoadingView.m */,
+				428F0A841DAE5183008E1793 /* JOLoadingItem.h */,
+				428F0A851DAE5183008E1793 /* JOLoadingItem.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -713,6 +729,7 @@
 				423DCF3D1D547BFB008263E7 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				423DCF381D547BFB008263E7 /* AFURLSessionManager.m in Sources */,
 				4206AF471D7D61EF002F6397 /* JOSchemeItem.m in Sources */,
+				428F0A861DAE5183008E1793 /* JOLoadingItem.m in Sources */,
 				423DCF061D547BE9008263E7 /* JSONModelError.m in Sources */,
 				423DCF341D547BFB008263E7 /* AFNetworkReachabilityManager.m in Sources */,
 				422EFB051D52026A00E427F6 /* JOExceptionHelper.m in Sources */,
@@ -746,6 +763,7 @@
 				423DCF361D547BFB008263E7 /* AFURLRequestSerialization.m in Sources */,
 				423DCF3B1D547BFB008263E7 /* AFImageDownloader.m in Sources */,
 				423DCF421D547BFB008263E7 /* UIWebView+AFNetworking.m in Sources */,
+				428F0A811DAE2F44008E1793 /* JOLoadingView.m in Sources */,
 				423DCF081D547BE9008263E7 /* JSONHTTPClient.m in Sources */,
 				421931C21D585EB40010392B /* JOViewModel.m in Sources */,
 				421BCBA41D50B38400041007 /* UILabel+JOExtend.m in Sources */,

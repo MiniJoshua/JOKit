@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "JOKit"
-  s.version      = '1.0.20'
+  s.version      = '1.0.30'
   s.summary      = "Project Base SDK"
   s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
   s.license      = "MIT"
@@ -25,13 +25,6 @@ Pod::Spec.new do |s|
 s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-lObjC' }
 
 s.requires_arc = true
-
-s.subspec 'JOKit' do |ss|
-ss.dependency 'JOKit/Macro'
-ss.dependency 'JOKit/Extend'
-ss.dependency 'JOKit/Utility'
-ss.source_files  = 'JOKit/**/JOKit.h'
-end
 
 s.subspec 'JOKit' do |ss|
 ss.dependency 'JOKit/Macro'

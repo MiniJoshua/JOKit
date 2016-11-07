@@ -31,6 +31,8 @@
 		421BCBA11D50AB4E00041007 /* UIFont+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCBA01D50AB4E00041007 /* UIFont+JOExtend.m */; };
 		421BCBA41D50B38400041007 /* UILabel+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCBA31D50B38400041007 /* UILabel+JOExtend.m */; };
 		421BCBA71D519BEE00041007 /* UIColor+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421BCBA61D519BEE00041007 /* UIColor+JOExtend.m */; };
+		421C07A61DC0A7C600CF6256 /* NSThread+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 421C07A51DC0A7C600CF6256 /* NSThread+JOExtend.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		421C07A71DC0B27F00CF6256 /* NSThread+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421C07A41DC0A7C600CF6256 /* NSThread+JOExtend.h */; };
 		422EFAD81D51C7CD00E427F6 /* JOLayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB931D50A80700041007 /* JOLayout.h */; };
 		422EFAD91D51C7CD00E427F6 /* JOLayoutItem.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCB951D50A80700041007 /* JOLayoutItem.h */; };
 		422EFADA1D51C7CD00E427F6 /* UILabel+JOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421BCBA21D50B38400041007 /* UILabel+JOExtend.h */; };
@@ -56,6 +58,7 @@
 		422EFB111D53469600E427F6 /* JOFileHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAFB1D51FBEC00E427F6 /* JOFileHelper.h */; };
 		422EFB121D53469600E427F6 /* JOCacheHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAF71D51FBC500E427F6 /* JOCacheHelper.h */; };
 		423569D21D7EB38A00D39487 /* JOBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 423569D01D7EB38A00D39487 /* JOBannerView.m */; };
+		423D67211DC759E3004B09EB /* JOBlockMacro.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 423D67201DC75998004B09EB /* JOBlockMacro.h */; };
 		423DCF041D547BE9008263E7 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCEF01D547BE9008263E7 /* JSONModel.m */; };
 		423DCF051D547BE9008263E7 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCEF21D547BE9008263E7 /* JSONModelClassProperty.m */; };
 		423DCF061D547BE9008263E7 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCEF41D547BE9008263E7 /* JSONModelError.m */; };
@@ -86,6 +89,7 @@
 		428F0A831DAE3AB8008E1793 /* JOLoadingView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 428F0A7F1DAE2F44008E1793 /* JOLoadingView.h */; };
 		428F0A861DAE5183008E1793 /* JOLoadingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 428F0A851DAE5183008E1793 /* JOLoadingItem.m */; };
 		429E606B1D9D0CA500B4A8BE /* CALayer+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */; };
+		42A448B71DC1E90300265E1A /* JOFunctionMacro.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42A448B61DC1E86300265E1A /* JOFunctionMacro.h */; };
 		42B7F4561D597A59000AC728 /* JOSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4551D597A59000AC728 /* JOSignal.m */; };
 		42B7F4571D5987B2000AC728 /* JOSignal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42B7F4541D597A59000AC728 /* JOSignal.h */; };
 		42B7F45A1D59DE29000AC728 /* JONetManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4591D59DE29000AC728 /* JONetManage.m */; };
@@ -112,6 +116,9 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				423D67211DC759E3004B09EB /* JOBlockMacro.h in CopyFiles */,
+				42A448B71DC1E90300265E1A /* JOFunctionMacro.h in CopyFiles */,
+				421C07A71DC0B27F00CF6256 /* NSThread+JOExtend.h in CopyFiles */,
 				42F79CEA1DAF33E500775C8B /* JOLoadingItem.h in CopyFiles */,
 				428F0A821DAE3AB8008E1793 /* JOBannerView.h in CopyFiles */,
 				428F0A831DAE3AB8008E1793 /* JOLoadingView.h in CopyFiles */,
@@ -196,6 +203,8 @@
 		421BCBA31D50B38400041007 /* UILabel+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+JOExtend.m"; sourceTree = "<group>"; };
 		421BCBA51D519BEE00041007 /* UIColor+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JOExtend.h"; sourceTree = "<group>"; };
 		421BCBA61D519BEE00041007 /* UIColor+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JOExtend.m"; sourceTree = "<group>"; };
+		421C07A41DC0A7C600CF6256 /* NSThread+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+JOExtend.h"; sourceTree = "<group>"; };
+		421C07A51DC0A7C600CF6256 /* NSThread+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+JOExtend.m"; sourceTree = "<group>"; };
 		422EFAD71D51C10200E427F6 /* CGGeometry+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGGeometry+JOExtend.h"; sourceTree = "<group>"; };
 		422EFAE21D51CEBD00E427F6 /* NSObject+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JOExtend.h"; sourceTree = "<group>"; };
 		422EFAE31D51CEBD00E427F6 /* NSObject+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JOExtend.m"; sourceTree = "<group>"; };
@@ -214,6 +223,7 @@
 		422EFB0C1D53268F00E427F6 /* JOMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOMacro.h; sourceTree = "<group>"; };
 		423569CF1D7EB38A00D39487 /* JOBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOBannerView.h; sourceTree = "<group>"; };
 		423569D01D7EB38A00D39487 /* JOBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOBannerView.m; sourceTree = "<group>"; };
+		423D67201DC75998004B09EB /* JOBlockMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOBlockMacro.h; sourceTree = "<group>"; };
 		423DCEEF1D547BE9008263E7 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
 		423DCEF01D547BE9008263E7 /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
 		423DCEF11D547BE9008263E7 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
@@ -272,6 +282,7 @@
 		428F0A851DAE5183008E1793 /* JOLoadingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLoadingItem.m; sourceTree = "<group>"; };
 		429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+JOExtend.h"; sourceTree = "<group>"; };
 		429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+JOExtend.m"; sourceTree = "<group>"; };
+		42A448B61DC1E86300265E1A /* JOFunctionMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOFunctionMacro.h; sourceTree = "<group>"; };
 		42B7F4541D597A59000AC728 /* JOSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOSignal.h; sourceTree = "<group>"; };
 		42B7F4551D597A59000AC728 /* JOSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOSignal.m; sourceTree = "<group>"; };
 		42B7F4581D59DE29000AC728 /* JONetManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JONetManage.h; sourceTree = "<group>"; };
@@ -380,6 +391,8 @@
 				422EFAD71D51C10200E427F6 /* CGGeometry+JOExtend.h */,
 				429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */,
 				429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */,
+				421C07A41DC0A7C600CF6256 /* NSThread+JOExtend.h */,
+				421C07A51DC0A7C600CF6256 /* NSThread+JOExtend.m */,
 			);
 			path = Extend;
 			sourceTree = "<group>";
@@ -475,6 +488,8 @@
 			children = (
 				422EFB0C1D53268F00E427F6 /* JOMacro.h */,
 				42E802991D914A8300EE89B6 /* JODateMacro.h */,
+				42A448B61DC1E86300265E1A /* JOFunctionMacro.h */,
+				423D67201DC75998004B09EB /* JOBlockMacro.h */,
 			);
 			path = Macro;
 			sourceTree = "<group>";
@@ -765,6 +780,7 @@
 				423DCF421D547BFB008263E7 /* UIWebView+AFNetworking.m in Sources */,
 				428F0A811DAE2F44008E1793 /* JOLoadingView.m in Sources */,
 				423DCF081D547BE9008263E7 /* JSONHTTPClient.m in Sources */,
+				421C07A61DC0A7C600CF6256 /* NSThread+JOExtend.m in Sources */,
 				421931C21D585EB40010392B /* JOViewModel.m in Sources */,
 				421BCBA41D50B38400041007 /* UILabel+JOExtend.m in Sources */,
 				423DCF411D547BFB008263E7 /* UIRefreshControl+AFNetworking.m in Sources */,

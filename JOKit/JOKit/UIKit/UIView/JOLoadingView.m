@@ -320,23 +320,16 @@ static const NSInteger kPolygonalsCount = 7;
             [polygonalShapeLayer joShapeLayerWithPolygonals:kPolygonalsCount-1];
             
             if (i == 0) {
-//                [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6., center.y - width/6.-width/3., width/3., width/3.)];
                 [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., -width/3., 0)];
-
             }else if (i == 1) {
-//                [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6. + width/3., center.y - width/6.- width/6., width/3., width/3.)];
                 [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3., -width/6., 0)];
             }else if (i == 2) {
-//                [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6. + width/3., center.y - width/6. + width/6., width/3., width/3.)];
                 [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3., width/6., 0)];
             }else if (i == 3) {
-//                [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6., center.y - width/6. + width/3., width/3., width/3.)];
                 [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0, width/3., 0)];
             }else if (i == 4) {
-//                [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6. - width/3., center.y - width/6. + width/6., width/3., width/3.)];
                 [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3., width/6., 0)];
             }else if (i == 5) {
-//                [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6. - width/3., center.y - width/6.-width/6., width/3., width/3.)];
                 [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3., -width/6., 0)];
             }
             [_layers addObject:polygonalShapeLayer];

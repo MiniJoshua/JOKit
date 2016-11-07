@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Joshua. All rights reserved.
 //
 
+#import "JOMacro.h"
 #import <objc/runtime.h>
 #import <sys/time.h>
 

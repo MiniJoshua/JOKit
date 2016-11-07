@@ -5,7 +5,7 @@
 //  Created by 刘维 on 16/9/20.
 //  Copyright © 2016年 Joshua. All rights reserved.
 //
-
+#import "JOMacro.h"
 #ifndef JODateMacro_h
 #define JODateMacro_h
 

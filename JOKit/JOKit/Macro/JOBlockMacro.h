@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Joshua. All rights reserved.
 //
 
+#import "JOMacro.h"
 #ifndef JOBlockMacro_h
 #define JOBlockMacro_h
 

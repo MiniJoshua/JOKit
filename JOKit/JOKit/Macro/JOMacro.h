@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #ifndef JOMacro_h
 #define JOMacro_h
 

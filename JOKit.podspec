@@ -26,6 +26,13 @@ s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-lObjC' }
 
 s.requires_arc = true
 
+non_arc_files = 'JOKit/**/Extend/NSThread+JOExtend.{h,m}'
+s.ios.exclude_files = non_arc_files
+s.subspec 'no-arc' do |sna|
+sna.requires_arc = false
+sna.source_files = non_arc_files
+end
+
 s.subspec 'JOKit' do |ss|
 ss.dependency 'JOKit/Macro'
 ss.dependency 'JOKit/Extend'

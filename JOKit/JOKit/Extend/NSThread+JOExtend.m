@@ -8,7 +8,7 @@
 
 #import "NSThread+JOExtend.h"
 #import <CoreFoundation/CoreFoundation.h>
-#import "JOMacro.h"
+//#import "JOMacro.h"
 
 /*
  根据YYKit中来实现
@@ -45,7 +45,7 @@ static NSString *const kThreadAutoreleaseStackKey = @"kThreadAutoreleaseStackKey
 #error This file must be compiled without ARC. Specify the -fno-objc-arc flag to this file.
 #endif
 
-JO_STATIC_INLINE void JOAutoreleasePoolPush() {
+static inline void JOAutoreleasePoolPush() {
 
     NSMutableDictionary *threadDic = [[NSThread currentThread] threadDictionary];
     NSMutableArray *poolStack = [threadDic objectForKey:kThreadAutoreleaseStackKey];
@@ -63,7 +63,7 @@ JO_STATIC_INLINE void JOAutoreleasePoolPush() {
     [poolStack addObject:autoreleasePool];
 }
 
-JO_STATIC_INLINE void JOAutoreleasePoolPop() {
+static inline void JOAutoreleasePoolPop() {
     
     NSMutableDictionary *threadDic = [[NSThread currentThread] threadDictionary];
     NSMutableArray *poolStack = [threadDic objectForKey:kThreadAutoreleaseStackKey];
@@ -92,8 +92,8 @@ static void JORunloopAutoreleasePoolObserverCallBack(CFRunLoopObserverRef observ
 }
 
 static void JORunloopAutoreleasePoolSetup() {
-    
-    JODispacth_once(^{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken,^{
         
         CFRunLoopRef runloop = CFRunLoopGetCurrent();
         CFRunLoopObserverRef pushObserverRef;

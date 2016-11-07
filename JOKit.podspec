@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "JOKit"
-  s.version      = '1.0.30'
+  s.version      = '1.0.31'
   s.summary      = "Project Base SDK"
   s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
   s.license      = "MIT"
@@ -25,6 +25,13 @@ Pod::Spec.new do |s|
 s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-lObjC' }
 
 s.requires_arc = true
+
+non_arc_files = 'JOKit/**/Extend/NSThread+JOExtend.h','JOKit/**/Extend/NSThread+JOExtend.m'
+s.ios.exclude_files = non_arc_files
+s.subspec 'noarc' do |ss|
+ss.requires_arc = false
+ss.source_files = non_arc_files
+end
 
 s.subspec 'JOKit' do |ss|
 ss.dependency 'JOKit/Macro'
@@ -53,13 +60,6 @@ end
 s.subspec 'UIKit' do |ss|
 ss.dependency 'JOKit/JOKit'
 ss.source_files = 'JOKit/**/UIKit/**/*.{h,m}'
-end
-
-non_arc_files = 'JOKit/**/Extend/NSThread+JOExtend.{h,m}'
-s.ios.exclude_files = non_arc_files
-s.subspec 'no-arc' do |ss|
-ss.requires_arc = false
-ss.source_files = non_arc_files
 end
 
 #s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libJOProjectBaseSDK" }

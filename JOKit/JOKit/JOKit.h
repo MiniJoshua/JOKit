@@ -35,6 +35,7 @@
 #import "NSDate+JOExtend.h"
 #import "UIView+JOAutolayout.h"
 #import "CALayer+JOExtend.h"
+#import "NSThread+JOExtend.h"
 
 //Net
 #import "JONetRequestConfig.h"

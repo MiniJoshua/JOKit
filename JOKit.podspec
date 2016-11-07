@@ -28,7 +28,7 @@ s.requires_arc = true
 
 non_arc_files = 'JOKit/**/Extend/NSThread+JOExtend.{h,m}'
 s.ios.exclude_files = non_arc_files
-s.subspec 'no-arc' do |sna|
+s.subspec 'no-arc' do |ss|
 sna.requires_arc = false
 sna.source_files = non_arc_files
 end

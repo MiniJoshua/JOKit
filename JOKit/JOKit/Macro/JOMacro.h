@@ -719,7 +719,8 @@ DISPATCH_INLINE DISPATCH_ALWAYS_INLINE
 void JOQueueDealloc(void * _Nullable context) {
     
     NSDictionary *contextDic = (__bridge NSDictionary *)(context);
-    JO_argcBlock_t block = contextDic[kQueueContextBlockKey];
+    void(^dellocBlock)(id context) = contextDic[kQueueContextBlockKey];
+    JO_argcBlock_t block = dellocBlock;
     !block?:block(contextDic[kQueueContextKey]);
     block = nil;
     CFRelease((__bridge CFTypeRef)(contextDic[kQueueContextKey]));
@@ -761,7 +762,8 @@ JODispatchVoidDefineAttribute
 void JODispatch_apply(size_t count, dispatch_queue_t __nonnull queue , DISPATCH_NOESCAPE JO_argcBlock_t _Nullable block);
 JODispatchVoidFuncAttribute
 void JODispatchApply(size_t count, dispatch_queue_t __nonnull queue , DISPATCH_NOESCAPE JO_argcBlock_t _Nullable block) {
-    dispatch_apply(count, queue, block);
+    void (^applyBlock)(size_t) = block;
+    dispatch_apply(count, queue, applyBlock);
 }
 #undef JODispatch_apply
 #define JODispatch_apply JODispatchApply

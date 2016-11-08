@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "JOKit"
-  s.version      = '1.0.34'
+  s.version      = '1.0.35'
   s.summary      = "Project Base SDK"
   s.homepage     = "https://github.com/xinlidexiaoman/JOKit"
   s.license      = "MIT"
@@ -25,6 +25,10 @@ s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-lObjC' }
 
 s.requires_arc = true
 
+s.subspec 'Macro' do |ss|
+ss.source_files  = 'JOKit/**/Macro/*.h'
+end
+
 non_arc_files = 'JOKit/**/Extend/NSThread+JOExtend.h','JOKit/**/Extend/NSThread+JOExtend.m'
 s.subspec 'NoARC' do |ss|
 ss.dependency 'JOKit/Macro'
@@ -38,10 +42,6 @@ ss.dependency 'JOKit/Extend'
 ss.dependency 'JOKit/Utility'
 ss.dependency 'JOKit/NoARC'
 ss.source_files  = 'JOKit/**/JOKit.h'
-end
-
-s.subspec 'Macro' do |ss|
-ss.source_files  = 'JOKit/**/Macro/*.h'
 end
 
 s.subspec 'Utility' do |ss|

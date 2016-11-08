@@ -13,7 +13,7 @@ static NSString *const kCrashLogName = @"JOCrashLog";
 
 @implementation JOCrashHelper
 
-void uncaughtExceptionHandler(NSException *exception) {
+void JOUncaughtExceptionHandler(NSException *exception) {
     
     // 异常的堆栈信息
     NSArray *stackArray = [exception callStackSymbols];
@@ -28,7 +28,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 void JOOpenCrashLog(void) {
-    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    NSSetUncaughtExceptionHandler(&JOUncaughtExceptionHandler);
 }
 
 NSString *JOCrashLogPath(void) {

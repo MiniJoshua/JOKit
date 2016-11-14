@@ -55,6 +55,7 @@
 }
 
 #pragma mark - map
+#pragma mark -
 
 - (void)map:(NSString *)format blindClass:(Class)bindClass {
     [self map:format blindClass:bindClass isModel:NO];
@@ -74,6 +75,7 @@
 }
 
 #pragma mark - open
+#pragma mark -
 
 - (void)open:(NSString *)format params:(id)param1,... {
 
@@ -88,6 +90,47 @@
         arg = va_arg(args, id);
     }
     va_end(args);
+    
+    [self openForamt:format];
+}
+
+- (void)open:(NSString *)format {
+    
+    NSArray *schemeArray = [format componentsSeparatedByString:@":"];
+    
+    if ([schemeArray count] == 1) {
+        
+        [self openForamt:format];
+    }else if ([schemeArray count] == 2) {
+        
+        [_paramsArray removeAllObjects];
+        NSArray *paramsArray = [[schemeArray lastObject] componentsSeparatedByString:@"/"];
+        
+        [paramsArray enumerateObjectsUsingBlock:^(NSString  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([[obj componentsSeparatedByString:@","] count] >1) {
+                //代表数组
+                [_paramsArray addObject:[obj componentsSeparatedByString:@","]];
+            }else {
+                [_paramsArray addObject:obj];
+            }
+        }];
+        
+        [self openForamt:[schemeArray firstObject]];
+    }else if ([schemeArray count] == 0) {
+        
+        JOException(@"JOSchemeManage exception",@"open:  format的格式不对,请检查");
+    }
+}
+
+- (void)openExternal:(NSString *)url {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+#pragma mark - open private
+#pragma mark -
+
+- (void)openForamt:(NSString *)format {
     
     NSString *replaceFormat = [format stringByReplacingOccurrencesOfString:@":" withString:@""];
     
@@ -117,19 +160,10 @@
     }else {
         JOException(@"JOSchemeManage exception.", @"open: format 不能为空");
     }
-    
-}
-
-- (void)open:(NSString *)format {
-    
-    [self open:format params:nil];
-}
-
-- (void)openExternal:(NSString *)url {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 #pragma mark - pop
+#pragma mark -
 
 - (void)pop {
     [self popAnimated:YES];

@@ -39,7 +39,12 @@ static NSString *const kModelKey = @"Model";
 /**
  *  打开一个地址.
  *
- *  @param format 地址 : viewMap 代表无参数的形式
+ *  @param format 地址+参数类型 
+ *  e.g:
+ *  view:123/325,325/235  其中/之间用,分隔的 代表为数组 所以这三个参数为 123的字符串 325 325的数组  235的字符串
+ *  view:123 代表只有一个参数 那就是123
+ *  view:123/456 代表两个参数 123  456
+ *  view:124,654  代表一个参数 为数组 里面的元素为 124 645
  */
 - (void)open:(NSString *)format;
 

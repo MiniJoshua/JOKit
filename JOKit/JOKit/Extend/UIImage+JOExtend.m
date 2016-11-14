@@ -8,7 +8,7 @@
 
 #import "UIImage+JOExtend.h"
 
-@implementation UIImage(Extend)
+@implementation UIImage(JOExtend)
 
 
 @end

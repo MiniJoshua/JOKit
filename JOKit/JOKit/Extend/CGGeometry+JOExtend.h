@@ -17,6 +17,8 @@ JO_STATIC_INLINE CGSize JOSize(CGFloat width,CGFloat height)        { return CGS
 #define JOMaxWidthSize(h)   JOSize(HUGE,h)
 #define JOMaxHeightSize(w)  JOSize(w,HUGE)
 #define JOMaxSize           JOSize(HUGE,HUGE)
+#define JOMinWidthSize(h)   JOSize(CGFLOAT_MIN,h)
+#define JOMinHeightSize(w)  JOSize(w,CGFLOAT_MIN)
 #define JOMinSize           JOSize(CGFLOAT_MIN,CGFLOAT_MIN)
 
 /*替换or增加Size中的某些值*/

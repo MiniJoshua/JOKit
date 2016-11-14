@@ -58,6 +58,8 @@
 		422EFB111D53469600E427F6 /* JOFileHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAFB1D51FBEC00E427F6 /* JOFileHelper.h */; };
 		422EFB121D53469600E427F6 /* JOCacheHelper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 422EFAF71D51FBC500E427F6 /* JOCacheHelper.h */; };
 		423569D21D7EB38A00D39487 /* JOBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 423569D01D7EB38A00D39487 /* JOBannerView.m */; };
+		423CA47A1DD3056C00DA5C27 /* NSThread+JORunLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 423CA4791DD3056C00DA5C27 /* NSThread+JORunLoop.m */; };
+		423CA47B1DD315CB00DA5C27 /* NSThread+JORunLoop.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 423CA4781DD3056C00DA5C27 /* NSThread+JORunLoop.h */; };
 		423DCF041D547BE9008263E7 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCEF01D547BE9008263E7 /* JSONModel.m */; };
 		423DCF051D547BE9008263E7 /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCEF21D547BE9008263E7 /* JSONModelClassProperty.m */; };
 		423DCF061D547BE9008263E7 /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = 423DCEF41D547BE9008263E7 /* JSONModelError.m */; };
@@ -104,6 +106,8 @@
 		42F762A71D5C63DB00C81515 /* JONetManage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42B7F4581D59DE29000AC728 /* JONetManage.h */; };
 		42F762A81D5C63DB00C81515 /* JOModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421931DD1D586D260010392B /* JOModel.h */; };
 		42F79CEA1DAF33E500775C8B /* JOLoadingItem.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 428F0A841DAE5183008E1793 /* JOLoadingItem.h */; };
+		42FB72521DD5A96C0028651C /* NSObject+JOKVOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FB72511DD5A96C0028651C /* NSObject+JOKVOExtend.m */; };
+		42FB72531DD5A9990028651C /* NSObject+JOKVOExtend.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42FB72501DD5A96C0028651C /* NSObject+JOKVOExtend.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -113,6 +117,8 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				42FB72531DD5A9990028651C /* NSObject+JOKVOExtend.h in CopyFiles */,
+				423CA47B1DD315CB00DA5C27 /* NSThread+JORunLoop.h in CopyFiles */,
 				421C07A71DC0B27F00CF6256 /* NSThread+JOExtend.h in CopyFiles */,
 				42F79CEA1DAF33E500775C8B /* JOLoadingItem.h in CopyFiles */,
 				428F0A821DAE3AB8008E1793 /* JOBannerView.h in CopyFiles */,
@@ -217,6 +223,8 @@
 		422EFB0C1D53268F00E427F6 /* JOMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOMacro.h; sourceTree = "<group>"; };
 		423569CF1D7EB38A00D39487 /* JOBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOBannerView.h; sourceTree = "<group>"; };
 		423569D01D7EB38A00D39487 /* JOBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOBannerView.m; sourceTree = "<group>"; };
+		423CA4781DD3056C00DA5C27 /* NSThread+JORunLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+JORunLoop.h"; sourceTree = "<group>"; };
+		423CA4791DD3056C00DA5C27 /* NSThread+JORunLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+JORunLoop.m"; sourceTree = "<group>"; };
 		423DCEEF1D547BE9008263E7 /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
 		423DCEF01D547BE9008263E7 /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
 		423DCEF11D547BE9008263E7 /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
@@ -281,6 +289,8 @@
 		42B7F4591D59DE29000AC728 /* JONetManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JONetManage.m; sourceTree = "<group>"; };
 		42DE04D71D8FF36400393991 /* NSDate+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+JOExtend.h"; sourceTree = "<group>"; };
 		42DE04D81D8FF36400393991 /* NSDate+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+JOExtend.m"; sourceTree = "<group>"; };
+		42FB72501DD5A96C0028651C /* NSObject+JOKVOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JOKVOExtend.h"; sourceTree = "<group>"; };
+		42FB72511DD5A96C0028651C /* NSObject+JOKVOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JOKVOExtend.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,6 +394,10 @@
 				429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */,
 				421C07A41DC0A7C600CF6256 /* NSThread+JOExtend.h */,
 				421C07A51DC0A7C600CF6256 /* NSThread+JOExtend.m */,
+				423CA4781DD3056C00DA5C27 /* NSThread+JORunLoop.h */,
+				423CA4791DD3056C00DA5C27 /* NSThread+JORunLoop.m */,
+				42FB72501DD5A96C0028651C /* NSObject+JOKVOExtend.h */,
+				42FB72511DD5A96C0028651C /* NSObject+JOKVOExtend.m */,
 			);
 			path = Extend;
 			sourceTree = "<group>";
@@ -726,6 +740,7 @@
 				421BCB901D509F3700041007 /* NSString+JOExtend.m in Sources */,
 				422EFB091D52029A00E427F6 /* JOCrashHelper.m in Sources */,
 				423DCF3C1D547BFB008263E7 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				42FB72521DD5A96C0028651C /* NSObject+JOKVOExtend.m in Sources */,
 				422EFAF51D51FB6E00E427F6 /* JOPathHelper.m in Sources */,
 				423DCF3E1D547BFB008263E7 /* UIButton+AFNetworking.m in Sources */,
 				421931DF1D586D260010392B /* JOModel.m in Sources */,
@@ -763,6 +778,7 @@
 				42B7F4561D597A59000AC728 /* JOSignal.m in Sources */,
 				423DCF041D547BE9008263E7 /* JSONModel.m in Sources */,
 				421BCB9B1D50A86600041007 /* UIView+JOExtend.m in Sources */,
+				423CA47A1DD3056C00DA5C27 /* NSThread+JORunLoop.m in Sources */,
 				423DCF361D547BFB008263E7 /* AFURLRequestSerialization.m in Sources */,
 				423DCF3B1D547BFB008263E7 /* AFImageDownloader.m in Sources */,
 				423DCF421D547BFB008263E7 /* UIWebView+AFNetworking.m in Sources */,

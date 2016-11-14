@@ -781,6 +781,39 @@ void JODispatchDefaultApply(size_t count, DISPATCH_NOESCAPE JO_argcBlock_t _Null
 #undef JODispatch_default_apply
 #define JODispatch_default_apply JODispatchDefaultApply
 
+/**
+ dispatch的group组.
+
+ @param group group.
+ @param block JO_voidBlock_t
+ */
+JODispatchVoidDefineAttribute
+void JODispatch_group_async(dispatch_group_t __nonnull group,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
+JODispatchVoidFuncAttribute
+void JODispatchGroupAsync(dispatch_group_t __nonnull group,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block) {
+    dispatch_group_enter(group);
+    !block?:block();
+    dispatch_group_leave(group);
+}
+#undef JODispatch_group_async
+#define JODispatch_group_async JODispatchGroupAsync
+
+/**
+ 会阻塞group的线程 等待其中所有的任务都完成了才会执行.
+
+ @param group group.
+ @param block JO_voidBlock_t.
+ */
+JODispatchVoidDefineAttribute
+void JODispatch_group_complete(dispatch_group_t __nonnull group,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
+JODispatchVoidFuncAttribute
+void JODispatchGroupComplete(dispatch_group_t __nonnull group,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block) {
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    !block?:block();
+}
+#undef JODispatch_group_complete
+#define JODispatch_group_complete JODispatchGroupComplete
+
 #endif
 
 #pragma mark - Date
@@ -818,7 +851,6 @@ static const NSInteger kSeconds_Day                     = 86400;
 static const NSInteger kSeconds_Hour                    = 3600;
 static const NSInteger kSeconds_Minute                  = 60;
 static const NSInteger kMilliSeconds_Second             = 1000; //1000毫秒 = 1秒
-
 
 /**
  根据系统的时区去获取Date,这样取出来的时间不会存在8个小时的差别

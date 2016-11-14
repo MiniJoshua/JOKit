@@ -79,13 +79,15 @@ static void JORunloopAutoreleasePoolObserverCallBack(CFRunLoopObserverRef observ
             JOAutoreleasePoolPush();
         }
             break;
-        case kCFRunLoopAfterWaiting: {
+        case kCFRunLoopBeforeWaiting: {
             JOAutoreleasePoolPop();
             JOAutoreleasePoolPush();
         }
+            break;
         case kCFRunLoopExit: {
             JOAutoreleasePoolPop();
         }
+            break;
         default:
             break;
     }

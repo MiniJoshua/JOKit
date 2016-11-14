@@ -20,7 +20,6 @@ static const char   * const kJOKVOAssociatedKey = "kJOKVOAssociatedKey";
     id                  _observeredObject;
     Class               _observerdClass;
     Class               _observerSubClass;
-    NSMutableSet        *_keyPath;
     NSMutableDictionary *_kvoBlockInfo;
 }
 @end
@@ -61,12 +60,8 @@ JO_STATIC_INLINE void JOKVOAddMethod(Class selClass,SEL seletor, Class toClass, 
 
     if (!self.kvoItem) {
         self.kvoItem = [JOKVOItem new];
-        self.kvoItem->_keyPath = [NSMutableSet set];
         self.kvoItem->_kvoBlockInfo = [NSMutableDictionary dictionary];
     }
-    
-    [self.kvoItem->_keyPath addObject:path];
-    [self.kvoItem->_kvoBlockInfo setObject:[block copy] forKey:path];
     
     if (![self.kvoItem->_observeredObject isEqual:observerObject]) {
         Class observerClass = JOGetClass(observerObject);
@@ -84,6 +79,8 @@ JO_STATIC_INLINE void JOKVOAddMethod(Class selClass,SEL seletor, Class toClass, 
         //已经生成过了的子类就务须理会了.
     }
     
+    [self joRemoveObserverWithPath:path];
+    [self.kvoItem->_kvoBlockInfo setObject:[block copy] forKey:path];
     JOKVOAddMethod(self.kvoItem -> _observerdClass, JOKVOSetSeletor(path), self.kvoItem -> _observerSubClass, (IMP)setIMP);
     objc_setAssociatedObject(observerObject, &kJOKVOAssociatedKey, self.kvoItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -117,6 +114,16 @@ static void setIMP(id self, SEL _cmd, id newValue) {
         JOKVOBlock block = [KVOItem ->_kvoBlockInfo objectForKey:key];
         !block?:block(oldValue,newValue);
     }
+}
+
+- (void)joRemoveObserverWithPath:(NSString *)path {
+    
+    [self.kvoItem -> _kvoBlockInfo removeObjectForKey:path];
+}
+
+- (void)joRemoveAllObserver {
+    
+    [self.kvoItem -> _kvoBlockInfo removeAllObjects];
 }
 
 @end

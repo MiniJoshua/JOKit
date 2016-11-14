@@ -27,4 +27,16 @@ typedef void(^JOKVOBlock)(id oldValue, id newValue);
  */
 - (void)joObserver:(id)observerObject path:(NSString *)path observerBlock:(JOKVOBlock)block;
 
+/**
+ 删除给定path的KVO.
+
+ @param path 对应的path的值.
+ */
+- (void)joRemoveObserverWithPath:(NSString *)path;
+
+/**
+ 删除所有的KVO
+ */
+- (void)joRemoveAllObserver;
+
 @end

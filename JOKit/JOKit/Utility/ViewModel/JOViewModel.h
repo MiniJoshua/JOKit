@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "JOCommand.h"
-#import "JOMacro.h"
 
 @interface JOViewModel : NSObject
 

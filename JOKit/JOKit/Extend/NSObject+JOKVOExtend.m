@@ -34,7 +34,7 @@ static const char   * const kJOKVOAssociatedKey = "kJOKVOAssociatedKey";
 
 @end
 
-@implementation NSObject(JOKVOExtend)
+@implementation NSObject(JOKVOCustom)
 
 JO_DYNAMIC_PROPERTY_OBJECT(kvoItem,setKvoItem,RETAIN,JOKVOItem *);
 

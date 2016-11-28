@@ -67,6 +67,9 @@
 @property (nonatomic, assign) CGFloat polygonalBorderWidth;
 //完整动画持续时间. 默认为4s
 @property (nonatomic, assign) NSTimeInterval duration;
+//若为负值只能对:左上左下与右上右下的六边形与中间六边形的间距大小  任何两个六边形上下的间距不能调整大小
+//若为正值 则就能对所有的六边形的间距进行增加
+@property (nonatomic, assign) CGFloat offset;
 //两种动画的效果状态, YES:为更柔和的消失动画, NO:为更严格个动画消逝效果. 默认为YES
 @property (nonatomic, assign) BOOL softState;
 

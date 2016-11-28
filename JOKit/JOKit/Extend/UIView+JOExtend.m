@@ -71,8 +71,10 @@
 
 - (void)joViewBlurWithEffectStyle:(UIBlurEffectStyle)style {
     
+    [self setBackgroundColor:[UIColor clearColor]];
     UIBlurEffect *blurEffect=[UIBlurEffect effectWithStyle:style];
     UIVisualEffectView *visualEffectView=[[UIVisualEffectView alloc]initWithEffect:blurEffect];
+//    effectView.contentView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:0.3];
     [visualEffectView setFrame:self.bounds];
     [self addSubview:visualEffectView];
 }

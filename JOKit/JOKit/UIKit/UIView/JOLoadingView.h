@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "JOLoadingItem.h"
 
-typedef NS_ENUM(NSUInteger, JOLoadingModel) {
+typedef NS_ENUM(NSUInteger, JOLoadingStyle) {
     
-    JOLoadingModelTraceCircleBall, //多个小球沿圆的路径运动的动画
-    JOLoadingModelCircleDrawLine, //划线的动画(纯属无聊写的,一般你都不会用这个做loading动画的)
-    JOLoadingModelSixPolygonals, //类似于守望先锋加载的那种动画
-    JOLoadingModelCircleLine,    //一条线的按圆的路径的运动
+    JOLoadingStyleTraceCircleBall, //多个小球沿圆的路径运动的动画
+    JOLoadingStyleCircleDrawLine, //划线的动画(纯属无聊写的,一般你都不会用这个做loading动画的)
+    JOLoadingStyleSixPolygonals, //类似于守望先锋加载的那种动画
+    JOLoadingStyleCircleLine,    //一条线的按圆的路径的运动
 };
 
 /**
@@ -36,7 +36,7 @@ typedef void(^JOLoadingBlock) (JOLoadingItem *item);
 
  @return JOLoadingView.
  */
-+ (instancetype)loadingViewWithModel:(JOLoadingModel)model loadingItemBlock:(JOLoadingBlock)loadingBlock;
++ (instancetype)loadingViewWithModel:(JOLoadingStyle)style loadingItemBlock:(JOLoadingBlock)loadingBlock;
 
 @end
 

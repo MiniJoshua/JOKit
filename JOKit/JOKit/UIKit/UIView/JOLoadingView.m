@@ -71,6 +71,7 @@
         [_circleLayer setCornerRadius:_item.ballRadius];
         [_replicatorLayer addSublayer:_circleLayer];
         
+//        [self startLoadingAnimation];
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(startLoadingAnimation)];
         [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
         [_displayLink setFrameInterval:_item.animationIntervalTime*60.];
@@ -84,6 +85,8 @@
     
     [_replicatorLayer setFrame:self.bounds];
     self.animationPath = [UIBezierPath bezierPathWithOvalInRect:self.bounds];
+    
+//    [self startLoadingAnimation];
 }
 
 - (void)startLoadingAnimation {
@@ -94,8 +97,11 @@
                             animationBlock:^(CALayer *layer, CAAnimation *animation) {
                                 animation.removedOnCompletion = NO;
                                 animation.fillMode = kCAFillModeBoth;
+//                                animation.autoreverses = YES;
                             }
-                    animationDelegateBlock:nil];
+                    animationDelegateBlock:^(CALayer *layer, CAAnimation *animation, BOOL finishState) {
+//                        [layer setHidden:finishState];
+                    }];
 }
 
 @end
@@ -244,6 +250,7 @@ static const NSInteger kPolygonalsCount = 7;
         _item.polygonalBorderColor = [UIColor clearColor];
         _item.polygonalBorderWidth = 1.;
         _item.duration = 4.;
+        _item.offset = 0.;
         _item.softState = YES;
         
         if (itemBlock) {
@@ -319,18 +326,29 @@ static const NSInteger kPolygonalsCount = 7;
             [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6., center.y - width/6., width/3., width/3.)];
             [polygonalShapeLayer joShapeLayerWithPolygonals:kPolygonalsCount-1];
             
+            CGFloat xOffset = 0;
+            CGFloat yOffset = 0;
+            if (_item.offset >= 0) {
+                
+                xOffset = yOffset = _item.offset;
+            }else {
+            
+                xOffset = _item.offset;
+                yOffset = 0.;
+            }
+            
             if (i == 0) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., -width/3., 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., -width/3.-yOffset, 0)];
             }else if (i == 1) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3., -width/6., 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3.+xOffset, -width/6.-yOffset, 0)];
             }else if (i == 2) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3., width/6., 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3.+xOffset, width/6.+yOffset, 0)];
             }else if (i == 3) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0, width/3., 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., width/3.+xOffset, 0)];
             }else if (i == 4) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3., width/6., 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3.-xOffset, width/6.+yOffset, 0)];
             }else if (i == 5) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3., -width/6., 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3.-xOffset, -width/6.-yOffset, 0)];
             }
             [_layers addObject:polygonalShapeLayer];
         }
@@ -362,14 +380,16 @@ static const NSInteger kPolygonalsCount = 7;
         _item.colors = @[(__bridge id)[UIColor grayColor].CGColor,(__bridge id)[UIColor grayColor].CGColor];
         _item.locations = @[@(0.),@(1.)];
         _item.duration = 2.;
+        _item.startPoint = CGPointMake(0.0, 0.0);
+        _item.endPoint = CGPointMake(1., 1.);
         
         if (itemBlock) {
             itemBlock(_item);
         }
         self.gradientLayer = [CAGradientLayer layer];
         
-        [_gradientLayer setStartPoint:CGPointMake(0.0, 0.0)];
-        [_gradientLayer setEndPoint:CGPointMake(1., 1.)];
+        [_gradientLayer setStartPoint:_item.startPoint];
+        [_gradientLayer setEndPoint:_item.endPoint];
         [_gradientLayer setColors:_item.colors];
         [_gradientLayer setLocations:_item.locations];
         [self.layer addSublayer:_gradientLayer];
@@ -422,16 +442,16 @@ static const NSInteger kPolygonalsCount = 7;
 
 @implementation JOLoadingView
 
-+ (instancetype)loadingViewWithModel:(JOLoadingModel)model loadingItemBlock:(JOLoadingBlock)loadingBlock {
++ (instancetype)loadingViewWithModel:(JOLoadingStyle)style loadingItemBlock:(JOLoadingBlock)loadingBlock {
 
     JOLoadingView *loadingView = nil;
-    if (model == JOLoadingModelTraceCircleBall) {
+    if (style == JOLoadingStyleTraceCircleBall) {
         loadingView = [[JOTraceCircleBallLoadingView alloc] initWithItemBlock:loadingBlock];
-    }else if (model == JOLoadingModelCircleDrawLine) {
+    }else if (style == JOLoadingStyleCircleDrawLine) {
         loadingView = [[JOCricleDrawLineLodingView alloc] initWithItemBlock:loadingBlock];
-    }else if (model == JOLoadingModelSixPolygonals) {
+    }else if (style == JOLoadingStyleSixPolygonals) {
         loadingView = [[JOSixPolygonalsLoadingView alloc] initWithItemBlock:loadingBlock];
-    }else if (model == JOLoadingModelCircleLine) {
+    }else if (style == JOLoadingStyleCircleLine) {
         loadingView = [[JOCircleLineLoadingView alloc] initWithItemBlock:loadingBlock];
     }
     [loadingView setTranslatesAutoresizingMaskIntoConstraints:NO];

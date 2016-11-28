@@ -10,6 +10,93 @@
 #import <objc/objc.h>
 #import <objc/runtime.h>
 
+#define JOArgType_0  void
+#define JOArgType_1  int    //不处理
+#define JOArgType_2  long long  //不处理
+#define JOArgType_3  float  //不处理
+#define JOArgType_4  double  //不处理
+#define JOArgType_5  long   //不处理
+#define JOArgType_6  void *  //不处理
+#define JOArgType_7  SEL
+#define JOArgType_8  Class    //不处理
+#define JOArgType_9  id
+#define JOArgType_10 CGPoint  //不处理
+#define JOArgType_11 CGSize   //不处理
+#define JOArgType_12 CGRect  //不处理
+#define JOArgType_13 CGVector  //不处理
+#define JOArgType_14 CGAffineTransform //不处理
+#define JOArgType_15 CATransform3D  //不处理
+#define JOArgType_16 NSRange        //不处理
+#define JOArgType_17 UIOffset  //不处理
+#define JOArgType_18 UIEdgeInsets  //不处理
+
+/*
+ New Imp相关
+ */
+#define JONewImp1 newImp = imp_implementationWithBlock(^(void *obj
+
+#define JONewImp2 ){
+
+#define JONewImp3 !block?:block(obj
+
+#define JONewImp4 );
+
+#define JONewImp5 ((void(*)(void *, SEL
+
+#define JONewImp6 ))imp)(obj,selector
+
+#define JONewImp7 );
+
+#define JONewImp8 });
+
+#define JOAdd3(N) ,&arg##N
+#define JOAdd5(_t_) ,_t_
+#define JOAdd6(N) ,arg##N
+
+#define JOArg(N)  JOArgType_##N
+#define JOImp1(N) ,JOArgType_##N arg1
+#define JOImp2(N) ,JOArgType_##N arg2
+#define JOImp3(N) ,JOArgType_##N arg3
+#define JOImp4(N) ,JOArgType_##N arg4
+#define JOImp5(N) ,JOArgType_##N arg5
+#define JOImp6(N) ,JOArgType_##N arg6
+#define JOImp7(N) ,JOArgType_##N arg7
+
+#define JOImp(N) JOImp##N(N)
+
+#define JONewImpCode(N) \
+JONewImp1 JOImp1(N) JONewImp2 \
+JONewImp3 JOAdd3(1) JONewImp4 \
+JONewImp5 JOAdd5(JOArg(N)) JONewImp6 JOAdd6(1) JONewImp7 JONewImp8
+
+#define JONewImpCode2(N1,N2) \
+JONewImp1 JOImp1(N1) JOImp2(N2) JONewImp2 \
+JONewImp3 JOAdd3(1) JOAdd3(2) JONewImp4 \
+JONewImp5 JOAdd5(JOArg(N1)) JOAdd5(JOArg(N2)) JONewImp6 JOAdd6(1) JOAdd6(2) JONewImp7 JONewImp8
+
+#define JONewImpCode3(N1,N2,N3) \
+JONewImp1 JOImp1(N1) JOImp2(N2) JOImp3(N3) JONewImp2 \
+JONewImp3 JOAdd3(1) JOAdd3(2) JOAdd3(3) JONewImp4 \
+JONewImp5 JOAdd5(JOArg(N1)) JOAdd5(JOArg(N2)) JOAdd5(JOArg(N3)) JONewImp6 JOAdd6(1) JOAdd6(2) JOAdd6(3) JONewImp7 JONewImp8
+
+#define JONewImpAfterCode(N) \
+JONewImp1 JOImp1(N) JONewImp2 \
+JONewImp5 JOAdd5(JOArg(N)) JONewImp6 JOAdd6(1) JONewImp7 \
+JONewImp3 JOAdd3(1) JONewImp4 JONewImp8
+
+#define JONewImpAfterCode2(N1,N2) \
+JONewImp1 JOImp1(N1) JOImp2(N2) JONewImp2 \
+JONewImp5 JOAdd5(JOArg(N1)) JOAdd5(JOArg(N2)) JONewImp6 JOAdd6(1) JOAdd6(2) JONewImp7 \
+JONewImp3 JOAdd3(1) JOAdd3(2) JONewImp4 JONewImp8
+
+#define JONewImpAfterCode3(N1,N2,N3) \
+JONewImp1 JOImp1(N1) JOImp2(N2) JOImp3(N3) JONewImp2 \
+JONewImp5 JOAdd5(JOArg(N1)) JOAdd5(JOArg(N2)) JOAdd5(JOArg(N3)) JONewImp6 JOAdd6(1) JOAdd6(2) JOAdd6(3) JONewImp7 \
+JONewImp3 JOAdd3(1) JOAdd3(2) JOAdd3(3) JONewImp4 JONewImp8
+
+
+
+
 #define JOInvocation_Init \
 NSMethodSignature * sig = [self methodSignatureForSelector:selector]; \
 if (!sig) { \
@@ -21,7 +108,7 @@ if (!invocation) { \
     [self doesNotRecognizeSelector:selector]; \
     return nil; \
 } \
-[invocation  setTarget:self]; \
+[invocation setTarget:self]; \
 [invocation setSelector:selector]; \
 
 #define JOVa_List \
@@ -32,6 +119,8 @@ va_start(args, parameter); \
 va_end(args); \
 
 //JO_DUMMY_CLASS(NSObject_ThreadPerformExtend)
+
+//typedef JOArcType;
 
 @implementation NSObject(JOThreadPerformExtend)
 
@@ -177,9 +266,121 @@ return @(ret); \
                 return value;
             };
         }
+    
 #undef return_with_number
 }
+
++ (NSInteger)getArgTypeWithSig:(NSMethodSignature *)sig atIndex:(NSInteger)index{
+
+    char *type = ({
+        type = (char *)[sig getArgumentTypeAtIndex:index];
+        while (*type == 'r' || // const
+               *type == 'n' || // in
+               *type == 'N' || // inout
+               *type == 'o' || // out
+               *type == 'O' || // bycopy
+               *type == 'R' || // byref
+               *type == 'V') { // oneway
+            type++; // cutoff useless prefix
+        }
+        type;
+    });
     
+    switch (*type) {
+        case 'v': // 1: void
+        case 'B': // 1: bool
+        case 'c': // 1: char / BOOL
+        case 'C': // 1: unsigned char
+        case 's': // 2: short
+        case 'S': // 2: unsigned short
+        case 'i': // 4: int / NSInteger(32bit)
+        case 'I': // 4: unsigned int / NSUInteger(32bit)
+        case 'l': // 4: long(32bit)
+        case 'L': // 4: unsigned long(32bit)
+        { // 'char' and 'short' will be promoted to 'int'.
+            return 1;
+        } break;
+            
+        case 'q': // 8: long long / long(64bit) / NSInteger(64bit)
+        case 'Q': // 8: unsigned long long / unsigned long(64bit) / NSUInteger(64bit)
+        {
+            return 2;
+        } break;
+            
+        case 'f': // 4: float / CGFloat(32bit)
+        { // 'float' will be promoted to 'double'.
+            return 3;
+        }
+            
+        case 'd': // 8: double / CGFloat(64bit)
+        {
+            return 4;
+//            return "double";
+        } break;
+            
+        case 'D': // 16: long double
+        {
+            return 5;
+//            return "long double";
+        } break;
+            
+        case '*': // char *
+        case '^': // pointer
+        {
+            return 6;
+//            return "void *";
+        } break;
+            
+        case ':': // SEL
+        {
+            return 7;
+//            return "SEL";
+        } break;
+            
+        case '#': // Class
+        {
+            return 8;
+//            return "Class";
+        } break;
+            
+        case '@': // id
+        {
+            return 9;
+//            return "id";
+        } break;
+            
+        case '{': // struct
+        {
+            if (strcmp(type, @encode(CGPoint)) == 0) {
+                return 10;
+            } else if (strcmp(type, @encode(CGSize)) == 0) {
+                return 11;
+            } else if (strcmp(type, @encode(CGRect)) == 0) {
+                return 12;
+            } else if (strcmp(type, @encode(CGVector)) == 0) {
+                return 13;
+            } else if (strcmp(type, @encode(CGAffineTransform)) == 0) {
+                return 14;
+            } else if (strcmp(type, @encode(CATransform3D)) == 0) {
+                return 15;
+            } else if (strcmp(type, @encode(NSRange)) == 0) {
+                return 16;
+            } else if (strcmp(type, @encode(UIOffset)) == 0) {
+                return 17;
+            } else if (strcmp(type, @encode(UIEdgeInsets)) == 0) {
+                return 18;
+            }else {
+                
+            }
+        }
+            break;
+        default: {
+            
+        } break;
+    }
+    return 0;
+}
+
 + (void)setInvocation:(NSInvocation *)inv withSig:(NSMethodSignature *)sig andArgs:(va_list)args {
         NSUInteger count = [sig numberOfArguments];
     
@@ -364,6 +565,8 @@ struct dummy arg = va_arg(args, struct dummy); \
         }
 }
 
+
+
 @end
 
 @implementation NSObject(JOSwizzle)
@@ -434,6 +637,142 @@ BOOL JOAddClassMethod(Class fromClass, SEL fromSel, Class toClass) {
 
     Method method = class_getClassMethod(fromClass, fromSel);
     return class_addMethod(toClass, fromSel, method_getImplementation(method), method_getTypeEncoding(method));
+}
+
+- (void)addBlockToSelector:(SEL)selector block:(JO_argcBlock_t)block beforeState:(BOOL)state {
+
+    NSMethodSignature * sig = [self methodSignatureForSelector:selector];
+    if (!sig) {
+        [self doesNotRecognizeSelector:selector];
+        return;
+    }
+    //第1，2个的参数默认代表为self SEL  第三个位置才是输入的参数
+    NSInteger argsCount = [sig numberOfArguments];
+    Method method = class_getInstanceMethod(JOGetClass(self), selector);
+    IMP imp = method_getImplementation(method);
+    
+    IMP newImp;
+    
+    if (argsCount == 2) {
+        newImp = imp_implementationWithBlock(^(void *obj){
+            
+            !block?:block(obj);
+            ((void(*)(void *, SEL))imp)(obj,selector);
+        });
+    }else if (argsCount == 3) {
+        //一个参数
+        NSInteger n = [NSObject getArgTypeWithSig:sig atIndex:2];
+        
+        if (state) {
+            if (n == 7) {
+                JONewImpCode(7)
+            }else if(n == 9) {
+                JONewImpCode(9)
+            }else {
+                JOThrowException(@"addBlockToSelector Exception", @"只支持参数的类型是id跟SEL");
+            }
+        }else {
+        
+            if (n == 7) {
+                JONewImpAfterCode(7)
+            }else if(n == 9) {
+                JONewImpAfterCode(9)
+            }else {
+                JOThrowException(@"addBlockToSelector Exception", @"只支持参数的类型是id跟SEL");
+            }
+        }
+//                newImp = imp_implementationWithBlock(^(void *obj, id arg1){
+//                    !block?:block(obj,arg1);
+//                    ((void(*)(void *, SEL,id))imp)(obj,selector,arg1);
+//                });
+    }else if (argsCount == 4) {
+        //两个参数
+        NSInteger n1 = [NSObject getArgTypeWithSig:sig atIndex:2];
+        NSInteger n2 = [NSObject getArgTypeWithSig:sig atIndex:3];
+        
+        if (state) {
+            
+            if (n1 == 7 && n2 == 7) {
+                JONewImpCode2(7, 7)
+            }else if (n1 == 7 && n2 ==9) {
+                JONewImpCode2(7, 9)
+            }else if (n1 == 9 && n2 == 7) {
+                JONewImpCode2(9, 7)
+            }else if (n1 == 9 && n2 == 9) {
+                JONewImpCode2(9, 9)
+            }else {
+                JOThrowException(@"addBlockToSelector Exception", @"只支持参数的类型是id跟SEL");
+            }
+        }else {
+            
+            if (n1 == 7 && n2 == 7) {
+                JONewImpAfterCode2(7, 7)
+            }else if (n1 == 7 && n2 ==9) {
+                JONewImpAfterCode2(7, 9)
+            }else if (n1 == 9 && n2 == 7) {
+                JONewImpAfterCode2(9, 7)
+            }else if (n1 == 9 && n2 == 9) {
+                JONewImpAfterCode2(9, 9)
+            }else {
+                JOThrowException(@"addBlockToSelector Exception", @"只支持参数的类型是id跟SEL");
+            }
+        }
+        
+    }else if (argsCount == 5) {
+        //三个参数
+        NSInteger n1 = [NSObject getArgTypeWithSig:sig atIndex:2];
+        NSInteger n2 = [NSObject getArgTypeWithSig:sig atIndex:3];
+        NSInteger n3 = [NSObject getArgTypeWithSig:sig atIndex:4];
+        
+        if (state) {
+            
+            if (n1 == 7 && n2 == 7 && n3 == 7) {
+                JONewImpCode3(7, 7, 7)
+            }else if (n1 == 7 && n2 == 7 && n3 == 9) {
+                JONewImpCode3(7, 7, 9)
+            }else if (n1 == 7 && n2 == 9 && n3 == 9) {
+                JONewImpCode3(7, 9, 9)
+            }else if (n1 == 7 && n2 == 9 && n3 == 7) {
+                JONewImpCode3(7, 9, 9)
+            }else if (n1 == 9 && n2 == 7 && n3 == 7) {
+                JONewImpCode3(9, 7, 7)
+            }else if (n1 == 9 && n2 == 7 && n3 == 9) {
+                JONewImpCode3(9, 7, 9)
+            }else if (n1 == 9 && n2 == 9 && n3 == 7) {
+                JONewImpCode3(9, 9, 7)
+            }else if (n1 == 9 && n2 == 9 && n3 == 9) {
+                JONewImpCode3(9, 9, 9)
+            }
+        }else {
+            
+            if (n1 == 7 && n2 == 7 && n3 == 7) {
+                JONewImpAfterCode3(7, 7, 7)
+            }else if (n1 == 7 && n2 == 7 && n3 == 9) {
+                JONewImpAfterCode3(7, 7, 9)
+            }else if (n1 == 7 && n2 == 9 && n3 == 9) {
+                JONewImpAfterCode3(7, 9, 9)
+            }else if (n1 == 7 && n2 == 9 && n3 == 7) {
+                JONewImpAfterCode3(7, 9, 9)
+            }else if (n1 == 9 && n2 == 7 && n3 == 7) {
+                JONewImpAfterCode3(9, 7, 7)
+            }else if (n1 == 9 && n2 == 7 && n3 == 9) {
+                JONewImpAfterCode3(9, 7, 9)
+            }else if (n1 == 9 && n2 == 9 && n3 == 7) {
+                JONewImpAfterCode3(9, 9, 7)
+            }else if (n1 == 9 && n2 == 9 && n3 == 9) {
+                JONewImpAfterCode3(9, 9, 9)
+            }
+        }
+    }
+    class_replaceMethod(JOGetClass(self), selector, newImp, method_getTypeEncoding(method));
+}
+
+- (void)addBlockToSelector:(SEL)selector beforeBlock:(JO_argcBlock_t)block {
+    [self addBlockToSelector:selector block:block beforeState:YES];
+}
+
+- (void)addBlockToSelector:(SEL)selector afterBlock:(JO_argcBlock_t)block {
+    [self addBlockToSelector:selector block:block beforeState:NO];
 }
 
 + (NSArray *)joSelectors {

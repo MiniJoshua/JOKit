@@ -257,7 +257,7 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
 /**
  生成规则的多边形.
 
- @param polygonals 需要生成的变数.
+ @param polygonals 需要生成的边数.
  */
 - (void)joShapeLayerWithPolygonals:(NSInteger)polygonals;
 

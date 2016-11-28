@@ -12,8 +12,11 @@ typedef void (^BannerTapBlock)();
 
 @interface JOBannerView : UIView
 
-@property (nonatomic, strong) UILabel *messageLabel;
-@property (nonatomic, assign) CGFloat bannerHeight;
+@property (nonatomic, strong) UILabel   *messageLabel;
+@property (nonatomic, assign) CGFloat   bannerHeight            UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor   *bannerBackgroundColor  UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont    *bannerPromptFont       UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor   *bannerPromptColor      UI_APPEARANCE_SELECTOR;
 
 + (instancetype)showWithMessage:(NSString *)message;
 + (instancetype)showWithMessage:(NSString *)message tapHandler:(BannerTapBlock)tapHandler;

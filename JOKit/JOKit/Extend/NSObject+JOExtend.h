@@ -105,6 +105,44 @@ JO_EXTERN BOOL JOAddInstanceMethod(Class fromClass, SEL fromSel, Class toClass);
  */
 JO_EXTERN BOOL JOAddClassMethod(Class fromClass, SEL fromSel, Class toClass);
 
+
+/*
+ 往方法里面注入自己的block需要注意的:
+ 现在只支持只有三个参数的方法,多了的话,也只会给你传回3个参数让使用,还可能会出未知的问题
+ PS:切记只能支持参数类型为id跟SEL的类型（id包括那些可以用id表示的类型）
+ 嵌入的block的写法 :
+ e.g: - (void)test:(NSString *)str sizeValue:(NSValue *)sizeValue;
+ 那么对应的block应该是 void(^)(void *obj,NSString **str,NSValue **sizeValue) {
+    //其中obj是对象本身  固定在第一个未知
+    //后面的参数类型应该跟方法里面的一一对应 因为要在Block里面更改参数的值,需要传入指针的对象才行
+    //这样你在自己的Block里面可以随意使用
+ }
+ */
+/**
+ 动态的在一个方法注入一个自己的block.
+
+ @param selector 需要注入的方法的SEL
+ @param block JO_argcBlock_t
+ @param beforeState YES 则在方法执行之前注入 NO 则在方法执行之后注入
+ */
+- (void)addBlockToSelector:(SEL)selector block:(JOAttributeNoescape JO_argcBlock_t)block beforeState:(BOOL)state;
+
+/**
+ 动态的在一个方法执行之前注入一个自己的block.
+
+ @param selector 需要注入的方法的SEL
+ @param block 嵌入的Block
+ */
+- (void)addBlockToSelector:(SEL)selector beforeBlock:(JOAttributeNoescape JO_argcBlock_t)block;
+
+/**
+ 动态在一个方法执行之后注入一个自己的block. 不过这种情况用起来意义不大
+
+ @param selector 需要注入的方法的SEL
+ @param block 嵌入的Block
+ */
+- (void)addBlockToSelector:(SEL)selector afterBlock:(JOAttributeNoescape JO_argcBlock_t)block;
+
 /**
  *  获取该类中所有的实例方法的SEL:仅获取本身类的方法(包括私有的方法),不会获取父类的方法
  *

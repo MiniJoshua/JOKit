@@ -86,6 +86,11 @@
 
 #define JOArgumentsCAssertNotNil(condition, description, ...) NSCAssert((condition), (description), ##__VA_ARGS__)
 
+/*
+ version请查看 Availabilty.h中的定义 __IPHONE_2_0 ....
+ */
+#define JOAllowMinSystemVersion(version) __IPHONE_OS_VERSION_MAX_ALLOWED >= version
+
 #define JOBlock_Variable              __block
 #define JOBlock_WeakSelf_MRC          __block typeof(self) //非ARC
 #define JOBlock_WeakSelf              __weak typeof(self)  //ARC
@@ -154,6 +159,15 @@
  */
 #define JOAttributeNoreturn                 __attribute__((noreturn))   //无返回值
 #define JOAttributeConst                    __attribute__((const))
+
+/*
+ C指针类型的参数或者Block指针类型可以使用noescape新属性标志，
+ 它用来标明这个指针参数不会离开这个函数或者方法而使用。即该参数的生命周期不会比这个函数的生命周期要长
+ 尤其对block来说有用,因为Block是异步调用的,很多时候这个函数的生命周期已经走完,但这个block可能会在这个函数生命周期走完再执行
+ 加上这个属性可以阻止这种情况存在.
+ e.g:- (void)enumerateObjectsUsingBlock:(void (NS_NOESCAPE ^)(ObjectType obj, BOOL *stop))block (系统的方法)
+ */
+#define JOAttributeNoescape                 __attribute__((noescape))
 
 /*
  不允许有子类

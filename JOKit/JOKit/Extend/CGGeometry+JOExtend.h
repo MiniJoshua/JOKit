@@ -55,6 +55,6 @@ JO_STATIC_INLINE CGRect JORectNewHeight(CGRect rect, CGFloat h)     { return JOR
 JO_STATIC_INLINE CGRect JORectAddWidth(CGRect rect, CGFloat w)      { return JORectNewSize(rect,JOSizeAddWidth(rect.size,w));}
 JO_STATIC_INLINE CGRect JORectAddHeight(CGRect rect, CGFloat h)     { return JORectNewSize(rect,JOSizeAddHeight(rect.size,h));}
 
-#define JOEdgeInsetZero UIEdgeInsetsMake(0., 0., 0., 0.);
+#define JOEdgeInsetZero UIEdgeInsetsMake(0., 0., 0., 0.)
 
 #endif /* CGGeometry_JOExtend_h */

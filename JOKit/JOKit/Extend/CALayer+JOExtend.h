@@ -259,6 +259,6 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
 
  @param polygonals 需要生成的边数.
  */
-- (void)joShapeLayerWithPolygonals:(NSInteger)polygonals;
+- (void)joShapeLayerWithPolygonals:(NSInteger)polygonals oddEven:(BOOL)oddEven;
 
 @end

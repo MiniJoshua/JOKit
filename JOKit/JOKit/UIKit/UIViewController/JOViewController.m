@@ -7,7 +7,6 @@
 //
 
 #import "JOViewController.h"
-#import "JOViewControllerModel.h"
 #import "JOActivityHUDView.h"
 #import "JOBannerView.h"
 #import "JOKit.h"
@@ -21,8 +20,6 @@
     UIColor *_bannerPromptColor;
     UIFont  *_bannerPromptFont;
 }
-
-@property (nonatomic, strong) JOViewControllerModel *viewModel;
 
 @end
 

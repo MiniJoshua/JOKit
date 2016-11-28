@@ -72,7 +72,6 @@
 @property (nonatomic, assign) CGFloat offset;
 //两种动画的效果状态, YES:为更柔和的消失动画, NO:为更严格个动画消逝效果. 默认为YES
 @property (nonatomic, assign) BOOL softState;
-
 @end
 
 @interface JOCircleLineLoadingItem : JOLoadingItem

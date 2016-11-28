@@ -278,17 +278,23 @@ if (repeatCount == 0.) { \
 
 @implementation CAShapeLayer(JORegularPolygonalExtend)
 
-- (void)joShapeLayerWithPolygonals:(NSInteger)polygonals {
+- (void)joShapeLayerWithPolygonals:(NSInteger)polygonals oddEven:(BOOL)oddEven{
     
     if (polygonals > 2) {
         
         UIBezierPath *shaperPath = [UIBezierPath bezierPath];
-        BOOL oddState = polygonals%2;
-        CGFloat angle = 2*M_PI/polygonals;
         
+        CGFloat angle = 2*M_PI/polygonals;
         CGFloat startAngle = -M_PI/2.;
-        if (!oddState) {
-            startAngle = -M_PI/2. - angle/2.;
+        
+        if (oddEven) {
+            BOOL oddState = polygonals%2;
+            if (!oddState) {
+                startAngle = -M_PI/2. - angle/2.;
+            }
+        }else {
+            
+            startAngle = -M_PI/2.;
         }
         
         NSMutableArray *pointArray = [NSMutableArray arrayWithCapacity:polygonals];

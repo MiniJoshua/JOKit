@@ -121,7 +121,7 @@
             loadintItem.polygonalColor = JORGBMake(255., 255., 255.);
             loadintItem.polygonalBorderColor = JORGBAMake(218., 218., 218., 0.9);
             loadintItem.polygonalBorderWidth = 1.;
-            loadintItem.offset = -0.5;
+            loadintItem.offset = -1.5;
         }];
         
         return loadingView;

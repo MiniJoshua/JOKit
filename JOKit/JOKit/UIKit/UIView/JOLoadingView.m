@@ -324,7 +324,7 @@ static const NSInteger kPolygonalsCount = 7;
             
             CGPoint center = JORectCenter(self.bounds);
             [polygonalShapeLayer setFrame:CGRectMake(center.x - width/6., center.y - width/6., width/3., width/3.)];
-            [polygonalShapeLayer joShapeLayerWithPolygonals:kPolygonalsCount-1];
+            [polygonalShapeLayer joShapeLayerWithPolygonals:kPolygonalsCount-1 oddEven:NO];
             
             CGFloat xOffset = 0;
             CGFloat yOffset = 0;
@@ -333,22 +333,28 @@ static const NSInteger kPolygonalsCount = 7;
                 xOffset = yOffset = _item.offset;
             }else {
             
-                xOffset = _item.offset;
-                yOffset = 0.;
+                yOffset = _item.offset;
+                xOffset = 0.;
             }
             
             if (i == 0) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., -width/3.-yOffset, 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/6.-xOffset, -width/3.-yOffset, 0)];
+                //[polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., -width/3.-yOffset, 0)];
             }else if (i == 1) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3.+xOffset, -width/6.-yOffset, 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/6.+xOffset, -width/3.-yOffset, 0)];
+//                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3.+xOffset, -width/6.-yOffset, 0)];
             }else if (i == 2) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3.+xOffset, width/6.+yOffset, 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3.+xOffset, 0., 0)];
+                //[polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/3.+xOffset, width/6.+yOffset, 0)];
             }else if (i == 3) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., width/3.+xOffset, 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(width/6.+xOffset, width/3.+yOffset, 0)];
+                //[polygonalShapeLayer setTransform:CATransform3DMakeTranslation(0., width/3.+xOffset, 0)];
             }else if (i == 4) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3.-xOffset, width/6.+yOffset, 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/6.-xOffset, width/3.+yOffset, 0)];
+//                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3.-xOffset, width/6.+yOffset, 0)];
             }else if (i == 5) {
-                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3.-xOffset, -width/6.-yOffset, 0)];
+                //[polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3.-xOffset, -width/6.-yOffset, 0)];
+                [polygonalShapeLayer setTransform:CATransform3DMakeTranslation(-width/3.-xOffset, 0., 0)];
             }
             [_layers addObject:polygonalShapeLayer];
         }

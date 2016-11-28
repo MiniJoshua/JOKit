@@ -33,8 +33,9 @@ static NSTimeInterval const kDefaultAnimationTime = 0.5f;
 
 - (void)initConfig {
     
-    _bannerHeight = kDefaultBannerHeight;
     _duration = kDefaultDuration;
+    
+    [self setBackgroundColor:[UIColor whiteColor]];
     
     self.messageLabel = [UILabel newAutoLayoutView];
     [_messageLabel setTextAlignment:NSTextAlignmentCenter];
@@ -123,7 +124,7 @@ static NSTimeInterval const kDefaultAnimationTime = 0.5f;
     [self layoutTop:-_bannerHeight layoutItemHandler:nil];
     [self layoutLeft:0. layoutItemHandler:nil];
     [self layoutRight:0. layoutItemHandler:nil];
-    [self layoutHeight:_bannerHeight layoutItemHandler:nil];
+    [self layoutHeight:kDefaultBannerHeight layoutItemHandler:nil];
     
     [view layoutIfNeeded];
     
@@ -139,6 +140,41 @@ static NSTimeInterval const kDefaultAnimationTime = 0.5f;
                              [self hidden];
                          });
                      }];
+}
+
+#pragma mark - APPEARANCE
+#pragma mark - 
+
+- (void)setBannerHeight:(CGFloat)bannerHeight {
+    
+    _bannerHeight = bannerHeight;
+    [self layoutHeight:_bannerHeight];
+}
+
+- (void)setBannerBackgroundColor:(UIColor *)bannerBackgroundColor {
+    
+    if (bannerBackgroundColor) {
+        _bannerBackgroundColor = bannerBackgroundColor;
+        [self setBackgroundColor:_bannerBackgroundColor];
+    }else {
+        [self setBackgroundColor:[UIColor whiteColor]];
+    }
+}
+
+- (void)setBannerPromptFont:(UIFont *)bannerPromptFont {
+
+    if (bannerPromptFont) {
+        _bannerPromptFont = bannerPromptFont;
+        [_messageLabel setFont:bannerPromptFont];
+    }
+}
+
+- (void)setBannerPromptColor:(UIColor *)bannerPromptColor {
+
+    if (bannerPromptColor) {
+        _bannerPromptColor = bannerPromptColor;
+        [_messageLabel setTextColor:bannerPromptColor];
+    }
 }
 
 @end

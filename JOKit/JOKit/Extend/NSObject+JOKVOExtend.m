@@ -11,6 +11,274 @@
 #import "JOMacro.h"
 #import <objc/message.h>
 
+static const char * const JOKVONotificationCenterHelpersKey = "JOKVONotificationCenterHelpersKey";
+
+@interface JOKVONotificationItem(){
+
+    NSDictionary <NSKeyValueChangeKey,id>*_change;
+}
+
+@property (nonatomic, copy, readwrite) NSString *keyPath;
+@property (nonatomic, weak, readwrite) id       observer;
+@property (nonatomic, weak, readwrite) id       observered;
+
+- (JO_INSTANCETYPE)initWithObserver:(id)observer observered:(id)observered keyPath:(NSString *)keyPath change:(NSDictionary<NSKeyValueChangeKey,id> *)change;
+
+@end
+
+@implementation JOKVONotificationItem
+
+- (JO_INSTANCETYPE)initWithObserver:(id)observer observered:(id)observered keyPath:(NSString *)keyPath change:(NSDictionary<NSKeyValueChangeKey,id> *)change {
+
+    self = [super init];
+    if (self) {
+        self.observer = observer;
+        self.observered = observered;
+        self.keyPath = keyPath;
+        _change = change;
+    }
+    return self;
+}
+
+- (NSKeyValueChange)kind {
+    return [_change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+}
+
+- (id)newValue {
+    return _change[NSKeyValueChangeNewKey];
+}
+
+- (id)oldValue {
+    return _change[NSKeyValueChangeOldKey];
+}
+
+- (NSIndexSet *)indexes {
+    return _change[NSKeyValueChangeIndexesKey];
+}
+
+- (BOOL)isPrior {
+    return [_change[NSKeyValueChangeNotificationIsPriorKey] boolValue];
+}
+
+@end
+
+@interface JOKVONotificationHelper : NSObject
+
+@property (nonatomic, weak)     id                          observer;
+@property (nonatomic, weak)     id                          observered;
+@property (nonatomic, copy)     NSString                    *keyPath;
+@property (nonatomic, assign)   NSKeyValueObservingOptions	options;
+@property (nonatomic, copy)     JOKVOBlock                  kvoBlock;
+
+- (JO_INSTANCETYPE)initWithObserver:(id)observer
+                      observered:(id)observered
+                         keyPath:(NSString *)keyPath
+                         options:(NSKeyValueObservingOptions)options
+                           block:(JOKVOBlock)block;
+
+@end
+
+@implementation JOKVONotificationHelper
+
+static char *JOKVONotificationHelperContext = "JOKVONotificationHelperContext";
+
+- (JO_INSTANCETYPE)initWithObserver:(id)observer
+                         observered:(id)observered
+                            keyPath:(NSString *)keyPath
+                            options:(NSKeyValueObservingOptions)options
+                              block:(JOKVOBlock)block {
+    
+    if ((self = [super init])) {
+        self.observer = observer;
+        self.observered = observered;
+        self.keyPath = keyPath;
+        self.options = options;
+        self.kvoBlock = [block copy];
+        
+        //确保options是个正数
+//        options &= ~(0x80000000);
+    
+        if ([observered isKindOfClass:[NSArray class]]) {
+            
+            [observered addObserver:self
+                 toObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [(NSArray *)observered count])]
+                         forKeyPath:keyPath
+                            options:options
+                            context:JOKVONotificationHelperContext];
+        }else {
+            
+            [observered addObserver:self
+                         forKeyPath:keyPath
+                            options:options
+                            context:JOKVONotificationHelperContext];
+        }
+        
+    }
+    return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+
+    if (context == JOKVONotificationHelperContext) {
+        JOKVONotificationItem *item = [[JOKVONotificationItem alloc] initWithObserver:self.observer observered:self.observered keyPath:self.keyPath change:change];
+        !_kvoBlock?:_kvoBlock(item);
+    }
+}
+
+- (void)removeObserver {
+
+    if ([self.observered isKindOfClass:[NSArray class]]) {
+        NSIndexSet		*idxSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [(NSArray *)_observered count])];
+        [_observered removeObserver:self fromObjectsAtIndexes:idxSet forKeyPath:_keyPath context:JOKVONotificationHelperContext];
+    }else {
+        [_observered removeObserver:self forKeyPath:_keyPath context:JOKVONotificationHelperContext];
+    }
+    self.kvoBlock = nil;
+}
+
+- (BOOL)isEqual:(id)object {
+    
+    if (self == object) {
+        return YES;
+    }
+    
+    if ([self isKindOfClass:[object class]]) {
+        
+        JOKVONotificationHelper *equalObject = (JOKVONotificationHelper *)object;
+        if ([self.observer isEqual:equalObject.observer] && [self.observered isEqual:equalObject.observered] && [self.keyPath isEqualToString:equalObject.keyPath]) {
+            return YES;
+        }else {
+            return NO;
+        }
+    }
+    return NO;
+}
+
+@end
+
+static NSMutableArray *JOKVONoticifationHelperArray = nil;
+
+@interface JOKVONotificationCenter : NSObject
+
+@property (nonatomic, strong) NSMutableArray *helperArray;
+
+@end
+
+@implementation JOKVONotificationCenter
+
++ (void)initialize {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        JOKVONoticifationHelperArray = [NSMutableArray array];
+    });
+}
+
++ (id)defaultCenter {
+    static JOKVONotificationCenter * notificationCenter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        notificationCenter = [[JOKVONotificationCenter alloc] init];
+    });
+    return notificationCenter;
+}
+
+- (void)observer:(id)observer observered:(id)observered keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(JOKVOBlock)block {
+
+    JOKVONotificationHelper *helper = [[JOKVONotificationHelper alloc] initWithObserver:observer observered:observered keyPath:keyPath options:options block:block];
+    [JOKVONoticifationHelperArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqual:helper]) {
+            [obj removeObserver];
+            [JOKVONoticifationHelperArray removeObject:obj];
+            *stop = YES;
+        }
+    }];
+    [JOKVONoticifationHelperArray addObject:helper];
+    objc_setAssociatedObject(observer, &JOKVONotificationCenterHelpersKey, helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self addBlockToDeallocWithObject:observer];
+}
+
+- (void)addBlockToDeallocWithObject:(id)object {
+
+    Class class = JOGetClass(object);
+    if ([JOKVONoticifationHelperArray containsObject:class]) {
+        return;
+    }
+
+    [object addBlockToSelector:NSSelectorFromString(@"dealloc") beforeBlock:^(void *obj){
+
+        JOKVONotificationHelper *helper = objc_getAssociatedObject((__bridge id)obj, &JOKVONotificationCenterHelpersKey);
+        if (helper) {
+            [helper removeObserver];
+            [JOKVONoticifationHelperArray removeObject:helper];
+        }
+    }];
+}
+
+- (void)removeObserver:(id)observer observered:(id)observered keyPath:(NSString *)keyPath {
+
+    [JOKVONoticifationHelperArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        JOKVONotificationHelper *helper = obj;
+        if ([helper.observer isEqual:observer] && [helper.observered isEqual:observered] && [helper.keyPath isEqual:keyPath]) {
+            [obj removeObserver];
+            [JOKVONoticifationHelperArray removeObject:obj];
+            *stop = YES;
+        }
+    }];
+}
+
+- (void)removeAllObserver:(id)observer observered:(id)observered {
+
+    [JOKVONoticifationHelperArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        JOKVONotificationHelper *helper = obj;
+        if ([helper.observer isEqual:observer] && [helper.observered isEqual:observered]) {
+            [obj removeObserver];
+            [JOKVONoticifationHelperArray removeObject:obj];
+        }
+    }];
+}
+
+@end
+
+@implementation NSObject(JOKVOExtend)
+
+- (void)joObservered:(id)observered keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options changeBlock:(JOKVOBlock)block {
+    
+    [[JOKVONotificationCenter defaultCenter] observer:self observered:observered keyPath:keyPath options:options block:block];
+}
+
+- (void)joObservered:(id)observered keyPath:(NSString *)keyPath newValueBlock:(JOKVONewValueBlock)block {
+    [[JOKVONotificationCenter defaultCenter] observer:self
+                                           observered:observered
+                                              keyPath:keyPath
+                                              options:NSKeyValueObservingOptionNew
+                                                block:^(JOKVONotificationItem *item) {
+        !block?:block([item newValue]);
+    }];
+}
+
+- (void)joRemoveObservered:(id)observered keyPath:(NSString *)keyPath {
+    [[JOKVONotificationCenter defaultCenter] removeObserver:self observered:observered keyPath:keyPath];
+}
+
+- (void)joRemoveAllObservered:(id)observered {
+    [[JOKVONotificationCenter defaultCenter] joRemoveAllObservered:observered];
+}
+
+@end
+
+
+#pragma mark - 技术参考自定义的KVO
+#pragma mark -
+
+/*‖==========================================================‖
+ ‖                                                          ‖
+ ‖                  仅当做技术参考                             ‖
+ ‖                                                          ‖
+ ‖                                                          ‖
+ ‖==========================================================‖
+ */
+
 static NSString     *const  kJOKVODefaultSubClassString = @"JOKVOSub";
 static const char   * const kJOKVOAssociatedKey = "kJOKVOAssociatedKey";
 
@@ -56,7 +324,7 @@ JO_STATIC_INLINE void JOKVOAddMethod(Class selClass,SEL seletor, Class toClass, 
     class_addMethod(toClass, seletor, imp, types);
 }
 
-- (void)joObserver:(id)observerObject path:(NSString *)path observerBlock:(JOKVOBlock)block {
+- (void)joObserver:(id)observerObject path:(NSString *)path observerBlock:(JOKVOValueBlock)block {
 
     if (!self.kvoItem) {
         self.kvoItem = [JOKVOItem new];
@@ -111,7 +379,7 @@ static void setIMP(id self, SEL _cmd, id newValue) {
         
         //执行Block
         JOKVOItem *KVOItem = objc_getAssociatedObject(self, &kJOKVOAssociatedKey);
-        JOKVOBlock block = [KVOItem ->_kvoBlockInfo objectForKey:key];
+        JOKVOValueBlock block = [KVOItem ->_kvoBlockInfo objectForKey:key];
         !block?:block(oldValue,newValue);
     }
 }

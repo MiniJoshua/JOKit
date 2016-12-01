@@ -95,7 +95,8 @@ static void JORunloopAutoreleasePoolObserverCallBack(CFRunLoopObserverRef observ
 
 static void JORunloopAutoreleasePoolSetup() {
     
-    JODispacth_once(^{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         
         CFRunLoopRef runloop = CFRunLoopGetCurrent();
         CFRunLoopObserverRef pushObserverRef;

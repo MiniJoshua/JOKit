@@ -126,7 +126,8 @@
 + (NSThread *)joRunLoopThread {
     
     static NSThread *runLoopThread;
-    JODispatchOnce(^{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         runLoopThread = [[NSThread alloc] initWithTarget:self selector:@selector(joThreadRunLoop) object:nil];
         [runLoopThread start];
     });

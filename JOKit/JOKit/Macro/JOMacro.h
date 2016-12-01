@@ -145,18 +145,27 @@
 #define JO_EXTERN	    extern __attribute__((visibility ("default")))
 #endif
 
-/*
- 在这个对象作用域将要结束的时候被调用,被调用的顺序是按栈的顺序先进后调用的原则
- unused告诉编译器这个方法可能不会被用到,这样不会出现警告啥的
- 具体用法查看:
- JOExitExcute
- */
-#define JOAttributeCleanup(_cleanupMethod_) __attribute__((cleanup(_cleanupMethod_), unused)
 
 /*
  更多相关属性查阅:
  https://gcc.gnu.org/onlinedocs/gcc-4.0.0/gcc/Function-Attributes.html
  */
+
+/*
+#define NS_RETURNS_RETAINED         __attribute__((ns_returns_retained))
+#define NS_RETURNS_NOT_RETAINED     __attribute__((ns_returns_not_retained))
+#define NS_RETURNS_INNER_POINTER    __attribute__((objc_returns_inner_pointer))
+ 这三个都属于系统自己使用的标示.
+ 即:指命名上表示一类型的方法,-init和 -initWithMark:都属于初始化的家族方法.
+ 编译器有过约定，对于alloc,init,copy,mutableCopy,new这几个的方法，后面默认加NS_RETURNS_RETAINED标识,
+ 所以你要是使用这些去命名一个属性或者方法的时候,都会得到错误的编译信息.
+ e.g:
+ 所以想要使用一个new开头的名字则需要添加NS_RETURNS_NOT_RETAINED该属性才能通过编译
+ id NS_RETURNS_NOT_RETAINED newValue;
+ 
+ 因为系统已经定义了这三个宏 就不再这重新定义宏了,在这说明一下
+ */
+
 #define JOAttributeNoreturn                 __attribute__((noreturn))   //无返回值
 #define JOAttributeConst                    __attribute__((const))
 
@@ -168,6 +177,14 @@
  e.g:- (void)enumerateObjectsUsingBlock:(void (NS_NOESCAPE ^)(ObjectType obj, BOOL *stop))block (系统的方法)
  */
 #define JOAttributeNoescape                 __attribute__((noescape))
+
+/*
+ 在这个对象作用域将要结束的时候被调用,被调用的顺序是按栈的顺序先进后调用的原则
+ unused告诉编译器这个方法可能不会被用到,这样不会出现警告啥的
+ 具体用法查看:
+ JOExitExcute
+ */
+#define JOAttributeCleanup(_cleanupMethod_) __attribute__((cleanup(_cleanupMethod_), unused)
 
 /*
  不允许有子类
@@ -398,18 +415,23 @@ typedef void (^JO_voidBlock_t)(void);
 
 /*
  单例
+ BUG:这么写存在一个问题,因为是static dispatch_once_t onceToken;将会导致只有第一次调用有效,第二次调用的话发现onceToken每次得到的地址都没改变,所以注释掉该方法.
  */
-DISPATCH_EXPORT DISPATCH_NONNULL_ALL DISPATCH_NOTHROW
-void JODispacth_once(DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
 
-DISPATCH_INLINE DISPATCH_ALWAYS_INLINE DISPATCH_NONNULL_ALL DISPATCH_NOTHROW
-void JODispatchOnce(DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block) {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken,block);
-}
+//DISPATCH_EXPORT DISPATCH_NONNULL_ALL DISPATCH_NOTHROW
+//void JODispacth_once(DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
+//
+//DISPATCH_INLINE DISPATCH_ALWAYS_INLINE DISPATCH_NONNULL_ALL DISPATCH_NOTHROW
+//void JODispatchOnce(DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block) {
+//    
+//    static dispatch_once_t onceToken;
+//    NSLog(@"地址:%p",&onceToken);
+//    dispatch_once(&onceToken,block);
+//}
+//
+//#undef  JODispacth_once
+//#define JODispacth_once JODispatchOnce
 
-#undef  JODispacth_once
-#define JODispacth_once JODispatchOnce
 
 /*
  作用域将要结束的时候执行

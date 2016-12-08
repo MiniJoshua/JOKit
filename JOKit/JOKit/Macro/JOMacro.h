@@ -37,6 +37,11 @@
  //代码
  #pragma clang diagnostic pop
  
+ 5.代码不会被执行 e.g:else语句中
+ #pragma clang diagnostic push
+ #pragma clang diagnostic ignored "-Wunreachable-code"
+ //代码
+ #pragma clang diagnostic pop
  */
 
 //#define JOGCCIgnored(JOArgcBlock) \
@@ -57,7 +62,7 @@
 #endif
 
 #ifdef DEBUG
-#define JOLog(...) NSLog(@"[%s line:%d]  %@",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+#define JOLog(...) printf("[%s line:%d]  %s\n",__func__,__LINE__,[[NSString stringWithFormat:__VA_ARGS__] UTF8String])
 #else
 #define JOLog(...) do{} while(0)
 #endif
@@ -415,7 +420,8 @@ typedef void (^JO_voidBlock_t)(void);
 
 /*
  单例
- BUG:这么写存在一个问题,因为是static dispatch_once_t onceToken;将会导致只有第一次调用有效,第二次调用的话发现onceToken每次得到的地址都没改变,所以注释掉该方法.
+ BUG:这么写存在一个问题,因为是static dispatch_once_t onceToken;
+ 将会导致只有第一次调用有效,第二次调用的话发现onceToken每次得到的地址都没改变,所以注释掉该方法.
  */
 
 //DISPATCH_EXPORT DISPATCH_NONNULL_ALL DISPATCH_NOTHROW
@@ -433,6 +439,21 @@ typedef void (^JO_voidBlock_t)(void);
 //#define JODispacth_once JODispatchOnce
 
 
+/**
+ 方法执行的耗时.单位为毫秒
+
+ @param block JO_voidBlock_t
+ */
+JO_STATIC_INLINE void JOFunCostTime(JO_voidBlock_t __nonnull block) {
+    
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+    block();
+    gettimeofday(&end, NULL);
+    double ms = (double)(end.tv_sec - start.tv_sec) * 1e3 + (double)(end.tv_usec - start.tv_usec) * 1e-3;
+    JOLog(@"耗时: %f 毫秒",ms);
+}
+
 /*
  作用域将要结束的时候执行
  用法:
@@ -443,7 +464,7 @@ typedef void (^JO_voidBlock_t)(void);
  };
  
  */
-JO_STATIC_INLINE void JO_executeCleanupBlock (__strong JO_voidBlock_t __nonnull * __nonnull block) { if (*block) (*block)(); }
+JO_STATIC_INLINE void JO_executeCleanupBlock (__strong JO_voidBlock_t __nonnull * __nonnull block) { !(*block)?:(*block)(); }
 
 #ifndef JOExitExcute
 #define JOExitExcute \
@@ -472,6 +493,7 @@ __strong JOVoidBlock JOMetaConcat_(JOExitBlock_, __LINE__) JOAttributeCleanup(JO
 
 #define JODispatchVoidDefineAttribute        DISPATCH_EXPORT DISPATCH_NONNULL_ALL
 #define JODispatchVoidFuncAttribute         DISPATCH_INLINE DISPATCH_ALWAYS_INLINE DISPATCH_NONNULL_ALL
+
 /*
  在主线程里面添加任务
  */
@@ -481,7 +503,6 @@ JODispatchVoidFuncAttribute
 void JODispatchMainQueueAsync(DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block) {
     dispatch_async(JODispatchMainQueue, block);
 }
-
 #undef JODispatchMainQueue_async
 #define JODispatchMainQueue_async JODispatchMainQueueAsync
 

@@ -172,19 +172,19 @@ typedef void(^JOKVOValueBlock)(id oldValue, id newValue);
  @param path 监听对象对应的path的值.
  @param block JOKVOBlock.
  */
-- (void)joObserver:(id)observerObject path:(NSString *)path observerBlock:(JOKVOValueBlock)block;
+- (void)joObserver:(id)observerObject path:(NSString *)path observerBlock:(JOKVOValueBlock)block DEPRECATED_MSG_ATTRIBUTE("仅做技术参考 勿用");
 
 /**
  删除给定path的KVO.
 
  @param path 对应的path的值.
  */
-- (void)joRemoveObserverWithPath:(NSString *)path;
+- (void)joRemoveObserverWithPath:(NSString *)path DEPRECATED_MSG_ATTRIBUTE("仅做技术参考 勿用");
 
 /**
  删除所有的KVO
  */
-- (void)joRemoveAllObserver;
+- (void)joRemoveAllObserver DEPRECATED_MSG_ATTRIBUTE("仅做技术参考 勿用");
 
 @end
 

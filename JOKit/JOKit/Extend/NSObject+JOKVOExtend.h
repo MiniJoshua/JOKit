@@ -7,6 +7,54 @@
 //
 
 #import <Foundation/Foundation.h>
+/*
+ 相关属性解释: http://southpeak.github.io/2015/04/23/cocoa-foundation-nskeyvalueobserving/
+ -------------------------------------
+ Option:
+ NSKeyValueObservingOptionNew  新值  对应的Key:
+ NSKeyValueObservingOptionOld  旧值
+ //在添加观察者的时候就会发送一个通知给观察者，在注册观察者方法返回之前
+ NSKeyValueObservingOptionInitial
+ //每次修改属性时，会在修改通知被发送之前预先发送一条通知给观察者， 这与-willChangeValueForKey:被触发的时间是相对应的。
+  即在每次修改属性时，会发送两条通知。
+ NSKeyValueObservingOptionPrior
+ -----------------------------------------
+ NSKeyValueChange:
+ 
+ //设置一个新值。被监听的属性可以是一个对象，也可以是一对一关系的属性或一对多关系的属性。
+ NSKeyValueChangeSetting
+ //表示一个对象被插入到一对多关系的属性。
+ NSKeyValueChangeInsertion
+ // 表示一个对象被从一对多关系的属性中移除。
+ NSKeyValueChangeRemoval
+ // 表示一个对象在一对多的关系的属性中被替换
+ NSKeyValueChangeReplacement
+
+---------------------------------------------
+ KEY:
+ // 属性变化的类型，是一个NSNumber对象，包含NSKeyValueChange枚举相关的值
+ NSString *const NSKeyValueChangeKindKey;
+ // 属性的新值。当NSKeyValueChangeKindKey是 NSKeyValueChangeSetting，
+ // 且添加观察的方法设置了NSKeyValueObservingOptionNew时，我们能获取到属性的新值。
+ // 如果NSKeyValueChangeKindKey是NSKeyValueChangeInsertion或者NSKeyValueChangeReplacement，
+ // 且指定了NSKeyValueObservingOptionNew时，则我们能获取到一个NSArray对象，包含被插入的对象或
+ // 用于替换其它对象的对象。
+ NSString *const NSKeyValueChangeNewKey;
+ // 属性的旧值。当NSKeyValueChangeKindKey是 NSKeyValueChangeSetting，
+ // 且添加观察的方法设置了NSKeyValueObservingOptionOld时，我们能获取到属性的旧值。
+ // 如果NSKeyValueChangeKindKey是NSKeyValueChangeRemoval或者NSKeyValueChangeReplacement，
+ // 且指定了NSKeyValueObservingOptionOld时，则我们能获取到一个NSArray对象，包含被移除的对象或
+ // 被替换的对象。
+ NSString *const NSKeyValueChangeOldKey;
+ // 如果NSKeyValueChangeKindKey的值是NSKeyValueChangeInsertion、NSKeyValueChangeRemoval
+ // 或者NSKeyValueChangeReplacement，则这个key对应的值是一个NSIndexSet对象，
+ // 包含了被插入、移除或替换的对象的索引
+ NSString *const NSKeyValueChangeIndexesKey;
+ // 当指定了NSKeyValueObservingOptionPrior选项时，在属性被修改的通知发送前，
+ // 会先发送一条通知给观察者。我们可以使用NSKeyValueChangeNotificationIsPriorKey
+ // 来获取到通知是否是预先发送的，如果是，获取到的值总是@(YES)
+ NSString *const NSKeyValueChangeNotificationIsPriorKey;
+ */
 
 /*
  使用下面的KVO去监听对象,不需要在dealloc里面去做移除,因为调用dealloc的时候里面已经帮你做好了这一步.
@@ -87,7 +135,6 @@ typedef void(^JOKVONewValueBlock) (id newValue);
 - (void)joRemoveAllObservered:(id)observered;
 
 @end
-
 
 
 

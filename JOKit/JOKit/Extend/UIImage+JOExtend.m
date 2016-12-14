@@ -197,12 +197,17 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
 }
 
 
-- (UIImage *)joImageRotatedWithDegrees:(CGFloat)degrees
-{
+- (UIImage *)joImageRotatedWithDegrees:(CGFloat)degrees {
+    
+    return [self joImageRotatedWithAngle:JORadians(degrees)];
+}
+
+- (UIImage *)joImageRotatedWithAngle:(CGFloat)angle {
+
     //通过对一个view做旋转然后得到这个图片旋转之后需要的size大小.
     //transform之后的视图的大小会发生变化.
     UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.size.width, self.size.height)];
-    CGAffineTransform t = CGAffineTransformMakeRotation(JORadians(degrees));
+    CGAffineTransform t = CGAffineTransformMakeRotation(angle);
     rotatedViewBox.transform = t;
     CGSize rotatedSize = rotatedViewBox.frame.size;
     
@@ -212,7 +217,7 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
     //平移旋转缩放为了将图片翻转成正常的状态
     //因为UIKit(左上为原点,右跟下为正方向)跟Core graphics(左下为原点,右跟上为正方向)坐标系不同 CGContext画出来的图片是颠倒的.
     CGContextTranslateCTM(context, rotatedSize.width/2, rotatedSize.height/2); //若不平移的话 则翻转的只能看见下半部分
-    CGContextRotateCTM(context, JORadians(degrees));
+    CGContextRotateCTM(context, angle);
     CGContextScaleCTM(context, 1.0, -1.0);
     
     CGContextDrawImage(context, CGRectMake(-self.size.width / 2, -self.size.height / 2, self.size.width, self.size.height), [self CGImage]);

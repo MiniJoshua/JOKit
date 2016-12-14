@@ -125,9 +125,11 @@ typedef void(^JOImageMetaDataResetBlock) (NSMutableDictionary *__autoreleasing *
  旋转图片的角度.
 
  @param degrees 旋转的角度(非弧度).
+ @param angle   旋转的角度(弧度).
  @return UIImage.
  */
 - (UIImage *)joImageRotatedWithDegrees:(CGFloat)degrees;
+- (UIImage *)joImageRotatedWithAngle:(CGFloat)angle;
 
 /**
  生成指定模式类型的图片

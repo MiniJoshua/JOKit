@@ -912,6 +912,10 @@ static const NSInteger kMilliSeconds_Second             = 1000; //1000毫秒 = 1
 
 /**
  根据系统的时区去获取Date,这样取出来的时间不会存在8个小时的差别
+ 获取中国时区的格式:
+ NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+ [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"]];
+ [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
  
  @return Date.
  */

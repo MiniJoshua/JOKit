@@ -10,6 +10,8 @@
 #import "JOPathHelper.h"
 
 /**
+ *
+ *  uint8_t: 1字节     uint16_t: 2字节    uint32_t: 4字节        uint64_t: 8字节
  *  计算得到的文件的大小  8bit(比特) = 1byte 1024byte(字节) = 1KB  1024KB = 1MB  1024MB = 1G 1024G = 1T
  *
  *  @param cacheSize   byte为单位的大小值

@@ -262,7 +262,7 @@ static NSMutableArray *JOKVONoticifationHelperArray = nil;
 }
 
 - (void)joRemoveAllObservered:(id)observered {
-    [[JOKVONotificationCenter defaultCenter] joRemoveAllObservered:observered];
+    [[JOKVONotificationCenter defaultCenter] removeAllObserver:self observered:observered];
 }
 
 @end

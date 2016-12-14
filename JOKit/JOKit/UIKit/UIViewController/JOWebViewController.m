@@ -33,7 +33,7 @@
 - (void)dealloc {
 
     if (JOWKWebViewEnable(WKWebUnable)) {
-        [_WKWebView removeObserver:self forKeyPath:@"estimatedProgress"];
+    
     }else {
         if (_progressTimer) {
             [_progressTimer invalidate];
@@ -97,7 +97,11 @@
     [_WKWebView layoutRight:0.];
     [_WKWebView layoutBottom:0.];
     
-    [_WKWebView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:NULL];
+    @weakify(self);
+    [self joObservered:_WKWebView keyPath:@"estimatedProgress" newValueBlock:^(id newValue) {
+    @strongify(self);
+       [self.progressView setProgress:[newValue floatValue] animated:YES];
+    }];
     
     progressValue = 0.2;
 }
@@ -143,16 +147,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     [self removeURLCache];
-}
-
-#pragma mark - KVO
-#pragma mark -
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-
-    if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        [_progressView setProgress:[change[@"new"] floatValue] animated:YES];
-    }
 }
 
 #pragma mark - remove cache

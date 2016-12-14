@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, JOActivityHUDStyle) {
     JOActivityHUDStyleIndicator,        //显示菊花 默认
     JOActivityHUDStyleCircleBall,       //显示小球的圆的轨迹运动
     JOActivityHUDStyleCircleLine,       //圆形的圆的轨迹运动
-    JOActivityHUDStyleSixPolygonals,    //六边形
+    JOActivityHUDStyleSixPolygonals,    //六边形 守望先锋那种类型的加载提示
     JOActivityHUDStyleCircleDrawLine,   //无聊蛋疼写的动画
 };
 

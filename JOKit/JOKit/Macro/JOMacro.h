@@ -326,7 +326,8 @@ NS_ENDHANDLER
 #define JO_OBJECT_SINGLETION(_class_name_,_shared_func_name_) \
 + (instancetype)_shared_func_name_ { \
 static _class_name_ *jo##_shared_func_name_; \
-JODispacth_once(^{ \
+static dispatch_once_t onceToken; \
+Jdispatch_once(&onceToken, ^{ \
 jo##_shared_func_name_ = [_class_name_ alloc] init]; \
 }); \
 return jo##_shared_func_name_; \
@@ -455,7 +456,7 @@ JO_STATIC_INLINE void JOFunCostTime(JO_voidBlock_t __nonnull block) {
 }
 
 /*
- 作用域将要结束的时候执行
+ 作用域将要结束的时候执行,多半用于在该作用域释放某个需要释放的对象.
  用法:
  
  @JOExitExcute {

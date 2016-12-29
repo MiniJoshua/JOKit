@@ -393,8 +393,8 @@
 			isa = PBXGroup;
 			children = (
 				421931E21D586FA90010392B /* JONetRequestConfig.h */,
-				421931E31D586FA90010392B /* JONetRequestConfig.m */,
 				421931E51D5872700010392B /* JODataRequestConfig.h */,
+				421931E31D586FA90010392B /* JONetRequestConfig.m */,
 				421931E61D5872700010392B /* JODataRequestConfig.m */,
 				421931E81D5872880010392B /* JOFileUploadConfig.h */,
 				421931E91D5872880010392B /* JOFileUploadConfig.m */,

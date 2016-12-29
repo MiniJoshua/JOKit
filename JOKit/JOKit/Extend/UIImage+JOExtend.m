@@ -8,6 +8,7 @@
 
 #import "UIImage+JOExtend.h"
 #import <ImageIO/ImageIO.h>
+#import <Accelerate/Accelerate.h>
 #import "CGGeometry+JOExtend.h"
 #import "NSString+JOExtend.h"
 
@@ -62,37 +63,6 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
     
     UIImage *resizeImage = [UIImage imageNamed:imageName];
     return [resizeImage resizableImageWithCapInsets:capInsets resizingMode:model];
-}
-
-#pragma mark - private
-
-static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect, CGFloat radius) {
-
-    if (radius == 0) {
-        CGContextAddRect(context, rect);
-        return;
-    }
-    
-    CGFloat width = CGRectGetWidth(rect);
-    CGFloat height = CGRectGetHeight(rect);
-    
-    CGContextSaveGState(context);
-//消除锯齿的,但是对图片的裁剪而言无效
-//    CGContextSetAllowsAntialiasing(context, YES);
-//    CGContextSetShouldAntialias(context, YES);
-    
-    CGContextMoveToPoint(context, 0. , radius);
-    CGContextAddArc(context, radius, radius, radius, M_PI, 3*M_PI/2, NO);
-    CGContextAddLineToPoint(context, width - radius, 0.);
-    CGContextAddArc(context, width - radius, radius, radius, 3*M_PI/2, 2*M_PI, NO);
-    CGContextAddLineToPoint(context, width , height - radius);
-    CGContextAddArc(context, width - radius, height - radius, radius, 0., M_PI/2., NO);
-    CGContextAddLineToPoint(context, radius, height);
-    CGContextAddArc(context, radius, height - radius, radius,M_PI/2., M_PI , NO);
-    CGContextAddLineToPoint(context, 0. , radius);
-    
-    CGContextClosePath(context);
-    CGContextRestoreGState(context);
 }
 
 #pragma mark - Color Image
@@ -196,23 +166,108 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
     return [originalImage joImageDrawnImage:image inRect:rect];
 }
 
+#pragma mark - image operation
 
-- (UIImage *)joImageRotatedWithDegrees:(CGFloat)degrees {
+- (UIImage *)joImageRotatePI {
     
-    return [self joImageRotatedWithAngle:JORadians(degrees)];
+    return [self joImageFlipHorizontal:YES vertical:YES];
 }
 
-- (UIImage *)joImageRotatedWithAngle:(CGFloat)angle {
+- (UIImage *)joImageFlipHorizontal {
 
-    //通过对一个view做旋转然后得到这个图片旋转之后需要的size大小.
-    //transform之后的视图的大小会发生变化.
-    UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.size.width, self.size.height)];
-    CGAffineTransform t = CGAffineTransformMakeRotation(angle);
-    rotatedViewBox.transform = t;
-    CGSize rotatedSize = rotatedViewBox.frame.size;
+    return [self joImageFlipHorizontal:YES vertical:NO];
+}
+
+- (UIImage *)joImageFlipVertical {
+    return [self joImageFlipHorizontal:NO vertical:YES];
+}
+
+- (UIImage *)joImageFlipHorizontal:(BOOL)horizontal vertical:(BOOL)vertical {
     
+    CGImageRef imageRef = JOConvertToARGBImageRef(self);
+    
+    if (!imageRef) {
+        return nil;
+    }
+    
+    size_t imageWidth = (size_t)CGImageGetWidth(imageRef);
+    size_t imageHeight = (size_t)CGImageGetHeight(imageRef);
+    size_t bytesPerRow = (size_t)CGImageGetBytesPerRow(imageRef);
+    
+    vImage_Buffer src ,dest;
+    src.width = dest.width = imageWidth;
+    src.height = dest.height = imageHeight;
+    src.rowBytes = dest.rowBytes = bytesPerRow;
+    size_t bytes = src.rowBytes*imageHeight;
+    
+    src.data = malloc(bytes);
+    dest.data = malloc(bytes);
+    
+    CGDataProviderRef provider = CGImageGetDataProvider(imageRef);
+    CFDataRef dataSource = CGDataProviderCopyData(provider);
+    if (NULL == dataSource)
+    {
+        return self;
+    }
+    const UInt8 *dataSourceData = CFDataGetBytePtr(dataSource);
+    CFIndex dataSourceLength = CFDataGetLength(dataSource);
+
+    memcpy(src.data, dataSourceData, MIN(bytes, dataSourceLength));
+    CFRelease(dataSource);
+    
+    if (vertical) {
+        vImageVerticalReflect_ARGB8888(&src, &dest, kvImageBackgroundColorFill);
+    }
+    if (horizontal) {
+        vImageHorizontalReflect_ARGB8888(&src, &dest, kvImageBackgroundColorFill);
+    }
+    
+    free(src.data);
+
+    CGContextRef context = CGBitmapContextCreate(dest.data,
+                                                 dest.width,
+                                                 dest.height,
+                                                 8,
+                                                 dest.rowBytes,
+                                                 CGImageGetColorSpace(imageRef),
+                                                 CGImageGetBitmapInfo(imageRef));
+    
+    @JOExitExcute{
+        CGContextRelease(context);
+    };
+    
+    if (!context) {
+        return nil;
+    }
+    
+    CGImageRef imgRef = CGBitmapContextCreateImage(context);
+    UIImage *img = [UIImage imageWithCGImage:imgRef scale:self.scale orientation:self.imageOrientation];
+    CGImageRelease(imgRef);
+    return img;
+}
+
+
+
+- (UIImage *)joImageRotatedWithDegrees:(CGFloat)degrees fitState:(BOOL)state{
+    return [self joImageRotatedWithAngle:JORadians(degrees) fitState:state];
+}
+
+- (UIImage *)joImageRotatedWithAngle:(CGFloat)angle fitState:(BOOL)state{
+
+    //根据是否需要fitState的状态来设置旋转后的大小
+    size_t width = (size_t)CGImageGetWidth(self.CGImage);
+    size_t height = (size_t)CGImageGetHeight(self.CGImage);
+    CGRect newRect = CGRectApplyAffineTransform(CGRectMake(0., 0., width, height),
+                                                state ? CGAffineTransformMakeRotation(angle) : CGAffineTransformIdentity);
+    
+    CGSize rotatedSize = newRect.size;
     UIGraphicsBeginImageContextWithOptions(rotatedSize, NO, [UIScreen mainScreen].scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //反锯齿
+    CGContextSetShouldAntialias(context, true);
+    CGContextSetAllowsAntialiasing(context, true);
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
     
     //平移旋转缩放为了将图片翻转成正常的状态
     //因为UIKit(左上为原点,右跟下为正方向)跟Core graphics(左下为原点,右跟上为正方向)坐标系不同 CGContext画出来的图片是颠倒的.
@@ -226,6 +281,106 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
     
     return newImage;
 }
+
+#pragma mark - Image Test
+- (UIImage *)joTestImageEmboss {
+
+    //create image buffers
+    CGImageRef imageRef = self.CGImage;
+    
+    size_t imageWidth = (size_t)CGImageGetWidth(imageRef);
+    size_t imageHeight = (size_t)CGImageGetHeight(imageRef);
+    size_t bytePreRow = (size_t)CGImageGetBytesPerRow(imageRef);
+    
+    //将非ARGB的图片转换成ARGB的图片
+    if (CGImageGetBitsPerPixel(imageRef) != 32 ||
+        CGImageGetBitsPerComponent(imageRef) != 8 ||
+        !((CGImageGetBitmapInfo(imageRef) & kCGBitmapAlphaInfoMask))) {
+        
+        UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+        [self drawAtPoint:CGPointZero];
+        imageRef = UIGraphicsGetImageFromCurrentImageContext().CGImage;
+        UIGraphicsEndImageContext();
+    }
+    
+    
+//    vImage_Buffer src ,dest;
+//    src.width = dest.width = imageWidth;
+//    src.height = dest.height = imageHeight;
+//    src.rowBytes = dest.rowBytes = bytePreRow;
+//    size_t bytes = src.rowBytes*imageHeight;
+//    
+//    src.data = malloc(bytes);
+//    dest.data = malloc(bytes);
+//    
+////    UInt8 *imageData = (UInt8 *)CGBitmapContextGetData(context);
+//    
+//    CGDataProviderRef provider = CGImageGetDataProvider(imageRef);
+//    CFDataRef dataSource = CGDataProviderCopyData(provider);
+//    if (NULL == dataSource)
+//    {
+//        return self;
+//    }
+//    const UInt8 *dataSourceData = CFDataGetBytePtr(dataSource);
+//    CFIndex dataSourceLength = CFDataGetLength(dataSource);
+//    
+//    memcpy(src.data, dataSourceData, MIN(bytes, dataSourceLength));
+//    CFRelease(dataSource);
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(NULL, imageWidth, imageHeight, 8, bytePreRow, colorSpace, kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedFirst);
+    CGColorSpaceRelease(colorSpace);
+    if (!context) return nil;
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), self.CGImage);
+    UInt8 *data = (UInt8 *)CGBitmapContextGetData(context);
+    if (!data) {
+        CGContextRelease(context);
+        return nil;
+    }
+    vImage_Buffer src = { data, imageHeight, imageWidth, bytePreRow };
+    vImage_Buffer dest = { data, imageHeight, imageWidth, bytePreRow };
+
+    //卷积核和为1才能保证亮度一直
+    SInt16 kernel[] = {-1, -1, -1, -1, 0,
+                       -1, -1, -1,  0, 1,
+                       -1, -1,  1,  1, 1,
+                       -1,  0,  1,  1, 1,
+                        0,  1,  1,  1, 1};
+    UInt8 backgroundColor[4] = {1,1,1,1};
+    
+     vImage_Error err;
+    err = vImageConvolve_ARGB8888(&src,
+                                  &dest,
+                                  NULL,
+                                  0,
+                                  0,
+                                  kernel,
+                                  5.,
+                                  5.,
+                                  2,
+                                  backgroundColor,
+                                  kvImageEdgeExtend);
+    
+//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//    CGContextRef context = CGBitmapContextCreate(dest.data,
+//                                                 imageWidth,
+//                                                 imageHeight,
+//                                                 8,
+//                                                 bytePreRow,
+//                                                 colorSpace,
+//                                                 kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedFirst);
+    
+//    CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), self.CGImage);
+    
+    CGImageRef imageref = CGBitmapContextCreateImage(context);
+    UIImage *newImage = [UIImage imageWithCGImage:imageref];
+    CGImageRelease(imageref);
+    
+    return newImage;
+}
+
+#pragma mark - Image Scale
 
 - (UIImage *)joImageConvertToGrayScale {
     
@@ -450,6 +605,8 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
     return scaledImage;
 }
 
+#pragma mark - image filter
+
 - (UIImage *)joImageColorCubeFilterWithLUTImage:(UIImage *)lutImage dimension:(NSInteger)dimension {
 
     size_t lutImageWidth = (size_t)lutImage.size.width;
@@ -466,6 +623,10 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
     
     uint32_t *pixels = (uint32_t *) malloc(lutImageWidth * lutImageHeight * sizeof(uint32_t));
     memset(pixels, 0, lutImageWidth * lutImageHeight * sizeof(uint32_t));
+    
+    @JOExitExcute{
+        free(pixels);
+    };
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     //创建lut的位图的空间
@@ -491,35 +652,65 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
         
         for (int column = 0; column < lutImageWidth; column ++) {
             
-            uint8_t *rgbaPixel = (uint8_t *) &pixels[deep * lutImageWidth + column];
+//            uint8_t *rgbaPixel = (uint8_t *) &pixels[deep * lutImageWidth + column];
+//            
+//            uint8_t r = rgbaPixel[JORGBAPixels.red];
+//            uint8_t g = rgbaPixel[JORGBAPixels.green];
+//            uint8_t b = rgbaPixel[JORGBAPixels.blue];
+//            uint8_t a = rgbaPixel[JORGBAPixels.aplha];
+//            
+//            u_long newOrderPixelOffset = (deep /dimension) * dimension *dimension * columnNum   + (column / dimension) * dimension *dimension + (deep%dimension) * dimension + (column % dimension);
+//            
+//            uint8_t *rgbaPixelss = (uint8_t *) &newOrderPixels[newOrderPixelOffset];
+//        
+//            rgbaPixelss[JORGBAPixels.red] = r;
+//            rgbaPixelss[JORGBAPixels.green] = g;
+//            rgbaPixelss[JORGBAPixels.blue] = b;
+//            rgbaPixelss[JORGBAPixels.aplha] = a;
             
-            uint8_t r = rgbaPixel[JORGBAPixels.red];
-            uint8_t g = rgbaPixel[JORGBAPixels.green];
-            uint8_t b = rgbaPixel[JORGBAPixels.blue];
-            uint8_t a = rgbaPixel[JORGBAPixels.aplha];
+            uint32_t *rgbaPixel = (uint32_t *) &pixels[deep * lutImageWidth + column];
             
             u_long newOrderPixelOffset = (deep /dimension) * dimension *dimension * columnNum   + (column / dimension) * dimension *dimension + (deep%dimension) * dimension + (column % dimension);
             
-            uint8_t *rgbaPixelss = (uint8_t *) &newOrderPixels[newOrderPixelOffset];
-            rgbaPixelss[JORGBAPixels.red] = r;
-            rgbaPixelss[JORGBAPixels.green] = g;
-            rgbaPixelss[JORGBAPixels.blue] = b;
-            rgbaPixelss[JORGBAPixels.aplha] = a;
+            uint32_t *rgbaPixelss = (uint32_t *) &newOrderPixels[newOrderPixelOffset];
+           
+            memcpy(rgbaPixelss, rgbaPixel, sizeof(uint32_t));
         }
     }
     
-    free(pixels);
+    UIImage *newImage = [self joImageWithFliterHandler:^(CIFilter *__autoreleasing *filter, CIContext *__autoreleasing *context) {
     
-    CIFilter *filter = [CIFilter filterWithName:@"CIColorCube"];
-    [filter setValue:[NSData dataWithBytesNoCopy:newOrderPixels length:dimension * dimension * dimension * sizeof(uint32_t) freeWhenDone:YES] forKey:@"inputCubeData"];
-    [filter setValue:[NSNumber numberWithInteger:dimension] forKey:@"inputCubeDimension"];
-    CIImage *inputImage = [[CIImage alloc] initWithImage: self];
-    [filter setValue:inputImage forKey:@"inputImage"];
-    CIContext *filterContext = [CIContext contextWithOptions:[NSDictionary dictionaryWithObject:(__bridge id)(CGColorSpaceCreateDeviceRGB()) forKey:kCIContextWorkingColorSpace]];
+        *filter = [CIFilter filterWithName:@"CIColorCube"];
+        [*filter setValue:[NSData dataWithBytesNoCopy:newOrderPixels length:dimension * dimension * dimension * sizeof(uint32_t) freeWhenDone:YES] forKey:@"inputCubeData"];
+        [*filter setValue:[NSNumber numberWithInteger:dimension] forKey:@"inputCubeDimension"];
+        *context = [CIContext contextWithOptions:[NSDictionary dictionaryWithObject:(__bridge id)(CGColorSpaceCreateDeviceRGB()) forKey:kCIContextWorkingColorSpace]];
+    }];
     
     //无须再次释放newOrderPixels 因为:dataWithBytesNoCopy:length:freeWhenDone已经释放掉了
-    UIImage *newImage = [UIImage imageWithCGImage:[filterContext createCGImage:[filter outputImage] fromRect:inputImage.extent]];
     return newImage;
+}
+
+- (UIImage *)joImageWithFliterHandler:(JOImageFilterHandler)handler{
+    
+    UIImage *filterImage = nil;
+    CIFilter *filter = nil;
+    CIContext *filterContext = nil;
+    
+    !handler?:handler(&filter,&filterContext);
+    
+    if (filter) {
+        
+        CIImage *inputImage = [[CIImage alloc] initWithImage: self];
+        [filter setValue:inputImage forKey:kCIInputImageKey];
+        if (!filterContext) {
+            filterContext = [CIContext context];
+        }
+
+        CIImage *outputImage = [filter outputImage];
+        filterImage = [UIImage imageWithCGImage:[filterContext createCGImage:outputImage fromRect:inputImage.extent]];
+    }
+    
+    return filterImage;
 }
 
 #pragma mark - image metaData
@@ -548,12 +739,14 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
 
 - (NSData *)joImageResetMetaDataInfo:(NSMutableDictionary *)newMetaDataInfo compressionQuality:(CGFloat)compressionQuality {
 
-    //获取这个图片的imageData compressionQuality计算传1转换后得到的imageData再转换成image都不会再是原图,因为这个UIImageJPEGRepresentation方法只是尽可能的去高质量的图片数据
+    //获取这个图片的imageData compressionQuality计算传1转换后得到的imageData再转换成image都不会再是原图,
+    //因为这个UIImageJPEGRepresentation方法只是尽可能的去高质量的图片数据
     NSData *imageData = UIImageJPEGRepresentation(self, compressionQuality);
     CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
     @JOExitExcute{
         CFRelease(imageSource);
     };
+    
     if (!imageSource) {
         JOThrowException(@"-joImageResetMetaDataInfo:compressionQuality: exception!", @"获取imageSource失败.");
         return nil;
@@ -584,7 +777,9 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
 
     NSMutableDictionary *metaDataInfo = [self joImageMetaDataInfo];
     CGFloat quality = 1.;
+    
     !block?:block(&metaDataInfo,&quality);
+    
     return [self joImageResetMetaDataInfo:metaDataInfo compressionQuality:quality];
 }
 
@@ -638,5 +833,310 @@ static inline void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect
     }];
 }
 
+#pragma mark - image load async
+
++ (void)joImageLoadURLString:(NSString *)urlString completeBlock:(void(^)(UIImage *image ,BOOL success))block {
+
+    JODispatch_default_global_async(^{
+       
+        UIImage *loadImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]];
+        
+        JODispatchMainQueue_async(^{
+            BOOL successState = loadImage?YES:NO;
+            !block?:block(loadImage,successState);
+        });
+    });
+}
+
+#pragma mark - image thumbnail
+
+- (UIImage *)joImageThumbnailWithSize:(CGSize)size {
+
+    NSData *imageData = UIImageJPEGRepresentation(self, 1.);
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    UIImage *thumbnailImage = [UIImage joImageThumbnailWithImageSource:imageSource size:size];
+    
+    CFRelease(imageSource);
+    
+    return thumbnailImage;
+}
+
++ (void)joImageThumbnailWithImageURLString:(NSString *)urlString thumbnailSize:(CGSize)size completeHandler:(void(^)(UIImage *thumbnailImage,BOOL success))handler{
+
+    JODispatch_default_global_async(^{
+       
+        CGImageSourceRef imageSource = CGImageSourceCreateWithURL((__bridge CFURLRef)[NSURL URLWithString:urlString],NULL);
+        UIImage *thumbnailImage = [UIImage joImageThumbnailWithImageSource:imageSource size:size];
+        
+        JODispatchMainQueue_async(^{
+            
+            BOOL successState = thumbnailImage?YES:NO;
+            !handler?:handler(thumbnailImage,successState);
+        });
+    });
+}
+
++ (UIImage *)joImageThumbnailWithImageSource:(CGImageSourceRef)imageSource size:(CGSize)size {
+    
+    NSDictionary *thumbnailInfo = @{(NSString *)kCGImageSourceCreateThumbnailFromImageAlways : @YES,
+                                    (NSString *)kCGImageSourceThumbnailMaxPixelSize : [NSNumber numberWithInt:MAX(size.width,size.height)],
+                                    (NSString *)kCGImageSourceCreateThumbnailWithTransform : @YES};
+    
+    //得到缩略图
+    CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, (__bridge CFDictionaryRef)thumbnailInfo );
+    UIImage *thumbnailImage = [UIImage imageWithCGImage:imageRef];
+    CFRelease(imageRef);
+    return thumbnailImage;
+}
+
+#pragma mark - image blur
+
+- (UIImage *)joImageblurredWithRadius:(CGFloat)radius iterations:(NSUInteger)iterations tintColor:(UIColor *)tintColor {
+    
+    //来源:https://github.com/nicklockwood/FXBlurView
+    //参考:http://wootau.me/2016/08/20/UIImage-ImageEffects%E6%A8%A1%E7%B3%8A%E6%BB%A4%E9%95%9C%E7%90%86%E8%A7%A3/
+
+    //对于长宽大小小于1的图片做模糊没啥意义
+    if (floorf(self.size.width) <= 1. || floorf(self.size.height) <= 1.) {
+        return self;
+    }
+
+    //模糊的半径 必须是奇数
+    uint32_t boxSize = (uint32_t)(radius * self.scale);
+    if (boxSize % 2 == 0) {
+        boxSize ++;
+    }
+    
+//    //create image buffers
+//    CGImageRef imageRef = self.CGImage;
+//    
+//    //将非ARGB的图片转换成ARGB的图片
+//    if (CGImageGetBitsPerPixel(imageRef) != 32 ||
+//        CGImageGetBitsPerComponent(imageRef) != 8 ||
+//        !((CGImageGetBitmapInfo(imageRef) & kCGBitmapAlphaInfoMask))) {
+//        
+//        UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+//        [self drawAtPoint:CGPointZero];
+//        imageRef = UIGraphicsGetImageFromCurrentImageContext().CGImage;
+//        UIGraphicsEndImageContext();
+//    }
+    
+    CGImageRef imageRef = JOConvertToARGBImageRef(self);
+    
+    //创建vImage输入与输出缓存
+    vImage_Buffer inBuffer, outBuffer;
+    //宽
+    inBuffer.width = outBuffer.width = CGImageGetWidth(imageRef);
+    //高
+    inBuffer.height = outBuffer.height = CGImageGetHeight(imageRef);
+    //每行占有的字节大小
+    inBuffer.rowBytes = outBuffer.rowBytes = CGImageGetBytesPerRow(imageRef);
+    //分配存储需要的大小.
+    size_t bytes = outBuffer.rowBytes * inBuffer.height;
+    inBuffer.data = malloc(bytes);
+    outBuffer.data = malloc(bytes);
+    
+    //分配失败的处理
+    if (inBuffer.data == NULL || outBuffer.data == NULL) {
+        
+        free(inBuffer.data);
+        free(outBuffer.data);
+        return self;
+    }
+    
+    //创建一个临时的缓存区域 主要是给vImageBoxConvolve_ARGB8888用的,
+    //因为后面需要根据iterations来多次进行模糊,这样就不需要函数每次都去创建与释放了
+    void *tempBuffer = malloc((size_t)vImageBoxConvolve_ARGB8888(&inBuffer,
+                                                                 &outBuffer,
+                                                                 NULL,
+                                                                 0,
+                                                                 0,
+                                                                 boxSize,
+                                                                 boxSize,
+                                                                 NULL,
+                                                                 kvImageEdgeExtend + kvImageGetTempBufferSize));
+    
+    //copy图片的data数据
+    CGDataProviderRef provider = CGImageGetDataProvider(imageRef);
+    CFDataRef dataSource = CGDataProviderCopyData(provider);
+    if (NULL == dataSource)
+    {
+        return self;
+    }
+    const UInt8 *dataSourceData = CFDataGetBytePtr(dataSource);
+    CFIndex dataSourceLength = CFDataGetLength(dataSource);
+    
+    //void *memcpy(void *dest, const void *src, size_t n);
+    //从源src所指的内存地址的起始位置开始拷贝n个字节到目标dest所指的内存地址的起始位置中。
+    memcpy(inBuffer.data, dataSourceData, MIN(bytes, dataSourceLength));
+    CFRelease(dataSource);
+    
+    for (NSUInteger i = 0; i < iterations; i++)
+    {
+        //模糊的操作
+        vImageBoxConvolve_ARGB8888(&inBuffer,
+                                   &outBuffer,
+                                   tempBuffer,
+                                   0,
+                                   0,
+                                   boxSize,
+                                   boxSize,
+                                   NULL,
+                                   kvImageEdgeExtend);
+        
+        //有点不懂为何在这要做一次交换,干嘛不直接用outBuffer去创建bitmap呢？？？
+//        void *temp = inBuffer.data;
+//        inBuffer.data = outBuffer.data;
+//        outBuffer.data = temp;
+    }
+    
+    //释放
+    free(inBuffer.data);
+    free(tempBuffer);
+    
+    //create image context from buffer
+    CGContextRef ctx = CGBitmapContextCreate(outBuffer.data,
+                                             outBuffer.width,
+                                             outBuffer.height,
+                                             8,
+                                             outBuffer.rowBytes,
+                                             CGImageGetColorSpace(imageRef),
+                                             CGImageGetBitmapInfo(imageRef));
+    
+    //混合tint的颜色
+    if (tintColor && CGColorGetAlpha(tintColor.CGColor) > 0.0f) {
+    
+        CGContextSetFillColorWithColor(ctx, [tintColor colorWithAlphaComponent:0.25].CGColor);
+        CGContextSetBlendMode(ctx, kCGBlendModePlusLighter);
+        CGContextFillRect(ctx, CGRectMake(0, 0, outBuffer.width, outBuffer.height));
+    }
+    
+    //创建image
+    imageRef = CGBitmapContextCreateImage(ctx);
+    UIImage *image = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
+    
+    CGImageRelease(imageRef);
+    CGContextRelease(ctx);
+    free(outBuffer.data);
+    
+    return image;
+}
+
+#pragma mark - image MIME
+
+- (NSString *)joImageMIMEType {
+
+    return [UIImage joImageMIMETypeWithImageData:UIImageJPEGRepresentation(self, 0.1)];
+}
+
++ (NSString *)joImageMIMETypeWithImageData:(NSData *)imageData {
+
+    //参考 https://github.com/php/php-src/blob/4b943c9c0dd4114adc78416c5241f11ad5c98a80/ext/standard/image.c
+    uint8_t bytes[12];
+    memset(bytes, 0, 12 * sizeof(uint8_t));
+    [imageData getBytes:bytes length:12];
+    
+    //常用的
+    const uint8_t gif[3]    = {'G','I','F'};
+    const uint8_t jpg[3]    = {(char)0xff,(char)0xd8,(char)0xff};
+    const uint8_t png[8]    = {(char) 0x89, (char) 0x50, (char) 0x4e, (char) 0x47,
+                                (char) 0x0d, (char) 0x0a, (char) 0x1a, (char) 0x0a};
+    const uint8_t tifii[4]  = {'I','I', (char)0x2A, (char)0x00};
+    const uint8_t tifmm[4]  = {'M','M', (char)0x00, (char)0x2A};
+    const uint8_t webp[4]   = {'R', 'I', 'F', 'F'};
+    
+    //非 常用的
+    const uint8_t swc[3]    = {'C','W','S'};
+    const uint8_t psd[4]    = {'8','B','P','S'};
+    const uint8_t bmp[2]    = {'B','M'};
+    const uint8_t swf[3]    = {'F','W','S'};
+    const uint8_t jpc[3]    = {(char)0xff, (char)0x4f, (char)0xff};
+    const uint8_t jp2[12]   = {(char)0x00, (char)0x00, (char)0x00, (char)0x0c,
+                                (char)0x6a, (char)0x50, (char)0x20, (char)0x20,
+                                (char)0x0d, (char)0x0a, (char)0x87, (char)0x0a};
+    const uint8_t iff[4]    = {'F','O','R','M'};
+    const uint8_t ico[4]    = {(char)0x00, (char)0x00, (char)0x01, (char)0x00};
+    
+    
+    //int memcmp(const void *buf1, const void *buf2, unsigned int count);
+    //比较内存区域buf1和buf2的前count个字节。
+    //当buf1<buf2时，返回值-1   当buf1==buf2时，返回值=0     当buf1>buf2时，返回值1
+    if (!memcmp(bytes, gif, 3)) {
+        return @"image/gif";
+    }else if (!memcmp(bytes, psd, 4)) {
+        return @"iamge/psd";
+    }else if (!memcmp(bytes, bmp, 2)) {
+        return @"image/bmp";
+    }else if (!memcmp(bytes, swf, 3)) {
+        return @"image/swf";
+    }else if (!memcmp(bytes, swc, 3)) {
+        return @"image/swc";
+    }else if (!memcmp(bytes, jpg, 3)) {
+        return @"image/jpeg";
+    }else if (!memcmp(bytes, png, 8)) {
+        return @"image/png";
+    }else if (!memcmp(bytes, tifii, 4) || !memcmp(bytes, tifmm, 4)) {
+        return @"image/tiff";
+    }else if (!memcmp(bytes, jpc, 3)) {
+        return @"image/jpc";
+    }else if (!memcmp(bytes, jp2, 12)) {
+        return @"image/jp2";
+    }else if (!memcmp(bytes, iff, 4)) {
+        return @"image/iff";
+    }else if (!memcmp(bytes, ico, 4)) {
+        return @"image/x-icon";
+    }else if (!memcmp(bytes, webp, 4)) {
+        return @"image/webp";
+    }
+    
+    return @"application/octet-stream";
+}
+
+#pragma mark - private
+
+JO_STATIC_INLINE void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect, CGFloat radius) {
+    
+    if (radius == 0) {
+        CGContextAddRect(context, rect);
+        return;
+    }
+    
+    CGFloat width = CGRectGetWidth(rect);
+    CGFloat height = CGRectGetHeight(rect);
+    
+    CGContextSaveGState(context);
+    //消除锯齿的,但是对图片的裁剪而言无效
+    //    CGContextSetAllowsAntialiasing(context, YES);
+    //    CGContextSetShouldAntialias(context, YES);
+    
+    CGContextMoveToPoint(context, 0. , radius);
+    CGContextAddArc(context, radius, radius, radius, M_PI, 3*M_PI/2, NO);
+    CGContextAddLineToPoint(context, width - radius, 0.);
+    CGContextAddArc(context, width - radius, radius, radius, 3*M_PI/2, 2*M_PI, NO);
+    CGContextAddLineToPoint(context, width , height - radius);
+    CGContextAddArc(context, width - radius, height - radius, radius, 0., M_PI/2., NO);
+    CGContextAddLineToPoint(context, radius, height);
+    CGContextAddArc(context, radius, height - radius, radius,M_PI/2., M_PI , NO);
+    CGContextAddLineToPoint(context, 0. , radius);
+    
+    CGContextClosePath(context);
+    CGContextRestoreGState(context);
+}
+
+JO_STATIC_INLINE CGImageRef JOConvertToARGBImageRef(UIImage *image) {
+
+    CGImageRef imageRef = image.CGImage;
+    
+    if (CGImageGetBitsPerPixel(imageRef) != 32 ||
+        CGImageGetBitsPerComponent(imageRef) != 8 ||
+        !((CGImageGetBitmapInfo(imageRef) & kCGBitmapAlphaInfoMask))) {
+        
+        UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+        [image drawAtPoint:CGPointZero];
+        imageRef = UIGraphicsGetImageFromCurrentImageContext().CGImage;
+        UIGraphicsEndImageContext();
+    }
+    return imageRef;
+}
 
 @end

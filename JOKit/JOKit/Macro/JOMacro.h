@@ -52,6 +52,8 @@
 #pragma mark - base
 #pragma mark -
 
+#define JOBitsNum(_type_) sizeof(_type_)*8
+
 #define JOMetaConcat_(A, B) A ## B
 #define JOMetaConcat(A, B) JOMetaConcat_(A, B)
 
@@ -308,6 +310,48 @@
 
 #pragma mark - Function
 #pragma mark - 
+
+JO_STATIC_INLINE void JOPrintBits_(size_t const size, void const *__nonnull const p) {
+    unsigned char *ptr = (unsigned char *)p;
+    unsigned char byte;
+    for (int i = (int)size - 1; i >= 0; i--) {
+        for (int j = JOBitsNum(byte)-1; j >= 0 ; j--) {
+            byte = ((ptr[i] >> j)&1) + '0';
+            printf("%c",byte);
+        }
+    }
+    printf("\n");
+}
+
+JO_STATIC_INLINE char *__nonnull JOBitsCharStr_(size_t const size, void const *__nonnull const p) {
+
+    unsigned char *ptr = (unsigned char *)p;
+    unsigned char byte;
+    char *pByte = malloc(size*8)+1; //多一位用来存放结束的标识符:\0
+    int tempPtr = 0;
+    for (int i = (int)size - 1; i >= 0; i--) {
+        for (int j = JOBitsNum(byte)-1; j >= 0 ; j--) {
+            byte = ((ptr[i] >> j)&1) + '0';
+            pByte[tempPtr] = byte;
+            tempPtr++;
+        }
+    }
+    pByte[tempPtr] = '\0';
+    return pByte;
+}
+
+#ifndef JOPrintBits
+#define JOPrintBits(_value_) JOPrintBits_(sizeof(_value_),&_value_)
+#endif
+
+#ifndef JOBitsCharStr
+#define JOBitsCharStr(_value_) JOBitsCharStr_(sizeof(_value_),&_value_)
+#endif
+
+#ifndef JOBitsString
+#define JOBitsString(_value_) [NSString stringWithUTF8String:JOBitsCharStr(_value_)]
+#endif
+
 
 /*Exception*/
 #ifndef JOThrowException

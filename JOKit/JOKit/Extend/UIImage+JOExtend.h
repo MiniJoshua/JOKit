@@ -149,6 +149,7 @@ typedef void(^JOImageFilterHandler) (CIFilter *__autoreleasing *filter, CIContex
 
  @param degrees 旋转的角度(非弧度).
  @param angle   旋转的角度(弧度).
+ @param fitState YES:会在区域里面完整的显示 NO:原始大小旋转,旋转之后超出的部分直接被截掉.
  @return UIImage.
  */
 - (UIImage *)joImageRotatedWithDegrees:(CGFloat)degrees fitState:(BOOL)state;
@@ -337,8 +338,36 @@ typedef void(^JOImageFilterHandler) (CIFilter *__autoreleasing *filter, CIContex
  */
 + (NSString *)joImageMIMETypeWithImageData:(NSData *)imageData;
 
+#pragma mark - image Info
+/*
+ 图片是否是gif图片
+ */
+- (BOOL)joImageIsGif;
++ (BOOL)joImageIsGifWithData:(NSData *)imageData;
+
+/*
+ 是否是gif动画的图片
+ */
+- (BOOL)joImageIsGifAnimated;
++ (BOOL)joImageIsGifAnimatedWithData:(NSData *)imageData;
+
+/*
+ 获取图片是否包含alpha通道
+ */
+- (BOOL)joImageHasAlphaChannel;
++ (BOOL)joImageHasAlphaChannelWithData:(NSData *)imageData;
++ (BOOL)joImageHasAlphaChannelWithImageRef:(CGImageRef)imageRef;
+
 #pragma mark - image gif
 
+/**
+ GIF图片的处理.
 
+ @param imageData imageData
+ @param imageName imageName
+ @return 生成一个可以执行动画的image.
+ */
++ (UIImage *)joImageAnimatedGifWithData:(NSData *)imageData;
++ (UIImage *)joImageAnimatedGifWithName:(NSString *)imageName;
 
 @end

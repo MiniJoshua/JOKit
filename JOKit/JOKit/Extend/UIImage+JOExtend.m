@@ -341,7 +341,7 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
     vImage_Buffer src = { data, imageHeight, imageWidth, bytePreRow };
     vImage_Buffer dest = { data, imageHeight, imageWidth, bytePreRow };
 
-    //卷积核和为1才能保证亮度一直
+    //卷积核和为1才能保证亮度是不变的
     SInt16 kernel[] = {-1, -1, -1, -1, 0,
                        -1, -1, -1,  0, 1,
                        -1, -1,  1,  1, 1,
@@ -1092,6 +1092,196 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
     return @"application/octet-stream";
 }
 
+#pragma mark - image Info
+
+- (BOOL)joImageIsGif {
+    
+    NSData *imageData = UIImageJPEGRepresentation(self, 0.1);
+    return [UIImage joImageIsGifWithData:imageData];
+}
+
+- (BOOL)joImageIsGifAnimated{
+
+    NSData *imageData = UIImageJPEGRepresentation(self, 0.1);
+    return [UIImage joImageIsGifAnimatedWithData:imageData];
+}
+
++ (BOOL)joImageIsGifWithData:(NSData *)imageData {
+    return JOImageIsGif(imageData);
+}
+
++ (BOOL)joImageIsGifAnimatedWithData:(NSData *)imageData {
+    return JOImageGifIsAnimated(imageData);
+}
+
+- (BOOL)joImageHasAlphaChannel {
+    return [UIImage joImageHasAlphaChannelWithImageRef:[self CGImage]];
+}
+
++ (BOOL)joImageHasAlphaChannelWithData:(NSData *)imageData {
+    
+    CGImageRef imageRef = [UIImage imageWithData:imageData].CGImage;
+    return [UIImage joImageHasAlphaChannelWithImageRef:imageRef];
+}
+
++ (BOOL)joImageHasAlphaChannelWithImageRef:(CGImageRef)imageRef {
+    return JOImageHasAlpha(imageRef);
+}
+
+#pragma mark - image gif
+//参考YYKit中的实现
++ (UIImage *)joImageAnimatedGifWithData:(NSData *)imageData {
+    
+    CGFloat scale= [UIScreen mainScreen].scale;
+
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFTypeRef)imageData, NULL);
+
+    @JOExitExcute {
+        if (imageSource) {
+            CFRelease(imageSource);
+        }
+    };
+    
+    if (!imageSource) {
+        return nil;
+    }
+    
+    //获取多少张图片
+    size_t imageCount = CGImageSourceGetCount(imageSource);
+    if (imageCount <= 1) {
+        return [self imageWithData:imageData scale:scale];
+    }
+    
+    NSUInteger frames[imageCount]; //每一张图片delay的时间里面包含了多少帧
+    double oneFrameTime = 1. / 60.0; //默认界面刷新的频率
+    NSTimeInterval totleDelayTime = 0.; //总的耗时
+    NSUInteger tempFrame = 0; //用来得出一个可以被所有图片包含帧整除的一个值.
+    
+    for (size_t i = 0; i < imageCount; i++) {
+        
+        NSTimeInterval delayTime = JOImageGetGifFrameDelayTime(imageSource, i);
+        totleDelayTime += delayTime;
+        NSUInteger frame = lrint(delayTime/oneFrameTime); //delay时间内包含的帧数
+        (frame<1)?(frame =1):frame; //至少要为一帧
+        frames[i] = frame;
+        
+        //得到一个能被所有图片的frame整除的tempFrame的值
+        if (i == 0) {
+            tempFrame = frame;
+        }else {
+            
+            if (frame < tempFrame) {
+                frame ^= tempFrame;
+                tempFrame ^= frame;
+                frame ^= tempFrame;
+            }
+            
+            NSUInteger temp;
+            while (YES) {
+    
+                temp = frame % tempFrame;
+                if (temp == 0) {
+                    break;
+                }
+                frame = tempFrame;
+                tempFrame = temp;
+            }
+        }
+    }
+    
+    NSMutableArray *imageArray = [NSMutableArray array];
+    
+    for (size_t i = 0; i< imageCount; i++) {
+        
+        CGImageRef imageRef = CGImageSourceCreateImageAtIndex(imageSource, i, NULL);
+        
+        if (!imageRef) {
+            return nil;
+        }
+        
+        size_t imageWidth = CGImageGetWidth(imageRef);
+        size_t imageHeight = CGImageGetHeight(imageRef);
+        
+        if (imageWidth == 0 || imageHeight == 0) {
+            CGImageRelease(imageRef);
+            return nil;
+        }
+        
+        BOOL hasAlpha = [UIImage joImageHasAlphaChannelWithImageRef:imageRef];
+        
+        CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Host;
+        if (hasAlpha) {
+            bitmapInfo |= kCGImageAlphaPremultipliedFirst;
+        }else {
+            bitmapInfo |= kCGImageAlphaNoneSkipFirst;
+        }
+        
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGContextRef context = CGBitmapContextCreate(NULL,
+                                                     imageWidth,
+                                                     imageHeight,
+                                                     8,
+                                                     CGImageGetBytesPerRow(imageRef),
+                                                     colorSpace,
+                                                     bitmapInfo);
+        CGColorSpaceRelease(colorSpace);
+        
+        if (!context) {
+            CGImageRelease(imageRef);
+            return nil;
+        }
+        
+        CGContextDrawImage(context, CGRectMake(0., 0., imageWidth, imageHeight), imageRef);
+        CGImageRef resultImageRef = CGBitmapContextCreateImage(context);
+        CFRelease(context);
+        
+        if (!resultImageRef) {
+            CGImageRelease(imageRef);
+            return nil;
+        }
+        
+        UIImage *image = [UIImage imageWithCGImage:resultImageRef scale:scale orientation:UIImageOrientationUp];
+        CGImageRelease(imageRef);
+        CGImageRelease(resultImageRef);
+        
+        if (!image) {
+            return nil;
+        }
+        
+        for (size_t t = 0, max = frames[i]/tempFrame ; t < max; t++) {
+            [imageArray addObject:image];
+        }
+    }
+    
+    return [self animatedImageWithImages:imageArray duration:totleDelayTime];
+}
+
++ (UIImage *)joImageAnimatedGifWithName:(NSString *)imageName {
+
+    NSString *gifPath = [[NSBundle mainBundle] pathForResource:[imageName stringByAppendingString:@"@2x"] ofType:@"gif"];
+    NSData *imageData = [NSData dataWithContentsOfFile:gifPath];
+    
+    if (imageData) {
+        return [UIImage joImageAnimatedGifWithData:imageData];
+    }else {
+        gifPath = [[NSBundle mainBundle] pathForResource:imageName ofType:@"gif"];
+        imageData = [NSData dataWithContentsOfFile:gifPath];
+        
+        if (imageData) {
+            return [UIImage joImageAnimatedGifWithData:imageData];
+        }else {
+            gifPath = [[NSBundle mainBundle] pathForResource:@"image" ofType:nil];
+            imageData = [NSData dataWithContentsOfFile:gifPath];
+            
+            if (imageData) {
+                return [UIImage joImageAnimatedGifWithData:imageData];
+            }
+        }
+    }
+    
+    return [UIImage imageNamed:imageName];
+}
+
 #pragma mark - private
 
 JO_STATIC_INLINE void JOContextAddRoundedRectPath(CGContextRef context, CGRect rect, CGFloat radius) {
@@ -1137,6 +1327,81 @@ JO_STATIC_INLINE CGImageRef JOConvertToARGBImageRef(UIImage *image) {
         UIGraphicsEndImageContext();
     }
     return imageRef;
+}
+
+JO_STATIC_INLINE BOOL JOImageIsGif(NSData *imageData) {
+    
+    uint8_t bytes[3];
+    memset(bytes, 0, 3 * sizeof(uint8_t));
+    [imageData getBytes:bytes length:3];
+    
+    const uint8_t gif[3] = {'G','I','F'};
+    
+    if (!memcmp(bytes, gif, 3)) {
+        return YES;
+    }
+    return NO;
+}
+
+JO_STATIC_INLINE BOOL JOImageGifIsAnimated(NSData *imageData) {
+    
+    if (!JOImageIsGif(imageData)) {
+        return NO;
+    }
+    
+    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFTypeRef)imageData, NULL);
+    @JOExitExcute{
+        CFRelease(source);
+    };
+    if (!source) {
+        return NO;
+    }
+    size_t count = CGImageSourceGetCount(source);
+    
+    if (count > 1) {
+        return YES;
+    }
+    return NO;
+}
+
+JO_STATIC_INLINE BOOL JOImageHasAlpha(CGImageRef imageRef) {
+    
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef) & kCGBitmapAlphaInfoMask;
+
+    if (alphaInfo == kCGImageAlphaPremultipliedLast ||
+        alphaInfo == kCGImageAlphaPremultipliedFirst ||
+        alphaInfo == kCGImageAlphaLast ||
+        alphaInfo == kCGImageAlphaFirst) {
+        return YES;
+    }
+    return NO;
+}
+
+//参考YYKit
+JO_STATIC_INLINE NSTimeInterval JOImageGetGifFrameDelayTime(CGImageSourceRef imageSourceRef ,size_t index) {
+    
+    NSTimeInterval delayTime = 0.;
+    CFDictionaryRef imageMetaDataDic = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, index, NULL);
+    if (imageMetaDataDic) {
+        CFDictionaryRef gifDic = CFDictionaryGetValue(imageMetaDataDic, kCGImagePropertyGIFDictionary);
+        
+        if (gifDic) {
+            //先取kCGImagePropertyGIFUnclampedDelayTime对应的时间值 若其小于等于一个无限趋于0的值,则使用kCGImagePropertyGIFDelayTime对应的时间值
+            NSNumber *delayTimeNumber = CFDictionaryGetValue(gifDic, kCGImagePropertyGIFUnclampedDelayTime);
+            if ([delayTimeNumber doubleValue] <= __FLT_EPSILON__) {
+                delayTimeNumber = CFDictionaryGetValue(gifDic, kCGImagePropertyGIFDelayTime);
+            }
+            
+            delayTime = [delayTimeNumber doubleValue];
+        }
+    }
+    
+    //http://nullsleep.tumblr.com/post/16524517190/animated-gif-minimum-frame-delay-browser-compatibility
+    //小于0.02在不同的浏览器之间表现有不同的差异 0.1则表现的最稳定
+    if (delayTime < 0.02) {
+        delayTime = 0.1;
+    }
+    return delayTime;
 }
 
 @end

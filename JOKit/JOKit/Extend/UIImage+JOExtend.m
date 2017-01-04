@@ -243,6 +243,7 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
     CGImageRef imgRef = CGBitmapContextCreateImage(context);
     UIImage *img = [UIImage imageWithCGImage:imgRef scale:self.scale orientation:self.imageOrientation];
     CGImageRelease(imgRef);
+    free(dest.data);
     return img;
 }
 

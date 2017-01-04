@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JOMacro.h"
 #import "JOLayoutItem.h"
 #import "JOLayout.h"
 
 typedef void(^JOViewLayoutBlock) (JOLayoutItem *layoutItem);
 
 @interface UIView(JOAutolayout)
+
+- (void)joLayoutMake:(void(^)(UIView *view))block;
 
 #pragma mark - 左边的约束相关
 #pragma mark -

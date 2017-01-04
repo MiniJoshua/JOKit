@@ -34,6 +34,7 @@
 #import "CGGeometry+JOExtend.h"
 #import "NSDate+JOExtend.h"
 #import "UIView+JOAutolayout.h"
+#import "UIView+JOLayoutBlock.h"
 #import "CALayer+JOExtend.h"
 #import "NSThread+JOExtend.h"
 #import "NSThread+JORunLoop.h"

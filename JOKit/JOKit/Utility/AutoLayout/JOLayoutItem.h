@@ -33,7 +33,6 @@ typedef NS_ENUM(NSInteger, JOLayoutItemProperty) {
 @property (nonatomic, assign) CGFloat ratio;//比率
 @property (nonatomic, assign) CGFloat distance;//距离
 @property (nonatomic, assign) UILayoutPriority priority;//优先级.
-@property (nonatomic, assign) JOLayoutItemProperty property;
 
 #pragma mark - Left
 /**

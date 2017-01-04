@@ -17,8 +17,7 @@
                           distance:(CGFloat)distance
                              ratio:(CGFloat)ratio
                           relation:(NSLayoutRelation)relation
-                          priority:(UILayoutPriority)priority
-                          property:(JOLayoutItemProperty)property{
+                          priority:(UILayoutPriority)priority {
     
     JOLayoutItem *item = [JOLayoutItem new];
     item.view = view;
@@ -29,23 +28,22 @@
     item.ratio = ratio;
     item.relation = relation;
     item.priority = priority;
-    item.property = property;
     return item;
 }
 
 #pragma mark - Left
 
-+ (instancetype)layoutLeftDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutLeftDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutLeftDistance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutLeftDistance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutLeftDistance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutLeftDistance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutLeftDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutLeftDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeLeft
@@ -54,23 +52,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyLeft];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutLeftView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutLeftView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutLeftView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutLeftView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutLeftView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutLeftView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];;
 }
 
-+ (instancetype)layoutLeftView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutLeftView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeLeft
@@ -79,23 +76,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyLeft];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutLeftXView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutLeftXView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutLeftXView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutLeftXView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutLeftXView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutLeftXView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutLeftXView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutLeftXView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeLeft
@@ -104,23 +100,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyLeft];
+                                   priority:priority];
     
 }
 
 #pragma mark - Right
-+ (instancetype)layoutRightDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutRightDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutRightDistance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutRightDistance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutRightDistance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutRightDistance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutRightDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutRightDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeRight
@@ -129,24 +124,23 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyRight];
+                                   priority:priority];
     
 }
 
 #pragma mark -
 
-+ (instancetype)layoutRightView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutRightView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutRightView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutRightView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutRightView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutRightView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];;
 }
 
-+ (instancetype)layoutRightView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutRightView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeRight
@@ -155,23 +149,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyRight];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutRightXView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutRightXView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutRightXView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutRightXView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutRightXView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutRightXView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];;
 }
 
-+ (instancetype)layoutRightXView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutRightXView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeRight
@@ -180,24 +173,23 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyRight];
+                                   priority:priority];
 }
 
 #pragma mark - Top
 
 
-+ (instancetype)layoutTopDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutTopDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutTopDistance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutTopDistance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutTopDistance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutTopDistance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutTopDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutTopDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeTop
@@ -206,23 +198,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyTop];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutTopView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutTopView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutTopView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutTopView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutTopView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutTopView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutTopView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutTopView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeTop
@@ -231,24 +222,23 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyTop];
+                                   priority:priority];
     
 }
 
 #pragma mark -
 
-+ (instancetype)layoutTopYView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutTopYView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutTopYView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutTopYView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutTopYView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutTopYView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutTopYView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutTopYView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeTop
@@ -257,23 +247,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyTop];
+                                   priority:priority];
 }
 
 #pragma mark - Bottom
 
-+ (instancetype)layoutBottomDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutBottomDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutBottomDistance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutBottomDistance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutBottomDistance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutBottomDistance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutBottomDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutBottomDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeBottom
@@ -282,23 +271,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyBottom];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutBottomView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutBottomView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutBottomView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutBottomView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutBottomView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutBottomView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutBottomView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutBottomView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeBottom
@@ -307,23 +295,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyBottom];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutBottomYView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutBottomYView:(UIView *)realteView distance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutBottomYView:realteView distance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutBottomYView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutBottomYView:(UIView *)realteView distance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutBottomYView:realteView distance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutBottomYView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutBottomYView:(UIView *)realteView distance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeBottom
@@ -332,23 +319,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyBottom];
+                                   priority:priority];
 }
 
 #pragma mark - Center
 
-+ (instancetype)layoutCenterXView:(UIView *)realteView priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutCenterXView:(UIView *)realteView priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutCenterXView:realteView relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutCenterXView:(UIView *)realteView view:(UIView *)view{
++ (instancetype)layoutCenterXView:(UIView *)realteView view:(UIView *)view {
     
     return [JOLayoutItem layoutCenterXView:realteView relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutCenterXView:(UIView *)realteView relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutCenterXView:(UIView *)realteView relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeCenterX
@@ -357,23 +343,22 @@
                                    distance:0.
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyCenterX];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutCenterYView:(UIView *)realteView priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutCenterYView:(UIView *)realteView priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutCenterYView:realteView relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutCenterYView:(UIView *)realteView view:(UIView *)view{
++ (instancetype)layoutCenterYView:(UIView *)realteView view:(UIView *)view {
     
     return [JOLayoutItem layoutCenterYView:realteView relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutCenterYView:(UIView *)realteView relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutCenterYView:(UIView *)realteView relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeCenterY
@@ -382,23 +367,22 @@
                                    distance:0.
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyCenterY];
+                                   priority:priority];
 }
 
 #pragma mark - width
 
-+ (instancetype)layoutWidthDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthDistance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutWidthDistance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutWidthDistance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthDistance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutWidthDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeWidth
@@ -407,23 +391,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyWidth];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutWidthView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutWidthView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view{
++ (instancetype)layoutWidthView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutWidthView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeWidth
@@ -432,23 +415,22 @@
                                    distance:0.
                                       ratio:ratio
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyWidth];
+                                   priority:priority];
 }
 
 #pragma mark - height
 
-+ (instancetype)layoutHeightDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutHeightDistance:(CGFloat)distance priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutHeightDistance:distance relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutHeightDistance:(CGFloat)distance view:(UIView *)view{
++ (instancetype)layoutHeightDistance:(CGFloat)distance view:(UIView *)view {
     
     return [JOLayoutItem layoutHeightDistance:distance relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutHeightDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutHeightDistance:(CGFloat)distance relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeHeight
@@ -457,23 +439,22 @@
                                    distance:distance
                                       ratio:1.
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyHeight];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutHeightView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutHeightView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutHeightView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutHeightView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view{
++ (instancetype)layoutHeightView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view {
     
     return [JOLayoutItem layoutHeightView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutHeightView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutHeightView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeHeight
@@ -482,23 +463,22 @@
                                    distance:0.
                                       ratio:ratio
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyHeight];
+                                   priority:priority];
 }
 
 #pragma mark - width/Height
 
-+ (instancetype)layoutWidthHeightRatio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthHeightRatio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthHeightRatio:ratio relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutWidthHeightRatio:(CGFloat)ratio view:(UIView *)view{
++ (instancetype)layoutWidthHeightRatio:(CGFloat)ratio view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthHeightRatio:ratio relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutWidthHeightRatio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthHeightRatio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeWidth
@@ -507,23 +487,22 @@
                                    distance:0.
                                       ratio:ratio
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyWidth];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutHeightWidthRatio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutHeightWidthRatio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutHeightWidthRatio:ratio relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutHeightWidthRatio:(CGFloat)ratio view:(UIView *)view{
++ (instancetype)layoutHeightWidthRatio:(CGFloat)ratio view:(UIView *)view {
     
     return [JOLayoutItem layoutHeightWidthRatio:ratio relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutHeightWidthRatio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutHeightWidthRatio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeHeight
@@ -532,23 +511,22 @@
                                    distance:0.
                                       ratio:ratio
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyWidth];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutWidthHeightView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthHeightView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthHeightView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:priority view:view];
 }
 
-+ (instancetype)layoutWidthHeightView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view{
++ (instancetype)layoutWidthHeightView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view {
     
     return [JOLayoutItem layoutWidthHeightView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
 }
 
-+ (instancetype)layoutWidthHeightView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutWidthHeightView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeWidth
@@ -557,13 +535,22 @@
                                    distance:0.
                                       ratio:ratio
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyWidth];
+                                   priority:priority];
 }
 
 #pragma mark -
 
-+ (instancetype)layoutHeightWidthView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view{
++ (instancetype)layoutHeightWidthView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view {
+    
+    return [JOLayoutItem layoutHeightWidthView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
+}
+
++ (instancetype)layoutHeightWidthView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view {
+    
+    return [JOLayoutItem layoutHeightWidthView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:priority view:view];
+}
+
++ (instancetype)layoutHeightWidthView:(UIView *)realteView ratio:(CGFloat)ratio relation:(NSLayoutRelation)relation priority:(UILayoutPriority)priority view:(UIView *)view {
     
     return [JOLayoutItem layoutItemWithView:view
                               viewAttribute:NSLayoutAttributeHeight
@@ -572,18 +559,6 @@
                                    distance:0.
                                       ratio:ratio
                                    relation:relation
-                                   priority:priority
-                                   property:JOLayoutItemPropertyHeight];
+                                   priority:priority];
 }
-
-+ (instancetype)layoutHeightWidthView:(UIView *)realteView ratio:(CGFloat)ratio priority:(UILayoutPriority)priority view:(UIView *)view{
-    
-    return [JOLayoutItem layoutHeightWidthView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:priority view:view];
-}
-
-+ (instancetype)layoutHeightWidthView:(UIView *)realteView ratio:(CGFloat)ratio view:(UIView *)view{
-    
-    return [JOLayoutItem layoutHeightWidthView:realteView ratio:ratio relation:NSLayoutRelationEqual priority:UILayoutPriorityRequired view:view];
-}
-
 @end

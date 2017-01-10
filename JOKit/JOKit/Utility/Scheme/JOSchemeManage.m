@@ -134,7 +134,7 @@
     
     NSString *replaceFormat = [format stringByReplacingOccurrencesOfString:@":" withString:@""];
     
-    if (replaceFormat && [replaceFormat length] && ![_maps objectForKey:replaceFormat]) {
+    if (replaceFormat && [replaceFormat length] && [_maps objectForKey:replaceFormat]) {
         JOSchemeItem *item = [_maps objectForKey:replaceFormat];
         [item itemOpenWithparams:_paramsArray];
         

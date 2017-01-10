@@ -53,6 +53,7 @@ static NSString *const kModelKey = @"Model";
  *
  *  @param format 地址 :viewMap.
  *  @param param1 参数 :现在可以是任何类型的参数形式. 顺序必须保持与map中给定的一致,不然你取的值可能错乱. plist里面Params里面的顺序跟这个需要保持一致.
+ *                  PS: params如果传@"",代表该参数为nil，你在后面取到该值将会为nil
  */
 - (void)open:(NSString *)format params:(id)param1,...;
 

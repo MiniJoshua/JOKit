@@ -109,7 +109,12 @@ if (!format || ![format length]) { \
 
     if ([_params count] == [params count]) {
         [_params enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [_paramDics setObject:params[idx] forKey:obj];
+            
+            if ([params[idx] isKindOfClass:[NSString class]] && [[params[idx] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+                
+            }else {
+                [_paramDics setObject:params[idx] forKey:obj];
+            }
         }];
     }else {
         JOException(@"JOSchemeItem exception.", @"itemOpen: params的数量与Map中给定的params数量不一致");

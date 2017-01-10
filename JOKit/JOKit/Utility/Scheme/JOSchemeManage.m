@@ -134,7 +134,7 @@
     
     NSString *replaceFormat = [format stringByReplacingOccurrencesOfString:@":" withString:@""];
     
-    if (replaceFormat && [replaceFormat length]) {
+    if (replaceFormat && [replaceFormat length] && ![_maps objectForKey:replaceFormat]) {
         JOSchemeItem *item = [_maps objectForKey:replaceFormat];
         [item itemOpenWithparams:_paramsArray];
         
@@ -158,7 +158,7 @@
         }
         
     }else {
-        JOException(@"JOSchemeManage exception.", @"open: format 不能为空");
+        JOException(@"JOSchemeManage exception.", @"open: format 不正确");
     }
 }
 

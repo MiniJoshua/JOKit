@@ -22,6 +22,7 @@
 #import "JOExceptionHelper.h"
 #import "JOCrashHelper.h"
 #import "JOSchemeManage.h"
+#import "JOClassInfo.h"
 
 //MARK: Extend
 #import "NSObject+JOExtend.h"

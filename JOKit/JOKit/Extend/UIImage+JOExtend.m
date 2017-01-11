@@ -718,7 +718,7 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
 
 - (NSMutableDictionary *)joImageMetaDataInfo {
 
-    NSData *imageData = UIImageJPEGRepresentation(self, 1.);
+    NSData *imageData = UIImageJPEGRepresentation(self, 0.9);
     CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
     @JOExitExcute{
         CFRelease(imageSource);
@@ -853,7 +853,7 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
 
 - (UIImage *)joImageThumbnailWithSize:(CGSize)size {
 
-    NSData *imageData = UIImageJPEGRepresentation(self, 1.);
+    NSData *imageData = UIImageJPEGRepresentation(self, 0.9);
     CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
     UIImage *thumbnailImage = [UIImage joImageThumbnailWithImageSource:imageSource size:size];
     

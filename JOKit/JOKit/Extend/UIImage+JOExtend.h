@@ -6,12 +6,6 @@
 //  Copyright © 2016年 刘维. All rights reserved.
 //
 
-//DONE: 根据颜色生成单颜色的图片
-//DONE: 生成圆角的图片
-//TODO: 图片加水印图片跟文字
-//TODO: 图片加水印文字
-//TODO:
-
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -192,6 +186,10 @@ typedef void(^JOImageFilterHandler) (CIFilter *__autoreleasing *filter, CIContex
  */
 - (UIImage *)joImageColorCubeFilterWithLUTImage:(UIImage *)lutImage dimension:(NSInteger)dimension;
 
+/*
+ 滤镜的相关属性参考:
+ http://blog.csdn.net/zhangao0086/article/details/39120331
+ */
 /**
  根据提供的filter生成新的滤镜图片.
  使用:
@@ -217,7 +215,7 @@ typedef void(^JOImageFilterHandler) (CIFilter *__autoreleasing *filter, CIContex
 /*
  不要尝试将修改后的元数据转换成图片,然后再次读取他的元数据,你会发现元数据根本未修改,
  因为UIImage貌似会丢弃这些信息,正确的做法应该是将这个得到的Data写入一个文件中,
- 使用的时候读取出来这个data转换成ImageSource去查看,不过你可以可以直接将这个data传给服务器.
+ 使用的时候读取出来这个data转换成ImageSource去查看,不过你可以直接将这个data传给服务器.
  */
 
 /**

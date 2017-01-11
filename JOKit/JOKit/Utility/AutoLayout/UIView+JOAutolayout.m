@@ -18,10 +18,6 @@
     [JOLayout layoutWithItem:item];
 }
 
-- (void)joLayoutMake:(void(^)(UIView *view))block {
-    !block?:block(self);
-}
-
 #pragma mark - 左边的约束相关
 #pragma mark -
 

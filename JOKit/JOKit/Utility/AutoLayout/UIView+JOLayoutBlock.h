@@ -10,12 +10,6 @@
 #import "UIView+JOAutolayout.h"
 #import "JOMacro.h"
 
-//#define keypath2(OBJ, PATH) \
-//(((void)(NO && ((void)OBJ.PATH, NO)), # PATH))
-
-#define JOLayout(OBJ,LAYOUTBLOCK) \
-(((void)(NO && ((void)OBJ.LAYOUTBLOCK, NO)), # LAYOUTBLOCK))
-
 typedef UIView *(^JOLayoutLeft)                     (CGFloat distance);
 typedef UIView *(^JOLayoutLeftView)                 (UIView *leftView, CGFloat distance);
 typedef UIView *(^JOLayoutLeftXView)                (UIView *leftView, CGFloat distance);

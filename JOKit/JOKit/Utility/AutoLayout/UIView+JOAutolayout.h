@@ -15,8 +15,6 @@ typedef void(^JOViewLayoutBlock) (JOLayoutItem *layoutItem);
 
 @interface UIView(JOAutolayout)
 
-- (void)joLayoutMake:(void(^)(UIView *view))block;
-
 #pragma mark - 左边的约束相关
 #pragma mark -
 

@@ -13,7 +13,7 @@
 
 @interface JOViewController : UIViewController
 
-- (void)activityHUDColor:(UIColor *)color;
+- (void)setActivityHUDColor:(UIColor *)color;
 /*
  在视图上面显示一个HUD,若给定的视图为nil,则默认为本身的视
  */

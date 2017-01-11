@@ -37,7 +37,7 @@
 #pragma mark - HUD
 #pragma mark -
 
-- (void)activityHUDColor:(UIColor *)color {
+- (void)setActivityHUDColor:(UIColor *)color {
     _HUDColor = color;
 }
 

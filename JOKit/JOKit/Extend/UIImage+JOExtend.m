@@ -986,21 +986,31 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
                                    kvImageEdgeExtend);
         
         //有点不懂为何在这要做一次交换,干嘛不直接用outBuffer去创建bitmap呢？？？
-//        void *temp = inBuffer.data;
-//        inBuffer.data = outBuffer.data;
-//        outBuffer.data = temp;
+        //代码效果证明交换给inBuffer去处理,得到的效果更好,更为平滑.
+        void *temp = inBuffer.data;
+        inBuffer.data = outBuffer.data;
+        outBuffer.data = temp;
     }
     
     //释放
-    free(inBuffer.data);
+//    free(inBuffer.data);
+    free(outBuffer.data);
     free(tempBuffer);
     
     //create image context from buffer
-    CGContextRef ctx = CGBitmapContextCreate(outBuffer.data,
-                                             outBuffer.width,
-                                             outBuffer.height,
+//    CGContextRef ctx = CGBitmapContextCreate(outBuffer.data,
+//                                             outBuffer.width,
+//                                             outBuffer.height,
+//                                             8,
+//                                             outBuffer.rowBytes,
+//                                             CGImageGetColorSpace(imageRef),
+//                                             CGImageGetBitmapInfo(imageRef));
+    
+    CGContextRef ctx = CGBitmapContextCreate(inBuffer.data,
+                                             inBuffer.width,
+                                             inBuffer.height,
                                              8,
-                                             outBuffer.rowBytes,
+                                             inBuffer.rowBytes,
                                              CGImageGetColorSpace(imageRef),
                                              CGImageGetBitmapInfo(imageRef));
     
@@ -1009,7 +1019,8 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
     
         CGContextSetFillColorWithColor(ctx, [tintColor colorWithAlphaComponent:0.25].CGColor);
         CGContextSetBlendMode(ctx, kCGBlendModePlusLighter);
-        CGContextFillRect(ctx, CGRectMake(0, 0, outBuffer.width, outBuffer.height));
+//        CGContextFillRect(ctx, CGRectMake(0, 0, outBuffer.width, outBuffer.height));
+        CGContextFillRect(ctx, CGRectMake(0, 0, inBuffer.width, inBuffer.height));
     }
     
     //创建image
@@ -1018,7 +1029,8 @@ static JORGBAIndexStruct rgbaIndexStruct = {3,2,1,0};
     
     CGImageRelease(imageRef);
     CGContextRelease(ctx);
-    free(outBuffer.data);
+//    free(outBuffer.data);
+    free(inBuffer.data);
     
     return image;
 }

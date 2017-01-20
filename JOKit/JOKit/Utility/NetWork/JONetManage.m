@@ -670,7 +670,7 @@ static inline NSURLSessionDownloadTask *JONetFileDownload(JOFileDownloadConfig *
     NSURLSessionDownloadTask *downloadTask = nil;
     
     //检查临时文件夹是否存在:是的话则创建临时的文件夹
-    JOFileCreateAtCachesDirectory(kFileDownloadTempDirectoriesName,NO);
+    JOFileCreateDirectoryAtPath(JOCachesFilePath(kFileDownloadTempDirectoriesName),NO);
     NSString *tempPath = [JOCachesFilePath(kFileDownloadTempDirectoriesName) stringByAppendingPathComponent:identifier];
     
     if (config.isCleanExistFile){

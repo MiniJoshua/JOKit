@@ -68,6 +68,32 @@ BOOL JOFileCreateAtCachesDirectory(NSString *fileName,BOOL removeState) {
     return JOFileCreateAtPath(JOCachesFilePath(fileName), removeState);
 }
 
+BOOL JOFileCreateDirectoryAtHomeDirectory(NSString *fileName,BOOL removeState) {
+    return JOFileCreateDirectoryAtPath(fileName,removeState);
+}
+
+BOOL JOFileCreateDirectoryAtDocumentDirectory(NSString *fileName,BOOL removeState) {
+    return JOFileCreateDirectoryAtPath(fileName,removeState);
+}
+
+BOOL JOFileCreateDirectoryAtTempDirectory(NSString *fileName,BOOL removeState) {
+    return JOFileCreateDirectoryAtPath(fileName,removeState);
+}
+
+BOOL JOFileCreateDirectoryAtLibraryDirectory(NSString *fileName,BOOL removeState) {
+    return JOFileCreateDirectoryAtPath(fileName,removeState);
+}
+
+
+BOOL JOFileCreateDirectoryAtPreferencesDirectory(NSString *fileName,BOOL removeState) {
+    return JOFileCreateDirectoryAtPath(fileName,removeState);
+}
+
+BOOL JOFileCreateDirectoryAtCachesDirectory(NSString *fileName,BOOL removeState) {
+    return JOFileCreateDirectoryAtPath(fileName,removeState);
+    
+}
+
 #pragma mark - File Exist 检测
 #pragma mark -
 

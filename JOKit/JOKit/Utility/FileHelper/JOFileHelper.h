@@ -35,7 +35,7 @@ JO_EXTERN BOOL JOFileCreateAtPath(NSString *filePath,BOOL removeState);
 JO_EXTERN BOOL JOFileCreateDirectoryAtPath(NSString *filePath,BOOL removeState);
 
 /**
- *  新建一个文件
+ *  新建一个文件,而非文件夹
  *
  *  @param fileName    文件的名字
  *  @param removeState 如果文件已经存在是否删除,YES则会删除原来存在的文件新建一个 NO则不会删除新建一个
@@ -48,6 +48,21 @@ JO_EXTERN BOOL JOFileCreateAtTempDirectory(NSString *fileName,BOOL removeState);
 JO_EXTERN BOOL JOFileCreateAtLibraryDirectory(NSString *fileName,BOOL removeState);    //Library
 JO_EXTERN BOOL JOFileCreateAtPreferencesDirectory(NSString *fileName,BOOL removeState);//Preferences
 JO_EXTERN BOOL JOFileCreateAtCachesDirectory(NSString *fileName,BOOL removeState);     //Caches
+
+/**
+ *  新建一个文件夹,而非文件
+ *
+ *  @param fileName    文件夹的名字
+ *  @param removeState 如果文件夹已经存在是否删除,YES则会删除原来存在的文件夹新建一个 NO则不会删除新建一个
+ *
+ *  @return 文件创建的状态.
+ */
+JO_EXTERN BOOL JOFileCreateDirectoryAtHomeDirectory(NSString *fileName,BOOL removeState);       //主目录下,即跟document在同一个文件夹
+JO_EXTERN BOOL JOFileCreateDirectoryAtDocumentDirectory(NSString *fileName,BOOL removeState);   //Document
+JO_EXTERN BOOL JOFileCreateDirectoryAtTempDirectory(NSString *fileName,BOOL removeState);       //Temp
+JO_EXTERN BOOL JOFileCreateDirectoryAtLibraryDirectory(NSString *fileName,BOOL removeState);    //Library
+JO_EXTERN BOOL JOFileCreateDirectoryAtPreferencesDirectory(NSString *fileName,BOOL removeState);//Preferences
+JO_EXTERN BOOL JOFileCreateDirectoryAtCachesDirectory(NSString *fileName,BOOL removeState);     //Caches
 
 
 #pragma mark - File Exist 检测

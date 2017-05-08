@@ -122,7 +122,7 @@
     @weakify(self);
     return ^(UIView *rightView, CGFloat distance, JOViewLayoutBlock block) {
         @strongify(self);
-        [self layoutLeftView:rightView distance:distance layoutItemHandler:block];
+        [self layoutRightView:rightView distance:distance layoutItemHandler:block];
         return self;
     };
 }

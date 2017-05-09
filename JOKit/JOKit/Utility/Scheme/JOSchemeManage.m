@@ -96,6 +96,8 @@
 
 - (void)open:(NSString *)format {
     
+    [_paramsArray removeAllObjects];
+    
     NSArray *schemeArray = [format componentsSeparatedByString:@":"];
     
     if ([schemeArray count] == 1) {
@@ -103,7 +105,6 @@
         [self openForamt:format];
     }else if ([schemeArray count] == 2) {
         
-        [_paramsArray removeAllObjects];
         NSArray *paramsArray = [[schemeArray lastObject] componentsSeparatedByString:@"/"];
         
         [paramsArray enumerateObjectsUsingBlock:^(NSString  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -120,7 +120,6 @@ JO_EXTERN BOOL JOFileRemoveAtCachesDirectory(NSString *fileName);
 /**
  *  清空文件夹下面所有的文件. 清空文件放在了Gloab的队列中去执行,清空完成后会在主线程里面调用completeBlock.
  *
- *  @return 清空的状态.
  */
 JO_EXTERN void JOFileCleanDirectory(NSString *directoryPath,void (^completeBlock)());
 JO_EXTERN void JOFileCleanDocumentDirectory(void (^completeBlock)());

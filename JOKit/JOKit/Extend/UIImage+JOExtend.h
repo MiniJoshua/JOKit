@@ -141,9 +141,8 @@ typedef void(^JOImageFilterHandler) (CIFilter *__autoreleasing *filter, CIContex
 /**
  旋转图片的角度.
 
- @param degrees 旋转的角度(非弧度).
- @param angle   旋转的角度(弧度).
- @param fitState YES:会在区域里面完整的显示 NO:原始大小旋转,旋转之后超出的部分直接被截掉.
+ @param degrees 旋转的角度(非弧度). angel   旋转的角度(弧度).
+ @param state YES:会在区域里面完整的显示 NO:原始大小旋转,旋转之后超出的部分直接被截掉.
  @return UIImage.
  */
 - (UIImage *)joImageRotatedWithDegrees:(CGFloat)degrees fitState:(BOOL)state;
@@ -265,7 +264,7 @@ typedef void(^JOImageFilterHandler) (CIFilter *__autoreleasing *filter, CIContex
  修改元数据的exif的时间,经纬度等信息.
 
  @param date                时间.(如果你自己尝试写入的话,需要注意date转换后的格式必须是yyyy:MM:dd HH:mm:ss 其他格式将会写入失败).
- @param coordinate          经纬度.
+        coordinate          经纬度.
  @param compressionQuality  图片的压缩质量.
  @return NSData.
  */
@@ -362,7 +361,7 @@ typedef void(^JOImageFilterHandler) (CIFilter *__autoreleasing *filter, CIContex
  GIF图片的处理.
 
  @param imageData imageData
- @param imageName imageName
+        imageName imageName
  @return 生成一个可以执行动画的image.
  */
 + (UIImage *)joImageAnimatedGifWithData:(NSData *)imageData;

@@ -29,9 +29,9 @@ NSCalendarIdentifierISO8601;          //ISO8601（但是现在还不可用）
  将DateString转换为Date类型.
 
  @param dateString 完整的格式示例 1987-02-23 12:23:32
- @param year 年  1987    得到的Date格式 1987-01-01 00:00:00 +0000
- @param month 月 02      得到的Date格式 1987-02-01 00:00:00 +0000
- @param day 日 23        得到的Date格式 1987-02-23 00:00:00 +0000
+        year 年  1987    得到的Date格式 1987-01-01 00:00:00 +0000
+        month 月 02      得到的Date格式 1987-02-01 00:00:00 +0000
+        day 日 23        得到的Date格式 1987-02-23 00:00:00 +0000
 
  @return Date
  */
@@ -136,7 +136,7 @@ JO_EXTERN BOOL JODateIsLeapYear(NSDate *date);
  获取一个月或者一年里面有多少天数.
 
  @param date 给定的时间.
- @param year year的字符串.
+        year year的字符串.
 
  @return 天数.
  */

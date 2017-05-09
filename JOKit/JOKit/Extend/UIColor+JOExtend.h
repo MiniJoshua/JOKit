@@ -130,7 +130,7 @@ JO_EXTERN JORGB JOColorToJORGB(UIColor *color)NS_AVAILABLE_IOS(5_0);
 /**
  *  将十六进制表示颜色的字符串转换为JORGBColor的结构体.默认的透明度为1.
  *
- *  @param hex 十六进制的颜色值
+ *  @param hexString 十六进制的颜色值
  *
  *  @return 转换后的JORGBValue的结构体.
  */
@@ -140,7 +140,7 @@ JO_EXTERN JORGB JOHexRGBStringToJORGB(NSString *hexString);
 /**
  *  将十六进制表示颜色的字符串转换为JORGBColor的结构体.
  *
- *  @param hex 十六进制的颜色值:@"0x66ccff"
+ *  @param hexString 十六进制的颜色值:@"0x66ccff"
  *  @param alpha 透明度.
  *
  *  @return 转换后的JORGBValue的结构体.

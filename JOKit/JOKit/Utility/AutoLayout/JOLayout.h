@@ -14,7 +14,7 @@
  *  移除所有的约束
  *
  *  @param view       需要移除的约束的视图.
- *  @param relateView 相关联的视图.
+ *
  */
 + (void)removeAllLayoutWithView:(UIView *)view;
 //移除与宽度关联的约束

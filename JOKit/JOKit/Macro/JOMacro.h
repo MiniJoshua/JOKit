@@ -561,8 +561,8 @@ void JODispatchMainQueueAsync(DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block) 
 /**
  开辟新的异步线程
  
- @param _queue_     队列
- @param JOVoidBlock JO_voidBlock_t
+ @param queue     队列
+ @param block JO_voidBlock_t
  */
 JODispatchVoidDefineAttribute
 void JODispatch_async(dispatch_queue_t __nonnull queue,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
@@ -576,8 +576,8 @@ void JODispatchAsync(dispatch_queue_t __nonnull queue,DISPATCH_NOESCAPE JO_voidB
 /**
  开辟新的同步线程.
  
- @param _queue_     队列
- @param JOVoidBlock JO_voidBlock_t
+ @param queue     队列
+ @param block JO_voidBlock_t
  */
 JODispatchVoidDefineAttribute
 void JODispatch_sync(dispatch_queue_t __nonnull queue,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
@@ -591,8 +591,8 @@ void JODispatchSync(dispatch_queue_t __nonnull queue,DISPATCH_NOESCAPE JO_voidBl
 /**
  开辟新的异步串行队列的线程
  
- @param _queueName_ 线程的名字
- @param JOVoidBlock JO_voidBlock_t
+ @param label 线程的名字
+ @param block JO_voidBlock_t
  */
 JODispatchVoidDefineAttribute
 void JODispatch_serial_async(const char *_Nullable label,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
@@ -607,8 +607,8 @@ void JODispatchSerialAsync(const char *_Nullable label,DISPATCH_NOESCAPE JO_void
 /**
  开辟新的异步并行队列的线程
  
- @param _queueName_ 线程的名字
- @param JOVoidBlock JO_voidBlock_t
+ @param label 线程的名字
+ @param block JO_voidBlock_t
  */
 JODispatchVoidDefineAttribute
 void JODispatch_concurrent_async(const char *_Nullable label,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
@@ -622,8 +622,8 @@ void JODispatchConcurrentAsync(const char *_Nullable label,DISPATCH_NOESCAPE JO_
 /**
  开辟新的同步串行队列的线程
  
- @param _queueName_ 线程的名字
- @param JOVoidBlock JO_voidBlock_t
+ @param label 线程的名字
+ @param block JO_voidBlock_t
  */
 JODispatchVoidDefineAttribute
 void JODispatch_serial_sync(const char *_Nullable label,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);
@@ -637,8 +637,8 @@ void JODispatchSerialSync(const char *_Nullable label,DISPATCH_NOESCAPE JO_voidB
 /**
  开辟新的同步并行队列的线程
  
- @param _queueName_ 线程的名字
- @param JOVoidBlock JO_voidBlock_t
+ @param label 线程的名字
+ @param block JO_voidBlock_t
  */
 JODispatchVoidDefineAttribute
 void JODispatch_concurrent_sync(const char *_Nullable label,DISPATCH_NOESCAPE JO_voidBlock_t __nonnull block);

@@ -31,9 +31,16 @@ static NSString *const kModelKey = @"Model";
  *
  *  @param format     地址.
  *  @param bindClass  绑定的ViewController的类.
- *  @param modelState 是否模态显示 默认为NO.
  */
 - (void)map:(NSString *)format blindClass:(Class)bindClass;
+
+/**
+ *  将一个ViewController与地址绑定在一起.
+ *
+ *  @param format     地址.
+ *  @param bindClass  绑定的ViewController的类.
+ *  @param modelState 是否模态显示 默认为NO.
+ */
 - (void)map:(NSString *)format blindClass:(Class)bindClass isModel:(BOOL)modelState;
 
 /**

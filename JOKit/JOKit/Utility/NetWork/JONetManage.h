@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger,JONetworkReachabilityStatus) {
 /**
  *  文件存在上传与下载的进度Block.
  *
- *  @param progressValue 进的的值.
+ *  @param progress 进的的值.
  */
 typedef void(^JONetFileProgressBlock) (NSProgress * progress);
 
@@ -32,7 +32,7 @@ typedef void(^JONetFileProgressBlock) (NSProgress * progress);
  *  可以传入多个Calss类型,按顺序返回第一个解析成功的数据模型.
  *  JSONModel *(^JSONModelParseHandler) (JSONModel *josnModel)
  *
- *  @param josnModel 传入你想要赋值的JSONModel数据模型对象.
+ *  @param class1 传入你想要赋值的JSONModel数据模型对象.
  *
  *  @return 返回解析后的数据模型.
  */
@@ -55,7 +55,7 @@ typedef void(^JONetRequestSuccessHandler) (NSURLResponse *response, NSDictionary
 /**
  *  网络请求失败的Handler.
  *
- *  @param failedDescription 失败的描述.
+ *  @param error 失败的描述.
  */
 typedef void(^JONetRequestFailedHandler) (NSError *error);
 
@@ -81,11 +81,11 @@ typedef void(^JONetRequestFailedHandler) (NSError *error);
  *  @param config           网络配置的类.不同的配置类代表不同的网络请求.
  *  @param identifier       自定义的网络的唯一标示.一般的网络请求可以不设置它(传nil 或者@"")(涉及到需要取消这个任务的时候就必须要设置这个标示),
  *                          多半是用于文件的下载与上传进行中的时候取消这个网络任务.
- *  @param progressHandler  NetFileOperationProgressHandler 文件上传或下载的进度.
- *  @param jsonModelHanler  NetManageMissionSuccessHandler 可以将网络返回得到的数据转作为你传入的数据模型对象返回.
+ *  @param progressBlock    JONetFileProgressBlock 文件上传或下载的进度.
+ *  @param jsonModelHandler JONetReqeustDataParseHandler 可以将网络返回得到的数据转作为你传入的数据模型对象返回.
  *                          ps:必须确保返回的数据与你给的数据模型是一一对应的,不然转换会失败.
- *  @param successHandler   MissionCompleteHandler 任务完成的回调,返回的对象为从服务器得到的数据,已转换为字典类型.
- *  @param interruptHandler MissionInterruptHandler 任务中断的回调,返回的为任务中断的原因.
+ *  @param successHandler   JONetRequestSuccessHandler 任务完成的回调,返回的对象为从服务器得到的数据,已转换为字典类型.
+ *  @param failedHandler    JONetRequestFailedHandler 任务中断的回调,返回的为任务中断的原因.
  */
 + (void)netRequestWithConfig:(JONetRequestConfig *)config
            requestIdentifier:(NSString *)identifier

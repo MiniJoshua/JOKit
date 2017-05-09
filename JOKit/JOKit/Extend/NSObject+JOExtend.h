@@ -123,7 +123,7 @@ JO_EXTERN BOOL JOAddClassMethod(Class fromClass, SEL fromSel, Class toClass);
 
  @param selector 需要注入的方法的SEL
  @param block JO_argcBlock_t
- @param beforeState YES 则在方法执行之前注入 NO 则在方法执行之后注入
+ @param state YES 则在方法执行之前注入 NO 则在方法执行之后注入
  */
 - (void)addBlockToSelector:(SEL)selector block:(JOAttributeNoescape JO_argcBlock_t)block beforeState:(BOOL)state;
 

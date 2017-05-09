@@ -294,7 +294,7 @@ JO_EXTERN NSString *JODateStringFormat(NSString *dateString,NSString *formatter)
 /**
  将时间戳转换为给定格式的字符串.
 
- @param timeLineString 时间戳.
+ @param timelineString 时间戳.
  @param formatter      格式.
 
  @return 转换后的格式.
@@ -319,7 +319,7 @@ JO_EXTERN NSString *JODateConvertToTimelineString(NSDate *date);
  自定义个时间格式返回: 刚刚,几个小时前,几天前,2016-8-2 .
 
  @param timelineString 时间戳
- @param date           给定的时间
+        date           给定的时间
  @param days           针对于给定多少天以内显示的是几天前. 默认的的天数为5天
 
  @return 时间的格式

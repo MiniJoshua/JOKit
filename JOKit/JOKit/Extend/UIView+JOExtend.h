@@ -166,9 +166,9 @@ typedef NS_ENUM(NSUInteger, JOAnimationCurve) {
  执行一个系统提供的动画.
 
  @param duration      动画的时长. 默认的时长:0.5s.
- @param animationType 动画的类型. 具体的动画类型参考JOAnimation.
- @param directionType 动画的方向. e.g:MoveIn的动画是从左进入的还是从右进入的...  默认的方向是:从左进入 JODirectionLeft
- @param timingOptions 线性的函数. 默认:UIViewAnimationOptionCurveEaseInOut
+ @param animation 动画的类型. 具体的动画类型参考JOAnimation.
+ @param direction 动画的方向. e.g:MoveIn的动画是从左进入的还是从右进入的...  默认的方向是:从左进入 JODirectionLeft
+ @param animationCurve 线性的函数. 默认:UIViewAnimationOptionCurveEaseInOut
  */
 - (void)joAnimationWithDuration:(NSTimeInterval)duration
                       animation:(JOAnimation)animation

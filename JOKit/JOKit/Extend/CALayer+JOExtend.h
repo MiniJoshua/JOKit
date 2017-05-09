@@ -58,7 +58,7 @@ static NSString *const kJOGradientLayerKeyPathEndPoint  = @"endPoint";
  动画的代理的Block,只会在动画开始跟结束才会调用.
 
  @param layer       执行动画的layer.
- @param anim        动画.
+ @param animation        动画.
  @param finishState YES:则代表动画结束,NO:则代表动画开始.
  */
 typedef void(^JOAnimationDelegateBlock) (CALayer *layer, CAAnimation *animation, BOOL finishState);
@@ -75,7 +75,7 @@ typedef void(^JOAnimationDelegateBlock) (CALayer *layer, CAAnimation *animation,
     kCAFillModeBoth : kCAFillModeForwards和kCAFillModeBackwards的结合,即动画结束后layer保持在结束状态
 
  @param layer 操作的layer.
- @param anim  动画.
+ @param animation  动画.
  */
 typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
 
@@ -93,7 +93,7 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
  @param duration        持续的时间.
  @param repeatCount     重复的次数. 0为无限次.
  @param animationBlock  动画的block.
- @param block           动画的代理的block.
+ @param delegateBlock           动画的代理的block.
  */
 - (void)joLayerAnimationWithKeyPath:(NSString *)keyPath
                           fromValue:(id)fromValue
@@ -143,12 +143,12 @@ typedef void(^JOAnimationBlock) (CALayer *layer, CAAnimation *animation);
 /**
  给某个layer的属性加一个动画. 动画的时间函数为线性的.
 
- @param kayPath         对应的属性.
+ @param keyPath         对应的属性.
  @param values          一系列的值的数组.
  @param duration        持续时间.
  @param repeatCount     重复次数.   0代表一直重复.
- @param timingFunctions 动画速度时间的函数. 默认为liner的
- @param animaionBlock   动画的代理的Block回调.
+ @param animationBlock  JOAnimationBlock
+ @param delegateBlock   JOAnimationDelegateBlock
  */
 - (void)joLayerAnimationWithKeyPath:(NSString *)keyPath
                              values:(NSArray *)values

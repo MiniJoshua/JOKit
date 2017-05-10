@@ -9,20 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, JOLayoutItemProperty) {
-    
-    JOLayoutItemPropertyLeft,
-    JOLayoutItemPropertyRight,
-    JOLayoutItemPropertyTop,
-    JOLayoutItemPropertyBottom,
-    JOLayoutItemPropertyWidth,
-    JOLayoutItemPropertyHeight,
-    JOLayoutItemPropertyCenterX,
-    JOLayoutItemPropertyCenterY,
-    
-    JOLayoutItemPropertyUnKnow,
-};
-
 @interface JOLayoutItem : NSObject
 
 @property (nonatomic, strong) UIView *view; //需要添加的约束的视图.
@@ -33,6 +19,7 @@ typedef NS_ENUM(NSInteger, JOLayoutItemProperty) {
 @property (nonatomic, assign) CGFloat ratio;//比率
 @property (nonatomic, assign) CGFloat distance;//距离
 @property (nonatomic, assign) UILayoutPriority priority;//优先级.
+@property (nonatomic, assign) BOOL stayConstraint; //是否保存原来的约束不移除
 
 #pragma mark - Left
 /**

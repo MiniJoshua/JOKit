@@ -13,6 +13,7 @@
 - (void)layoutWithItem:(JOLayoutItem *)item itemBlock:(JOViewLayoutBlock)block {
     
     if (block) {
+        item.stayConstraint = YES;
         block(item);
     }
     [JOLayout layoutWithItem:item];

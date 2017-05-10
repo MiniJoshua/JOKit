@@ -10,6 +10,11 @@
 #import "UIView+JOAutolayout.h"
 #import "JOMacro.h"
 
+/*
+ 在使用layoutItemHandler的block方法改变item的属性的时候 
+ 会默认保留原来的约束不会被移除,如果你需要移除,则需要设置layoutItem的stayConstraint为NO.
+ */
+
 typedef UIView *(^JOLayoutLeft)                     (CGFloat distance);
 typedef UIView *(^JOLayoutLeftView)                 (UIView *leftView, CGFloat distance);
 typedef UIView *(^JOLayoutLeftXView)                (UIView *leftView, CGFloat distance);

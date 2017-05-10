@@ -125,7 +125,8 @@
                                addView:item.view.superview
                                  ratio:item.ratio
                               distance:item.distance
-                              priority:item.priority];
+                              priority:item.priority
+                        stayConstraint:item.stayConstraint];
 }
 
 
@@ -150,9 +151,12 @@
                          addView:(UIView *)addView
                            ratio:(CGFloat)ratio
                         distance:(CGFloat)distance
-                        priority:(UILayoutPriority)priority{
+                        priority:(UILayoutPriority)priority
+                  stayConstraint:(BOOL)stay{
     
-    [JOLayout removeLayoutWithLayoutAttribute:attribute view:view];
+    if (!stay) {
+        [JOLayout removeLayoutWithLayoutAttribute:attribute view:view];
+    }
     NSLayoutConstraint *layoutConstraint = [NSLayoutConstraint constraintWithItem:view
                                                                         attribute:attribute
                                                                         relatedBy:relation

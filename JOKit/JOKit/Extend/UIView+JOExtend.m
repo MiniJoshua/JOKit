@@ -14,15 +14,49 @@
 JO_DYNAMIC_PROPERTY_OBJECT(layoutBlock, setLayoutBlock, COPY, JOArgcBlock);
 
 + (void)load {
-    [self joSwizzleInstanceMethod:@selector(addSubview:) withMehtod:@selector(myAddSubview:)];
+    SEL selectors[] = {
+        @selector(addSubview:),
+        @selector(insertSubview:aboveSubview:),
+        @selector(insertSubview:belowSubview:),
+        @selector(insertSubview:atIndex:)
+    };
+    for (NSUInteger index = 0; index < sizeof(selectors) / sizeof(SEL); ++index) {
+        SEL selector = selectors[index];
+        SEL newSelector = NSSelectorFromString([@"jo_" stringByAppendingString:NSStringFromSelector(selector)]);
+        [self joSwizzleInstanceMethod:selector withMehtod:newSelector];
+    }
 }
 
-- (void)myAddSubview:(UIView *)view {
+#define JOLayoutBlockSet \
+!view.layoutBlock?:view.layoutBlock(view); \
+view.layoutBlock = nil; \
 
-    [self myAddSubview:view];
+- (void)jo_addSubview:(UIView *)view {
 
-    !view.layoutBlock?:view.layoutBlock(view);
-    view.layoutBlock = nil;
+    [self jo_addSubview:view];
+    JOLayoutBlockSet
+}
+
+- (void)jo_insertSubview:(UIView *)view aboveSubview:(UIView *)siblingSubview {
+    [self jo_insertSubview:view aboveSubview:siblingSubview];
+    JOLayoutBlockSet
+}
+
+- (void)jo_insertSubview:(UIView *)view belowSubview:(UIView *)siblingSubview {
+
+    [self jo_insertSubview:view belowSubview:siblingSubview];
+    JOLayoutBlockSet
+}
+
+- (void)jo_insertSubview:(UIView *)view atIndex:(NSInteger)index {
+    [self jo_insertSubview:view atIndex:index];
+    JOLayoutBlockSet
+}
+#undef JOLayoutBlockSet
+
+- (void)addAutoLayout:(void(^)(UIView *view))layoutBlock {
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    !layoutBlock?:[self setLayoutBlock:layoutBlock];
 }
 
 + (instancetype)newAutoLayoutView {
@@ -32,8 +66,7 @@ JO_DYNAMIC_PROPERTY_OBJECT(layoutBlock, setLayoutBlock, COPY, JOArgcBlock);
 + (instancetype)newAutoLayout:(void(^)(UIView *view))layoutBlock {
 
     UIView *view = [self new];
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    !layoutBlock?:[view setLayoutBlock:layoutBlock];
+    [view addAutoLayout:layoutBlock];
     return view;
 }
 
@@ -41,8 +74,7 @@ JO_DYNAMIC_PROPERTY_OBJECT(layoutBlock, setLayoutBlock, COPY, JOArgcBlock);
 
     self = [self init];
     if (self) {
-        self.translatesAutoresizingMaskIntoConstraints = NO;
-        !layoutBlock?:[self setLayoutBlock:layoutBlock];
+        [self addAutoLayout:layoutBlock];
     }
     return self;
 }

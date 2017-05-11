@@ -40,6 +40,15 @@
 - (instancetype)initAutoLayout;
 
 /**
+ 当某些UI类不能直接使用上面提供的功能直接生成的时候,那么可以调用该方法去添加布局
+ PS:一定要在视图被add前调用该方法,否则无效果.
+    会将视图设置成为支持自动布局的模式:translatesAutoresizingMaskIntoConstraints = NO.
+
+ @param layoutBlock 带被add的view参数的Block
+ */
+- (void)addAutoLayout:(void(^)(UIView *view))layoutBlock;
+
+/**
  *  获取View的截图
  *
  *  @return Image

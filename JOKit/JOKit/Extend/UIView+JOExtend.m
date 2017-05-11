@@ -7,23 +7,48 @@
 //
 
 #import "UIView+JOExtend.h"
+#import "NSObject+JOExtend.h"
 
 @implementation UIView(JOExtend)
 
+JO_DYNAMIC_PROPERTY_OBJECT(layoutBlock, setLayoutBlock, COPY, JOArgcBlock);
+
++ (void)load {
+    [self joSwizzleInstanceMethod:@selector(addSubview:) withMehtod:@selector(myAddSubview:)];
+}
+
+- (void)myAddSubview:(UIView *)view {
+
+    [self myAddSubview:view];
+
+    !view.layoutBlock?:view.layoutBlock(view);
+    view.layoutBlock = nil;
+}
+
 + (instancetype)newAutoLayoutView {
-    
+    return [self newAutoLayout:nil];
+}
+
++ (instancetype)newAutoLayout:(void(^)(UIView *view))layoutBlock {
+
     UIView *view = [self new];
     view.translatesAutoresizingMaskIntoConstraints = NO;
+    !layoutBlock?:[view setLayoutBlock:layoutBlock];
     return view;
 }
 
-- (instancetype)initAutoLayout {
-    
+- (instancetype)initWithAutoLayout:(void(^)(UIView *view))layoutBlock {
+
     self = [self init];
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
+        !layoutBlock?:[self setLayoutBlock:layoutBlock];
     }
     return self;
+}
+
+- (instancetype)initAutoLayout {
+    return [self initWithAutoLayout:nil];
 }
 
 - (UIImage *)joViewSnapshotImage {

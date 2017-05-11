@@ -11,12 +11,28 @@
 
 @interface UIView(JOExtend)
 
+@property (nonatomic, copy) JOArgcBlock layoutBlock;
+
+/**
+ 创建一个自动使用autolayout功能的对象.
+ 可以将布局的代码写在block里面,他将会在addSubview之后调用执行
+
+ @param layoutBlock 带被add的view参数的Block
+ @return 带有autolayout的对象
+ */
++ (instancetype)newAutoLayout:(void(^)(UIView *view))layoutBlock;
+
 /**
  创建一个自动使用autolayout功能的对象.
  
  @return - 带有autolayout的对象.
  */
 + (instancetype)newAutoLayoutView;
+
+/**
+ @see 跟+ (instancetype)newAutoLayout：(void(^)(UIView *view))layoutBlock功能一样.
+ */
+- (instancetype)initWithAutoLayout:(void(^)(UIView *view))layoutBlock;
 
 /**
  @see 跟+ (instancetype)newAutoLayoutView功能一样.

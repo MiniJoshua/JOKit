@@ -54,6 +54,7 @@
 
 #define JOBitsNum(_type_) sizeof(_type_)*8
 
+#define JOArgToCharStr(macro) #macro
 #define JOMetaConcat_(A, B) A ## B
 #define JOMetaConcat(A, B) JOMetaConcat_(A, B)
 

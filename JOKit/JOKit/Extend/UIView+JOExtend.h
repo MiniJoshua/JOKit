@@ -9,6 +9,26 @@
 #import <UIKit/UIKit.h>
 #import "JOMacro.h"
 
+#define JOClangWarningConcat(warning_name) JOArgToCharStr(clang diagnostic ignored warning_name)
+#define JOBeginIgnoreClangWarning(warningName) _Pragma("clang diagnostic push") _Pragma(JOClangWarningConcat(#warningName))
+
+#define JOEndIgnoreClangWarning _Pragma("clang diagnostic pop")
+
+#define JOIgnoreRetainCycles JOBeginIgnoreClangWarning(-Warc-retain-cycles)
+
+/*
+ 不会发生循环引用的情况
+ 该宏用来忽略掉有循环引用警告的布局
+ */
+#ifndef JOAtuoLayout
+#define JOAtuoLayout(_layout_) \
+^(UIView *view) { \
+JOIgnoreRetainCycles \
+view._layout_; \
+JOEndIgnoreClangWarning \
+}
+#endif
+
 @interface UIView(JOExtend)
 
 @property (nonatomic, copy) JOArgcBlock layoutBlock;

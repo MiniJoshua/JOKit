@@ -376,8 +376,8 @@ NS_ENDHANDLER
 + (instancetype)_shared_func_name_ { \
 static _class_name_ *jo##_shared_func_name_; \
 static dispatch_once_t onceToken; \
-Jdispatch_once(&onceToken, ^{ \
-jo##_shared_func_name_ = [_class_name_ alloc] init]; \
+dispatch_once(&onceToken, ^{ \
+jo##_shared_func_name_ = [[_class_name_ alloc] init]; \
 }); \
 return jo##_shared_func_name_; \
 }

@@ -53,7 +53,7 @@ static NSString *const kModelKey = @"Model";
  *  view:123/456 代表两个参数 123  456
  *  view:124,654  代表一个参数 为数组 里面的元素为 124 645
  */
-- (void)open:(NSString *)format;
+- (UIViewController *)open:(NSString *)format;
 
 /**
  *  打开一个地址
@@ -62,7 +62,7 @@ static NSString *const kModelKey = @"Model";
  *  @param param1 参数 :现在可以是任何类型的参数形式. 顺序必须保持与map中给定的一致,不然你取的值可能错乱. plist里面Params里面的顺序跟这个需要保持一致.
  *                  PS: params如果传@"",代表该参数为nil，你在后面取到该值将会为nil
  */
-- (void)open:(NSString *)format params:(id)param1,...;
+- (UIViewController *)open:(NSString *)format params:(id)param1,...;
 
 /**
  *  打开一个外部的URL,类似于调用系统的电话,邮件,浏览器....

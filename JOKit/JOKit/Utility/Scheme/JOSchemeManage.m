@@ -77,7 +77,7 @@
 #pragma mark - open
 #pragma mark -
 
-- (void)open:(NSString *)format params:(id)param1,... {
+- (UIViewController *)open:(NSString *)format params:(id)param1,... {
 
     [_paramsArray removeAllObjects];
     
@@ -91,10 +91,10 @@
     }
     va_end(args);
     
-    [self openForamt:format];
+    return [self openForamt:format];
 }
 
-- (void)open:(NSString *)format {
+- (UIViewController *)open:(NSString *)format {
     
     [_paramsArray removeAllObjects];
     
@@ -117,11 +117,13 @@
             }
         }];
         
-        [self openForamt:[schemeArray firstObject]];
+       return [self openForamt:[schemeArray firstObject]];
     }else if ([schemeArray count] == 0) {
         
         JOException(@"JOSchemeManage exception",@"open:  format的格式不对,请检查");
     }
+    
+    return nil;
 }
 
 - (void)openExternal:(NSString *)url {
@@ -131,7 +133,7 @@
 #pragma mark - open private
 #pragma mark -
 
-- (void)openForamt:(NSString *)format {
+- (UIViewController *)openForamt:(NSString *)format {
     
     NSString *replaceFormat = [format stringByReplacingOccurrencesOfString:@":" withString:@""];
     
@@ -141,7 +143,7 @@
         
         if (!self.baseNavigationController) {
             JOException(@"JOSchemeManage exception",@"请先设置NavigationController");
-            return;
+            return nil;
         }
         
         //如果是模态的状态需要先disMiss后再操作
@@ -158,9 +160,12 @@
             [self.baseNavigationController pushViewController:toViewController animated:YES];
         }
         
+        return toViewController;
+        
     }else {
         JOException(@"JOSchemeManage exception.", @"open: format 不正确");
     }
+    return nil;
 }
 
 #pragma mark - pop

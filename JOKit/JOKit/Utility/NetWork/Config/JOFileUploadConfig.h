@@ -8,15 +8,15 @@
 
 #import "JONetRequestConfig.h"
 
-//MARK: 这两个handler用来处理文件以文件流的形式作为http body体里面的一个参数传给服务器的时候
+//MARK: 这两个handler用来处理文件以表单的形式作为http body体里面的一个参数传给服务器的时候
 /**
- *  组装文件放在body体里面的流形式上传的NSURLRequest.
+ *  组装文件放在body体里面以表单的形式上传的NSURLRequest.
  *
  *  @param method    post 或者 get 等方法 ： @"POST" 或 @"Get"
  *  @param URLString 上传的地址.
  *  @param postData  需要传的参数.
  */
-typedef void(^FileStreamUploadRequestHanlder)(NSString *method, NSString *URLString, NSDictionary *postData);
+typedef void(^FileUploadRequestHanlder)(NSString *method, NSString *URLString, NSDictionary *postData);
 
 /**
  *  将你需要传的文件组装到Body体里面上传.
@@ -42,15 +42,15 @@ typedef void(^FileStreamUploadRequestHanlder)(NSString *method, NSString *URLStr
  *  TAR文件 .tar                  -> application/x-tar
  *  WAV文件 .wav                  -> audio/x-wav
  */
-typedef void(^FileStreamSynthHandler) (NSData *fileData, NSString *name, NSString *fileName, NSString *mimeType);
+typedef void(^FileSynthHandler) (NSData *fileData, NSString *name, NSString *fileName, NSString *mimeType);
 
 /**
  *  将需要的两个Handler合二为一.
  *
- *  @param requestHandler  FileStreamUploadRequestHanlder
- *  @param fileDataHandler FileStreamSynthHandler
+ *  @param requestHandler  FileUploadRequestHanlder
+ *  @param fileDataHandler FileSynthHandler
  */
-typedef void(^FileStreamURLRequestHandler) (FileStreamUploadRequestHanlder requestHandler, FileStreamSynthHandler fileDataHandler);
+typedef void(^FileURLRequestHandler) (FileUploadRequestHanlder requestHandler, FileSynthHandler fileDataHandler);
 
 @interface JOFileUploadConfig : JONetRequestConfig
 
@@ -62,7 +62,7 @@ typedef void(^FileStreamURLRequestHandler) (FileStreamUploadRequestHanlder reque
 //是否是文件流的请求. 默认为NO
 @property (nonatomic, assign) BOOL isStreameRequest;
 //文件流上传的URLRequest的组装
-@property (nonatomic, copy) FileStreamURLRequestHandler fileStreamURLRequestHandler;
+@property (nonatomic, copy) FileURLRequestHandler fileURLRequestHandler;
 
 /*对于文件作为Body体的参数的形式上传的情况:
  
@@ -82,9 +82,9 @@ typedef void(^FileStreamURLRequestHandler) (FileStreamUploadRequestHanlder reque
 /**
  *  使用的方式如上面示例
  *
- *  @param handler FileStreamURLRequestHandler
+ *  @param handler FileURLRequestHandler
  */
-- (void)synthFileStreamURLRequestHandler:(FileStreamURLRequestHandler )handler;
+- (void)synthFileURLRequestHandler:(FileURLRequestHandler )handler;
 
 /**
  *  设置上传的信息.这个上传方式不同于上面FileStream的方式.具体使用哪一种方式上传请询问服务器那边的设置.

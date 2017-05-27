@@ -539,7 +539,7 @@ static inline NSURLSessionUploadTask *JONetFileUpload(JOFileUploadConfig *config
     
     NSURLSessionUploadTask *uploadTask = nil;
     
-    if (config.fileStreamURLRequestHandler) {
+    if (config.fileURLRequestHandler) {
         //文件流的形式上传
         NSMutableURLRequest *request =({
             
@@ -550,7 +550,7 @@ static inline NSURLSessionUploadTask *JONetFileUpload(JOFileUploadConfig *config
                             JOBlock_Variable NSString *nameStr = @"";
                             JOBlock_Variable NSString *fileNameStr = @"";
                             JOBlock_Variable NSString *mimeTypeStr = @"";
-                            config.fileStreamURLRequestHandler(^(NSString *method, NSString *URLString, NSDictionary *postData){
+                            config.fileURLRequestHandler(^(NSString *method, NSString *URLString, NSDictionary *postData){
                                 methodStr = method;
                                 URLStringStr = URLString;
                                 postDataDic = postData;

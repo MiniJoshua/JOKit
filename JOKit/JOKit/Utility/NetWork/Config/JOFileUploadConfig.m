@@ -11,11 +11,11 @@
 
 @implementation JOFileUploadConfig
 
-- (void)synthFileStreamURLRequestHandler:(FileStreamURLRequestHandler )handler {
+- (void)synthFileURLRequestHandler:(FileURLRequestHandler )handler {
 
     if (handler) {
-        self.fileStreamURLRequestHandler = nil;
-        self.fileStreamURLRequestHandler = handler;
+        self.fileURLRequestHandler = nil;
+        self.fileURLRequestHandler = handler;
     }
 }
 

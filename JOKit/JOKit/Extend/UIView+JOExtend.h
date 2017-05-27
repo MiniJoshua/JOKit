@@ -20,8 +20,8 @@
  不会发生循环引用的情况
  该宏用来忽略掉有循环引用警告的布局
  */
-#ifndef JOAtuoLayout
-#define JOAtuoLayout(_layout_) \
+#ifndef JOAutoLayout
+#define JOAutoLayout(_layout_) \
 ^(UIView *view) { \
 JOIgnoreRetainCycles \
 view._layout_; \

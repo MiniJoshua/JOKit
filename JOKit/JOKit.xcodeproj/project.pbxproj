@@ -18,6 +18,8 @@
 		420C08D61D5C8DC100CC9E32 /* UIView+JOAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 420C08D51D5C8DC100CC9E32 /* UIView+JOAutolayout.m */; };
 		420C08D71D5C8E6700CC9E32 /* UIView+JOAutolayout.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 420C08D41D5C8DC100CC9E32 /* UIView+JOAutolayout.h */; };
 		4211A1251E2338D600DF2218 /* NSData+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211A1241E2338D600DF2218 /* NSData+JOExtend.m */; };
+		4213A54C1EE8F6DC00E1F561 /* JOCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4213A54B1EE8F6DC00E1F561 /* JOCycleScrollView.m */; };
+		4213A54D1EE8FBBC00E1F561 /* JOCycleScrollView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4213A54A1EE8F6DC00E1F561 /* JOCycleScrollView.h */; };
 		421931C21D585EB40010392B /* JOViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 421931C11D585EB40010392B /* JOViewModel.m */; };
 		421931D41D5864C20010392B /* JOCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 421931D31D5864C20010392B /* JOCommand.m */; };
 		421931D51D58664D0010392B /* JOViewModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421931C01D585EB40010392B /* JOViewModel.h */; };
@@ -132,6 +134,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				4213A54D1EE8FBBC00E1F561 /* JOCycleScrollView.h in CopyFiles */,
 				428D11831E1F8D42004B8B34 /* JOClassInfo.h in CopyFiles */,
 				42DFBC3D1E1CA06B00ADFB2A /* UIView+JOLayoutBlock.h in CopyFiles */,
 				4208F90C1DDF0CBF00BA5C1A /* JOWebViewController.h in CopyFiles */,
@@ -199,6 +202,8 @@
 		420C08D51D5C8DC100CC9E32 /* UIView+JOAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JOAutolayout.m"; sourceTree = "<group>"; };
 		4211A1231E2338D600DF2218 /* NSData+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JOExtend.h"; sourceTree = "<group>"; };
 		4211A1241E2338D600DF2218 /* NSData+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JOExtend.m"; sourceTree = "<group>"; };
+		4213A54A1EE8F6DC00E1F561 /* JOCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOCycleScrollView.h; sourceTree = "<group>"; };
+		4213A54B1EE8F6DC00E1F561 /* JOCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOCycleScrollView.m; sourceTree = "<group>"; };
 		421931C01D585EB40010392B /* JOViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOViewModel.h; sourceTree = "<group>"; };
 		421931C11D585EB40010392B /* JOViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOViewModel.m; sourceTree = "<group>"; };
 		421931C31D585F110010392B /* JOSignalProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOSignalProtocol.h; sourceTree = "<group>"; };
@@ -568,6 +573,8 @@
 				428F0A851DAE5183008E1793 /* JOLoadingItem.m */,
 				42C1AB541DDD500F007B13D3 /* JOActivityHUDView.h */,
 				42C1AB551DDD500F007B13D3 /* JOActivityHUDView.m */,
+				4213A54A1EE8F6DC00E1F561 /* JOCycleScrollView.h */,
+				4213A54B1EE8F6DC00E1F561 /* JOCycleScrollView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -851,6 +858,7 @@
 				423DCF331D547BFB008263E7 /* AFHTTPSessionManager.m in Sources */,
 				4208F9081DDEEC9E00BA5C1A /* JOWebViewController.m in Sources */,
 				421931E71D5872700010392B /* JODataRequestConfig.m in Sources */,
+				4213A54C1EE8F6DC00E1F561 /* JOCycleScrollView.m in Sources */,
 				42B7F4561D597A59000AC728 /* JOSignal.m in Sources */,
 				423DCF041D547BE9008263E7 /* JSONModel.m in Sources */,
 				421BCB9B1D50A86600041007 /* UIView+JOExtend.m in Sources */,

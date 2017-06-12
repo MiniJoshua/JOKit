@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, CycleViewType) {
 
 /**
  每次页面变化的时候的block回调.
+ block中的index代表其对应的数据源的索引位置: 0 ~ maxpages-1
  
  @param block void block
  */
@@ -43,6 +44,7 @@ typedef NS_ENUM(NSUInteger, CycleViewType) {
 
 /**
  index变化的block回调.
+ block中的index代表当前显示的页数 1 ~ maxpages
  
  @param block void block.
  */
@@ -54,7 +56,7 @@ typedef NS_ENUM(NSUInteger, CycleViewType) {
  这样才能保证初始化第一次能得到上面两个block的回调.
  
  @param pages 最大的页面数.
- @param index 当前显示的页面数.
+ @param index 当前显示的页面数. 1 ~ maxpages
  */
 - (void)setMaxPages:(NSInteger)pages showIndex:(NSInteger)index;
 

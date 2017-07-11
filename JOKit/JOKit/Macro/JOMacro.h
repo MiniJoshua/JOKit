@@ -52,6 +52,10 @@
 #pragma mark - base
 #pragma mark -
 
+#ifndef JODepecatedMsg
+#define JODepecatedMsg(msg) DEPRECATED_MSG_ATTRIBUTE(#msg)
+#endif
+
 #define JOBitsNum(_type_) sizeof(_type_)*8
 
 #define JOArgToCharStr(macro) #macro

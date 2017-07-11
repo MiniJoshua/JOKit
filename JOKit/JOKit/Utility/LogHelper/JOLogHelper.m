@@ -7,7 +7,7 @@
 //
 
 #import "JOLogHelper.h"
-#import "JOCacheHelper.h"
+#import "JOCacheSizeHelper.h"
 
 #define kDefaultLogFilePath JOCachesFilePath(@"app.log")
 

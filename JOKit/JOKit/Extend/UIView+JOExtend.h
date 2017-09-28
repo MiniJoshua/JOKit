@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "JOMacro.h"
 
-#define JOClangWarningConcat(warning_name) JOArgToCharStr(clang diagnostic ignored warning_name)
-#define JOBeginIgnoreClangWarning(warningName) _Pragma("clang diagnostic push") _Pragma(JOClangWarningConcat(#warningName))
-
-#define JOEndIgnoreClangWarning _Pragma("clang diagnostic pop")
-
-#define JOIgnoreRetainCycles JOBeginIgnoreClangWarning(-Warc-retain-cycles)
+//#define JOClangWarningConcat(warning_name) JOArgToCharStr(clang diagnostic ignored warning_name)
+//#define JOBeginIgnoreClangWarning(warningName) _Pragma("clang diagnostic push") _Pragma(JOClangWarningConcat(#warningName))
+//
+//#define JOEndIgnoreClangWarning _Pragma("clang diagnostic pop")
+//
+//#define JOIgnoreRetainCycles JOBeginIgnoreClangWarning(-Warc-retain-cycles)
 
 /*
  不会发生循环引用的情况
@@ -23,9 +23,7 @@
 #ifndef JOAutoLayout
 #define JOAutoLayout(_layout_) \
 ^(UIView *view) { \
-JOIgnoreRetainCycles \
-view._layout_; \
-JOEndIgnoreClangWarning \
+JOIgnoreArcRetain(view._layout_); \
 }
 #endif
 

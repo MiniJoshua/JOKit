@@ -129,12 +129,12 @@ static inline void JOJSONModelParse(NSDictionary *responseDic, JONetReqeustDataP
 
                     id model = nil;
                     SEL initSelector = sel_registerName("initWithDictionary:error:");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    if ([arg instancesRespondToSelector:initSelector]) {
-                        model = [[arg alloc] performSelector:initSelector withObject:responseDic withObject:NULL];
-                    }
-#pragma clang diagnostic pop
+                    
+                    JOIgnorePerformSelectorLeak(
+                                                if ([arg instancesRespondToSelector:initSelector]) {
+                                                    model = [[arg alloc] performSelector:initSelector withObject:responseDic withObject:NULL];
+                                                }
+                                                );
                     if (model) {
                         va_end(args);
                         return model;

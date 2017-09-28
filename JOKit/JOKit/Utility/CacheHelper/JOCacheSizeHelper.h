@@ -19,7 +19,7 @@
  */
 typedef void(^CacheSizeCalculateBlock) (unsigned long long cacheSize, float CacheMBSize);
 
-@interface JOCacheHelper : NSObject
+@interface JOCacheSizeHelper : NSObject
 
 /**
  *  计算某个文件的大小.

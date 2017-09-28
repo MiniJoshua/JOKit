@@ -13,7 +13,7 @@
 
 @property (nonatomic, copy) NSString *urlString;
 @property (nonatomic, copy) NSDictionary *postData;
-@property (nonatomic, copy, readonly) NSURLRequest *request;
+@property (nonatomic, copy) NSURLRequest *request;
 @property (nonatomic, strong) NSURLSessionConfiguration *urlSessionConfiguration;
 
 - (void)synthRequest;

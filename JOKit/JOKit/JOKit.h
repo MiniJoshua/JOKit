@@ -16,8 +16,9 @@
 #import "JOSignal.h"
 
 #import "JOPathHelper.h"
-#import "JOCacheHelper.h"
+#import "JOCacheSizeHelper.h"
 #import "JOFileHelper.h"
+#import "JOFileFormat.h"
 #import "JOLogHelper.h"
 #import "JOExceptionHelper.h"
 #import "JOCrashHelper.h"

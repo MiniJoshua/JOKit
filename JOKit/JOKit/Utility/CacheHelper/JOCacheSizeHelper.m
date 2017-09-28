@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Joshua. All rights reserved.
 //
 
-#import "JOCacheHelper.h"
+#import "JOCacheSizeHelper.h"
 
-@implementation JOCacheHelper
+@implementation JOCacheSizeHelper
 
 void JOCachePathSize(NSString *path,CacheSizeCalculateBlock block) {
 
@@ -60,34 +60,32 @@ void JOCachePreferencesSize(CacheSizeCalculateBlock block) {
     JOCachePathSize(JOPreferencesPath(), block);
 }
 
-
-
 + (void)joCacheSizeWithPath:(NSString *)path completed:(CacheSizeCalculateBlock)block {
     JOCachePathSize(path, block);
 }
 
 + (void)joCacheHomeSizeWithCompleted:(CacheSizeCalculateBlock)block {
-    [JOCacheHelper joCacheSizeWithPath:JOHomePath() completed:block];
+    [JOCacheSizeHelper joCacheSizeWithPath:JOHomePath() completed:block];
 }
 
 + (void)joCacheDocumentSizeWithCompleted:(CacheSizeCalculateBlock)block {
-    [JOCacheHelper joCacheSizeWithPath:JODocumentPath() completed:block];
+    [JOCacheSizeHelper joCacheSizeWithPath:JODocumentPath() completed:block];
 }
 
 + (void)joCacheTempSizeWithCompleted:(CacheSizeCalculateBlock)block {
-    [JOCacheHelper joCacheSizeWithPath:JOTempPath() completed:block];
+    [JOCacheSizeHelper joCacheSizeWithPath:JOTempPath() completed:block];
 }
 
 + (void)joCacheLibrarySizeWithCompleted:(CacheSizeCalculateBlock)block {
-    [JOCacheHelper joCacheSizeWithPath:JOLibraryPath() completed:block];
+    [JOCacheSizeHelper joCacheSizeWithPath:JOLibraryPath() completed:block];
 }
 
 + (void)joCacheCachesSizeWithCompleted:(CacheSizeCalculateBlock)block {
-    [JOCacheHelper joCacheSizeWithPath:JOCachesPath() completed:block];
+    [JOCacheSizeHelper joCacheSizeWithPath:JOCachesPath() completed:block];
 }
 
 + (void)joCachePreferencesSizeWithCompleted:(CacheSizeCalculateBlock)block {
-    [JOCacheHelper joCacheSizeWithPath:JOPreferencesPath() completed:block];
+    [JOCacheSizeHelper joCacheSizeWithPath:JOPreferencesPath() completed:block];
 }
 
 @end

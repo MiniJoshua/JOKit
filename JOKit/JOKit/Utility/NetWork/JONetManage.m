@@ -87,7 +87,7 @@ static inline void JOCacheReqeust(NSString *identifier, NSURLSessionTask *task, 
     if (identifier && [identifier length]) {
         if (cacheState) {
             //存储
-            if (![[[JONetManage shareRequestTaskDic] allKeys] containsObject:identifier]) {
+            if (![[[JONetManage shareRequestTaskDic] allKeys] containsObject:identifier] && task) {
                 [[JONetManage shareRequestTaskDic] setObject:task forKey:identifier];
             }else{
                 JOException(@"JONetManage Exception",@"identifier已经存在,请勿添加两个相同的identifier");
@@ -129,12 +129,12 @@ static inline void JOJSONModelParse(NSDictionary *responseDic, JONetReqeustDataP
 
                     id model = nil;
                     SEL initSelector = sel_registerName("initWithDictionary:error:");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    if ([arg instancesRespondToSelector:initSelector]) {
-                        model = [[arg alloc] performSelector:initSelector withObject:responseDic withObject:NULL];
-                    }
-#pragma clang diagnostic pop
+                    
+                    JOIgnorePerformSelectorLeak(
+                                                if ([arg instancesRespondToSelector:initSelector]) {
+                                                    model = [[arg alloc] performSelector:initSelector withObject:responseDic withObject:NULL];
+                                                }
+                                                );
                     if (model) {
                         va_end(args);
                         return model;
@@ -540,7 +540,7 @@ static inline NSURLSessionUploadTask *JONetFileUpload(JOFileUploadConfig *config
     NSURLSessionUploadTask *uploadTask = nil;
     
     if (config.fileURLRequestHandler) {
-        //文件流的形式上传
+        //表单的形式上传
         NSMutableURLRequest *request =({
             
                             JOBlock_Variable NSString *methodStr = @"";
@@ -597,7 +597,7 @@ static inline NSURLSessionUploadTask *JONetFileUpload(JOFileUploadConfig *config
                       ];
         
     }else{
-        //非文件流的上传方式
+        
         [config synthRequest]; //组装request
         
         if (config.filePath && [config.filePath length]) {

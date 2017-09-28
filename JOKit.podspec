@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 #s.framework  = "sqlite3"
 #s.frameworks = "SystemConfiguration", "Security", "MobileCoreServices", "CoreGraphics"
 
-#s.library   = "sqlite3"
+# s.library   = "libc++"
 #s.libraries = "sqlite3", "libJOProjectBaseSDK"
 #s.vendored_libraries = "JOBaseSDK/Resources/libJOProjectBaseSDK.a"
 

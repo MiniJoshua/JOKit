@@ -69,28 +69,28 @@ BOOL JOFileCreateAtCachesDirectory(NSString *fileName,BOOL removeState) {
 }
 
 BOOL JOFileCreateDirectoryAtHomeDirectory(NSString *fileName,BOOL removeState) {
-    return JOFileCreateDirectoryAtPath(fileName,removeState);
+    return JOFileCreateDirectoryAtPath(JOHomeFilePath(fileName),removeState);
 }
 
 BOOL JOFileCreateDirectoryAtDocumentDirectory(NSString *fileName,BOOL removeState) {
-    return JOFileCreateDirectoryAtPath(fileName,removeState);
+    return JOFileCreateDirectoryAtPath(JODocumentFilePath(fileName),removeState);
 }
 
 BOOL JOFileCreateDirectoryAtTempDirectory(NSString *fileName,BOOL removeState) {
-    return JOFileCreateDirectoryAtPath(fileName,removeState);
+    return JOFileCreateDirectoryAtPath(JOTempFilePath(fileName),removeState);
 }
 
 BOOL JOFileCreateDirectoryAtLibraryDirectory(NSString *fileName,BOOL removeState) {
-    return JOFileCreateDirectoryAtPath(fileName,removeState);
+    return JOFileCreateDirectoryAtPath(JOLibraryFilePath(fileName),removeState);
 }
 
 
 BOOL JOFileCreateDirectoryAtPreferencesDirectory(NSString *fileName,BOOL removeState) {
-    return JOFileCreateDirectoryAtPath(fileName,removeState);
+    return JOFileCreateDirectoryAtPath(JOPreferencesFilePath(fileName),removeState);
 }
 
 BOOL JOFileCreateDirectoryAtCachesDirectory(NSString *fileName,BOOL removeState) {
-    return JOFileCreateDirectoryAtPath(fileName,removeState);
+    return JOFileCreateDirectoryAtPath(JOCachesFilePath(fileName),removeState);
     
 }
 

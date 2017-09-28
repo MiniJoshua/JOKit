@@ -7,6 +7,7 @@
 //
 
 #import "JONetRequestConfig.h"
+#import "JOMacro.h"
 
 //MARK: 这两个handler用来处理文件以表单的形式作为http body体里面的一个参数传给服务器的时候
 /**
@@ -60,7 +61,7 @@ typedef void(^FileURLRequestHandler) (FileUploadRequestHanlder requestHandler, F
 //要上传的文件的数据.
 @property (nonatomic, copy) NSData *fileData;
 //是否是文件流的请求. 默认为NO
-@property (nonatomic, assign) BOOL isStreameRequest;
+@property (nonatomic, assign) BOOL isStreameRequest JODepecatedMsg("无用的功能");
 //文件流上传的URLRequest的组装
 @property (nonatomic, copy) FileURLRequestHandler fileURLRequestHandler;
 

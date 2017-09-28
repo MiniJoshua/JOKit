@@ -99,6 +99,8 @@
 		428F0A831DAE3AB8008E1793 /* JOLoadingView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 428F0A7F1DAE2F44008E1793 /* JOLoadingView.h */; };
 		428F0A861DAE5183008E1793 /* JOLoadingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 428F0A851DAE5183008E1793 /* JOLoadingItem.m */; };
 		429E606B1D9D0CA500B4A8BE /* CALayer+JOExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */; };
+		42A922881F150A690011B275 /* JOFileFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A922871F150A690011B275 /* JOFileFormat.m */; };
+		42A922891F1518930011B275 /* JOFileFormat.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42A922861F150A690011B275 /* JOFileFormat.h */; };
 		42B7F4561D597A59000AC728 /* JOSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4551D597A59000AC728 /* JOSignal.m */; };
 		42B7F4571D5987B2000AC728 /* JOSignal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42B7F4541D597A59000AC728 /* JOSignal.h */; };
 		42B7F45A1D59DE29000AC728 /* JONetManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B7F4591D59DE29000AC728 /* JONetManage.m */; };
@@ -134,6 +136,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				42A922891F1518930011B275 /* JOFileFormat.h in CopyFiles */,
 				4213A54D1EE8FBBC00E1F561 /* JOCycleScrollView.h in CopyFiles */,
 				428D11831E1F8D42004B8B34 /* JOClassInfo.h in CopyFiles */,
 				42DFBC3D1E1CA06B00ADFB2A /* UIView+JOLayoutBlock.h in CopyFiles */,
@@ -317,6 +320,8 @@
 		428F0A851DAE5183008E1793 /* JOLoadingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLoadingItem.m; sourceTree = "<group>"; };
 		429E60691D9D0CA500B4A8BE /* CALayer+JOExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+JOExtend.h"; sourceTree = "<group>"; };
 		429E606A1D9D0CA500B4A8BE /* CALayer+JOExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+JOExtend.m"; sourceTree = "<group>"; };
+		42A922861F150A690011B275 /* JOFileFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOFileFormat.h; sourceTree = "<group>"; };
+		42A922871F150A690011B275 /* JOFileFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOFileFormat.m; sourceTree = "<group>"; };
 		42B7F4541D597A59000AC728 /* JOSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOSignal.h; sourceTree = "<group>"; };
 		42B7F4551D597A59000AC728 /* JOSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOSignal.m; sourceTree = "<group>"; };
 		42B7F4581D59DE29000AC728 /* JONetManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JONetManage.h; sourceTree = "<group>"; };
@@ -515,6 +520,8 @@
 			children = (
 				422EFAFB1D51FBEC00E427F6 /* JOFileHelper.h */,
 				422EFAFC1D51FBEC00E427F6 /* JOFileHelper.m */,
+				42A922861F150A690011B275 /* JOFileFormat.h */,
+				42A922871F150A690011B275 /* JOFileFormat.m */,
 			);
 			path = FileHelper;
 			sourceTree = "<group>";
@@ -856,6 +863,7 @@
 				421931D41D5864C20010392B /* JOCommand.m in Sources */,
 				42DFBC3C1E1C9F3400ADFB2A /* UIView+JOLayoutBlock.m in Sources */,
 				423DCF0A1D547BE9008263E7 /* JSONKeyMapper.m in Sources */,
+				42A922881F150A690011B275 /* JOFileFormat.m in Sources */,
 				423DCF331D547BFB008263E7 /* AFHTTPSessionManager.m in Sources */,
 				4208F9081DDEEC9E00BA5C1A /* JOWebViewController.m in Sources */,
 				421931E71D5872700010392B /* JODataRequestConfig.m in Sources */,

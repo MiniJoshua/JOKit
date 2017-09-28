@@ -52,13 +52,41 @@
 #pragma mark - base
 #pragma mark -
 
+#define JOArgToCharStr(macro) #macro
+
+#define JOBeginIgnoreClangeWarning _Pragma("clang diagnostic push")
+#define JOIgnoreClangeWarning(warning_name) _Pragma(JOArgToCharStr(clang diagnostic ignored #warning_name))
+#define JOEndIgnoreClangeWarning _Pragma("clang diagnostic pop")
+
+#define JOIgnoreWarning(warning_name, code) \
+do { \
+JOBeginIgnoreClangeWarning \
+JOIgnoreClangeWarning(warning_name) \
+code; \
+JOEndIgnoreClangeWarning \
+} while (0)
+
+//未使用变量
+#define JOIgnoredUnused(code) JOIgnoreWarning(-Wunused-variable, code)
+//代码不会被执行 e.g:else语句中
+#define JOIgnoredUnreachable(code) JOIgnoreWarning(-Wunreachable-code, code)
+//循环引用
+#define JOIgnoreArcRetain(code) JOIgnoreWarning(-Warc-retain-cycles, code)
+//指针类型不兼容
+#define JOIgnoreDiffPointer(code) JOIgnoreWarning(-Wincompatible-pointer-types, code)
+//方法弃用告警
+#define JOIgnoreDeprecated(code) JOIgnoreWarning(-Wdeprecated-declarations, code)
+//performSelector的leak
+#define JOIgnorePerformSelectorLeak(code) JOIgnoreWarning(-Warc-performSelector-leaks, code)
+
+//方法丢弃
 #ifndef JODepecatedMsg
 #define JODepecatedMsg(msg) DEPRECATED_MSG_ATTRIBUTE(#msg)
 #endif
 
+//类型占有的位数
 #define JOBitsNum(_type_) sizeof(_type_)*8
 
-#define JOArgToCharStr(macro) #macro
 #define JOMetaConcat_(A, B) A ## B
 #define JOMetaConcat(A, B) JOMetaConcat_(A, B)
 
